@@ -1,12 +1,15 @@
-import { ModeToggle } from "@/components/ModeToggle";
-import Image from "next/image";
+import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
+
 
 export default function Home() {
   return (
     <>
+      <Navbar />
       <section className="container">
-        <ModeToggle />
+        body
       </section>
+      <Footer />
     </>
   );
 }
