@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetOverlay, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetOverlay, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { defaultLinks } from "@/config/nav";
 
@@ -54,17 +54,28 @@ export function Navbar() {
             <span className="lg:hidden"><Logo link="/" /></span>
             <SheetOverlay className="lg:hidden" />
             <SheetContent side="left" className="lg:hidden">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Cryptoniq</SheetTitle>
+                <SheetDescription>
+                  {"one stop shop for all your crypto needs"}
+                </SheetDescription>
+              </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium">
-                <Link
-                  href="#"
-                  className="flex items-center gap-2 text-lg font-semibold"
-                >
-                  <Package2 className="h-6 w-6" />
-                  <span className="sr-only">Acme Inc</span>
-                </Link>
-                <Link href="#" className="hover:text-foreground">
-                  Dashboard
-                </Link>
+                <aside className="flex items-center gap-2 text-lg font-semibold">
+                  <Logo link="/" />
+                  <span className="sr-only">Cryptoniq</span>
+                </aside>
+                <div className="mt-10 grid gap-6">
+                  {defaultLinks.map((link) => (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className="hover:text-foreground"
+                    >
+                      {link.title}
+                    </Link>
+                  ))}
+                </div>
               </nav>
             </SheetContent>
           </Sheet>
