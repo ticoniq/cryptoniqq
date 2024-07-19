@@ -14,20 +14,13 @@ const config = {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "1400px",
-      },
-    },
-    navContainer: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1600px",
+        "2xl": "1300px",
       },
     },
     extend: {
       fontSize: {
         "clamp-lg": "clamp(2rem, 2vw + 2rem, 4rem)",
-        "clamp-md": "clamp(1rem, 1.5vw + 0.875rem, 2rem)",
+        "clamp-md": "clamp(1rem, 1.5vw + 1.2rem, 2rem)",
         "clamp-sm": "clamp(0.875rem, 1vw + 0.75rem, 1.5rem)",
       },
       colors: {

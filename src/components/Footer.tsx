@@ -9,10 +9,10 @@ export function Footer() {
       <section className="container">
         {/* <!--Grid--> */}
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 gap-y-8">
-          <div className="col-span-full mb-10 lg:col-span-2 lg:mb-0">
-            <figure className="w-full mb-5 flex justify-center lg:justify-start">
+          <div className="col-span-full mb-10 space-y-5 lg:col-span-2 lg:mb-0">
+            {/* <figure className="w-full mb-5 flex justify-center lg:justify-start"> */}
               <Logo link="/" />
-            </figure>
+            {/* </figure> */}
             <div className="space-y-2">
               <h4 className="text-2xl font-bold">{"Let's talk! 🤙"}</h4>
               <h4 className="text-base">{"+234 987 654 3210"}</h4>

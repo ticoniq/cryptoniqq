@@ -16,18 +16,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetOverlay, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { defaultLinks } from "@/config/nav";
 
 export function Navbar() {
   const pathname = usePathname();
-  
+
   return (
     <header className="sticky top-0 font-DMSans bg-background">
       <section className="container w-full">
-        <div className="w-full flex items-center justify-between gap-4">
-          <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:text-sm lg:gap-1">
+        <div className="w-full flex items-center justify-between gap-4 p-2 lg:p-0">
+          <nav className="hidden flex-col gap-6 text-lg font-medium lg:flex lg:flex-row md:items-center md:text-sm lg:gap-1">
             <Logo link="/" />
             {defaultLinks.map((link) => (
               <Link
@@ -45,13 +45,15 @@ export function Navbar() {
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 md:hidden"
+                className="shrink-0 lg:hidden p-0 border-0 hover:bg-transparent"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-8 w-8" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <span className="lg:hidden"><Logo link="/" /></span>
+            <SheetOverlay className="lg:hidden" />
+            <SheetContent side="left" className="lg:hidden">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="#"
@@ -68,7 +70,7 @@ export function Navbar() {
           </Sheet>
           <div className="flex items-center gap-4 md:gap-2">
             <div className="border-x-2 px-2 border-brand-surface dark:border-brand-onSurface"><ModeToggle /></div>
-            <Button variant="outline" asChild size={"xs"} className="rounded-full">
+            <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
               <Link href={"/"}>Wallet</Link>
             </Button>
             <DropdownMenu>
