@@ -16,7 +16,7 @@ export default function Home() {
       <section className="bg-brand-surface dark:bg-brand-bg font-DMSans py-10 lg:py-20">
         <div className="container grid grid-cols-1 gap-14 items-center justify-between lg:grid-cols-12 lg:gap32">
           <div className="w-full lg:col-span-6">
-            <h1 className="py-6 text-center text-gray-900 font-bold text-clamp-lg lg:leading-[4.3rem] lg:text-left">
+            <h1 className="py-6 text-center font-bold text-clamp-lg lg:leading-[4.3rem] lg:text-left">
               Buy & Sell Digital <br /> Assets In The Rocket
             </h1>
             <p className="text-gray-500 text-lg text-center lg:text-left max-w-[36rem] mx-auto lg:mx-0">
