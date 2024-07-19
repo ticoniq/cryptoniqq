@@ -26,7 +26,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 font-DMSans bg-background">
       <section className="container w-full">
-        <div className="w-full h-[3.125rem] flex items-center justify-between gap-4">
+        <div className="w-full flex items-center justify-between gap-4">
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:text-sm lg:gap-1">
             <Logo link="/" />
             {defaultLinks.map((link) => (
