@@ -24,9 +24,9 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 font-DMSans bg-background">
+    <header className="sticky top-0 z-40 font-DMSans bg-background">
       <section className="container w-full">
-        <div className="w-full flex items-center justify-between gap-4 p-2 lg:p-0">
+        <div className="w-full flex items-center justify-between gap-4 py-2 lg:py-0">
           <nav className="hidden flex-col gap-6 text-lg font-medium lg:flex lg:flex-row md:items-center md:text-sm lg:gap-1">
             <Logo link="/" />
             {defaultLinks.map((link) => (

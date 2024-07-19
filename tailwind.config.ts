@@ -20,6 +20,7 @@ const config = {
     extend: {
       fontSize: {
         "clamp-lg": "clamp(2rem, 2vw + 2rem, 4rem)",
+        "clamp-slg": "clamp(1.2rem, 1.7vw + 1.5rem, 2.5rem)",
         "clamp-md": "clamp(1rem, 1.5vw + 1.2rem, 2rem)",
         "clamp-sm": "clamp(0.875rem, 1vw + 0.75rem, 1.5rem)",
       },
