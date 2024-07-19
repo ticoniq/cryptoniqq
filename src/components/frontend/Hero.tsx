@@ -5,7 +5,7 @@ import frame1 from "@/assets/images/frame1.svg";
 import frame2 from "@/assets/images/frame2.svg";
 import frame3 from "@/assets/images/frame3.svg";
 import frame4 from "@/assets/images/frame4.svg";
-import hero from "@/assets/images/hero-background.png";
+import hero from "@/assets/images/hero-banner.svg";
 
 export function Hero() {
   return (
@@ -30,6 +30,7 @@ export function Hero() {
                 height={28}
                 alt="Frame 1"
                 className="w-[8.25rem] h-7"
+                priority={true}
               />
               <Image
                 src={frame2}
@@ -37,6 +38,7 @@ export function Hero() {
                 height={28}
                 alt="Frame 2"
                 className="w-[8.25rem] h-7"
+                priority={true}
               />
               <Image
                 src={frame3}
@@ -44,6 +46,7 @@ export function Hero() {
                 height={28}
                 alt="Frame 3"
                 className="w-[8.25rem] h-7"
+                priority={true}
               />
               <Image
                 src={frame4}
@@ -51,6 +54,7 @@ export function Hero() {
                 height={28}
                 alt="Frame 4"
                 className="w-[8.25rem] h-7"
+                priority={true}
               />
             </article>
           </div>
@@ -62,11 +66,12 @@ export function Hero() {
             height={448}
             alt="Dashboard image"
             className="w-[35.7rem] h-[28rem]"
+            priority={true}
           />
         </figure>
       </div>
       <div className="container">
-        
+
       </div>
     </section>
   )
