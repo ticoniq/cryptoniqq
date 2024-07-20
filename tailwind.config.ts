@@ -96,6 +96,7 @@ const config = {
       },
       fontFamily: {
         DMSans: ["DM Sans", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
       },
     },
   },
