@@ -19,12 +19,31 @@ import {
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetOverlay, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { defaultLinks } from "@/config/nav";
+import { useEffect, useState } from "react";
 
 export function Navbar() {
   const pathname = usePathname();
+  const [showShadow, setShowShadow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShowShadow(true);
+      } else {
+        setShowShadow(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 font-DMSans bg-background">
+    <header className={`sticky top-0 z-40 font-DMSans bg-background
+      ${showShadow ? 'shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50' : ''}`}>
       <section className="container w-full">
         <div className="w-full flex items-center justify-between gap-4 py-2 lg:py-0">
           <nav className="hidden flex-col gap-6 text-lg font-medium lg:flex lg:flex-row md:items-center md:text-sm lg:gap-1">

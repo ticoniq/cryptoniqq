@@ -10,7 +10,7 @@ export function CTA2() {
     <section className="bg-brand-surface dark:bg-brand-bg font-DMSans">
       <div className="container gap-10 flex justify-between flex-col py-10 lg:py-20 overflow-hidden lg:flex-row">
         <article className="space-y-6 w-full lg:w-1/2 flex flex-col items-center text-center lg:items-start lg:text-left">
-        <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none">
+          <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none">
             Free your money & Trade with confident
           </h2>
           <p className="text-xl font-lato">
@@ -54,9 +54,11 @@ export function CTA2() {
           </div>
         </article>
         <figure className="hidden w-full lg:w-1/2 relative lg:block">
-          <Image src={banner} alt="CTA tailwind section"
+          <Image src={banner}
+            alt="CTA"
             width={456}
             height={535}
+            priority={true}
             className="lg:absolute w-full lg:bottom- -mb-12 mx-auto lg:mx-0"
           />
         </figure>
