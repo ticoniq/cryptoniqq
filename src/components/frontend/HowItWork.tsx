@@ -1,8 +1,8 @@
 import Image from "next/image";
-import bitcoinCloud from "@/assets/images/bitcoin-cloud.svg";
-import bitcoinWallet from "@/assets/images/bitcoin-wallet.svg";
-import bitcoinMinner from "@/assets/images/bitcoin-mining.svg";
-import bitcoinComparison from "@/assets/images/bitcoin-comparison.svg";
+import bitcoinCloud from "@/assets/images/bitcoin-cloud.png";
+import bitcoinWallet from "@/assets/images/bitcoin-wallet.png";
+import bitcoinMinner from "@/assets/images/bitcoin-mining.png";
+import bitcoinComparison from "@/assets/images/bitcoin-comparison.png";
 
 export function HowItWork() {
   return (
@@ -27,7 +27,7 @@ export function HowItWork() {
                   priority={true}
                   className="w-24 h-24"
                 />
-                <h4 className="self-stretch text-center text-2xl font-bold">Download</h4>
+                <h4 className="self-stretch text-center text-2xl font-bold">Create an account</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">
                 Stacks is a production-ready library of stackable content blocks built in React Native.
@@ -45,7 +45,7 @@ export function HowItWork() {
                   priority={true}
                   className="w-24 h-24"
                 />
-                <h4 className="self-stretch text-center text-2xl font-bold">Connect Wallet</h4>
+                <h4 className="self-stretch text-center text-2xl font-bold">Verify your identity</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">
                 Stacks is a production-ready library of stackable content blocks built in React Native.
@@ -81,7 +81,7 @@ export function HowItWork() {
                   priority={true}
                   className="w-24 h-24"
                 />
-                <h4 className="self-stretch text-center text-2xl font-bold">Earn money</h4>
+                <h4 className="self-stretch text-center text-2xl font-bold">Track every trade</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">
                 Stacks is a production-ready library of stackable content blocks built in React Native.
