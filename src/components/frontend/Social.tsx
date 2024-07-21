@@ -1,6 +1,6 @@
 import Image from "next/image";
-import illustrationDark from "@/assets/images/illustration-dark.png";
-import illustrationLight from "@/assets/images/illustration-light.png";
+import illustrationDark from "@/assets/images/Illustration-dark.png";
+import illustrationLight from "@/assets/images/Illustration-dark.png";
 import { Eye, Shield, UsersRound } from "lucide-react";
 
 export function Social() {
