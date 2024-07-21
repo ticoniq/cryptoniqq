@@ -218,7 +218,7 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex justify-end">
-          <Button className="">
+          <Button className="bg-brand-surfaceMain text-brand-onSurface hover:bg-brand-primary hover:text-brand-surfaceMain">
             Trade
           </Button>
         </div>

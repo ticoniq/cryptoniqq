@@ -48,16 +48,18 @@ export function Navbar() {
         <div className="w-full flex items-center justify-between gap-4 py-2 lg:py-0">
           <nav className="hidden flex-col gap-6 text-lg font-medium lg:flex lg:flex-row md:items-center md:text-sm lg:gap-1">
             <Logo link="/" />
-            {defaultLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
+            <ul className="flex gap-1">
+              {defaultLinks.map((link) => (
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
                   ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
-              >
-                {link.title}
-              </Link>
-            ))}
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </ul>
           </nav>
           <Sheet>
             <SheetTrigger asChild>
@@ -84,7 +86,7 @@ export function Navbar() {
                   <Logo link="/" />
                   <span className="sr-only">Cryptoniq</span>
                 </aside>
-                <div className="mt-10 grid gap-6">
+                <ul className="mt-10 grid gap-6">
                   {defaultLinks.map((link) => (
                     <Link
                       key={link.title}
@@ -94,7 +96,7 @@ export function Navbar() {
                       {link.title}
                     </Link>
                   ))}
-                </div>
+                </ul>
               </nav>
             </SheetContent>
           </Sheet>
