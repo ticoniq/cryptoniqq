@@ -1,6 +1,6 @@
 import Image from "next/image";
 import illustrationDark from "@/assets/images/Illustration-dark.png";
-import illustrationLight from "@/assets/images/Illustration-dark.png";
+import illustrationLight from "@/assets/images/Illustration-light.png";
 import { Eye, Shield, UsersRound } from "lucide-react";
 
 export function Social() {
@@ -14,7 +14,7 @@ export function Social() {
                 width={578}
                 height={528}
                 alt="Dashboard image"
-                className="w-[36.125rem] h-[33rem] hidden dark:block"
+                className="w-full max-w-[36.125rem] h-auto hidden dark:block"
                 priority={true}
               />
               <Image
@@ -22,7 +22,7 @@ export function Social() {
                 width={578}
                 height={528}
                 alt="Dashboard image"
-                className="w-[36.125rem] h-[33rem] dark:hidden"
+                className="w-full max-w-[36.125rem] h-auto dark:hidden"
                 priority={true}
               />
             </figure>
