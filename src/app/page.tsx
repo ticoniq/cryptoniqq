@@ -8,14 +8,15 @@ import { HomeAbout } from "@/components/frontend/HomeAbout";
 import { HowItWork } from "@/components/frontend/HowItWork";
 import { Testimony } from "@/components/frontend/Testimony";
 import { About } from "@/components/frontend/About";
+import { MarketTrend } from "@/components/frontend/MarketTrend";
 
 export default function Home() {
   return (
     <>
       <Navbar />
       <Hero />
-
       <About />
+      <MarketTrend />
       <Social />
       <HowItWork />
       <HomeAbout />
