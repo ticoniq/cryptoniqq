@@ -20,7 +20,7 @@ export function Footer() {
             </div>
           </div>
           {/* <!--End Col--> */}
-          <div className="lg:mx-auto text-left ">
+          <div className="lg:mx-auto text-left">
             <h4 className="text-sm font-bold mb-4 uppercase">Products</h4>
             <ul className="space-y-2 text-brand-secondary dark:text-brand-secondary2 transition-all duration-500">
               <li><CustomLink href="/" textarea={"Spot"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
@@ -31,7 +31,7 @@ export function Footer() {
             </ul>
           </div>
           {/* <!--End Col--> */}
-          <div className="lg:mx-auto text-left ">
+          <div className="lg:mx-auto text-left">
             <h4 className="text-sm font-bold mb-4 uppercase">Services</h4>
             <ul className="space-y-2 text-brand-secondary dark:text-brand-secondary2 transition-all duration-500">
               <li><CustomLink href="/" textarea={"Buy Crypto"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
@@ -68,10 +68,12 @@ export function Footer() {
       <section className="py-3 bg-brand-surface text-brand-onSurface dark:bg-brand-hover dark:text-brand-secondary2">
         <div className="container">
           <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-            <span className="text-sm text-brand-secondary dark:text-brand-secondary2 ">&copy; 2023 {" "}
-              <CustomLink href="/" textarea={"Cryptoniq"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} />
-              . All rights reserved.</span>
-            <div className="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
+            <span className="text-sm text-brand-secondary dark:text-brand-secondary2 ">
+              &copy; 2023 {" "}
+              <CustomLink href="/" textarea={" Cryptoniq"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} />
+              . All rights reserved.
+            </span>
+            <div className="flex mt-4 space-x-4 sm:justify-center lg:mt-0">
               <Link href="/" target="_blank" className="w-8 h-8 flex justify-center items-center" aria-label="Visit our Facebook page">
                 <Facebook size={24} />
                 <span className="sr-only">Facebook</span>
@@ -93,5 +95,5 @@ export function Footer() {
         </div>
       </section>
     </footer>
-  )
+  );
 }
