@@ -27,7 +27,7 @@ export function Testimony() {
             <p className="text-brand-secondary dark:text-brand-secondary2 max-w-[30.75rem] text-center lg:text-left">
               {"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "}
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 text-brand-bg font-bold">
               <Avatar className="h-12 w-12">
                 <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
                 <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
@@ -62,7 +62,7 @@ export function Testimony() {
                         </p>
                       </div>
                       <div className="flex items-center gap-4">
-                        <Avatar className="h-12 w-12">
+                        <Avatar className="h-12 w-12 text-brand-bg font-bold">
                           <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
                           <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
                         </Avatar>
