@@ -41,10 +41,10 @@ export function About() {
               </div>
             </div>
             <div className="w-full flex-col justify-center lg:items-start items-center gap-10 inline-flex">
-              <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none">
+              <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none text-center lg:text-left">
                 The most trusted cryptocurrency platform.
               </h2>
-              <p className="text-brand-secondary text-xl dark:text-brand-secondary2">
+              <p className="text-brand-secondary text-xl dark:text-brand-secondary2 text-center lg:text-left">
                 Cryptolly has a variety of features that make it the best place to start trading
               </p>
               <Button

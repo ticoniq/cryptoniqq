@@ -13,10 +13,10 @@ export function HomeAbout({ }: Props) {
           <Image src={what} className="w-full" alt="about Us image" priority />
         </figure>
         <article className="max-w-[580px] flex-col justify-center lg:items-start items-center gap-8 inline-flex">
-          <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none">
-            What Is Rockie
+          <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none text-center lg:text-left">
+            What Is Cryptoniq
           </h2>
-          <p className="text-brand-secondary text-xl dark:text-brand-secondary2">
+          <p className="text-brand-secondary text-xl dark:text-brand-secondary2 text-center lg:text-left">
             Experience a variety of trading on Bitcost. You can use various types of coin transactions such as Spot Trade, Futures Trade, P2P, Staking, Mining, and margin.
           </p>
           <span className="space-y-5">
