@@ -3,7 +3,6 @@ import { Navbar } from "@/components/Navbar";
 import { CTA } from "@/components/frontend/CTA";
 import { CTA2 } from "@/components/frontend/CTA2";
 import { Hero } from "@/components/frontend/Hero";
-import { Social } from "@/components/frontend/Social";
 import { HomeAbout } from "@/components/frontend/HomeAbout";
 import { HowItWork } from "@/components/frontend/HowItWork";
 import { Testimony } from "@/components/frontend/Testimony";
@@ -17,7 +16,6 @@ export default function Home() {
       <Hero />
       <About />
       <MarketTrend />
-      <Social />
       <HowItWork />
       <HomeAbout />
       <CTA2 />

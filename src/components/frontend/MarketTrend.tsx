@@ -257,7 +257,7 @@ export function MarketTrend() {
 
   return (
     // <section className="bg-brand-surface dark:bg-brand-bg font-DMSans py-10 lg:py-20">
-    <section>
+    <section className="pb-24">
       <div className="container">
         <article className="flex items-center justify-between">
           <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none">Market Update</h2>
