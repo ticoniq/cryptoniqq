@@ -28,7 +28,7 @@ export function Hero() {
             <h1 className="text-center font-bold text-clamp-lg lg:leading-[4.3rem] lg:text-left">
               Buy & Sell Digital <br /> Assets In The Rocket
             </h1>
-            <p className="text-gray-500 text-xl text-center lg:text-left max-w-[36rem] mx-auto lg:mx-0">
+            <p className="text-brand-secondary dark:text-brand-secondary2 text-xl text-center lg:text-left max-w-[36rem] mx-auto lg:mx-0">
               Coin rocket is the easiest, safest, and fastest way to buy & sell crypto asset exchange.
             </p>
             <span className="flex items-center justify-center gap-x-4 lg:justify-start">

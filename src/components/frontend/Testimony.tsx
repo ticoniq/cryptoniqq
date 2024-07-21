@@ -29,16 +29,16 @@ export function Testimony() {
             </p>
             <div className="flex items-center gap-4">
               <Avatar className="h-12 w-12">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary" />
-                <AvatarFallback className="bg-brand-secondary">CQ</AvatarFallback>
+                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
+                <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
               </Avatar>
               <Avatar className="h-12 w-12">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary" />
-                <AvatarFallback className="bg-brand-secondary">CQ</AvatarFallback>
+                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
+                <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
               </Avatar>
               <Avatar className="h-12 w-12">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary" />
-                <AvatarFallback className="bg-brand-secondary">CQ</AvatarFallback>
+                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
+                <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
               </Avatar>
             </div>
             <p className="text-brand-primary font-bold">30+
@@ -63,8 +63,8 @@ export function Testimony() {
                       </div>
                       <div className="flex items-center gap-4">
                         <Avatar className="h-12 w-12">
-                          <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary" />
-                          <AvatarFallback className="bg-brand-secondary">CQ</AvatarFallback>
+                          <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
+                          <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
                         </Avatar>
                         <div className="grid gap-1">
                           <p className="text-sm font-medium leading-none">
