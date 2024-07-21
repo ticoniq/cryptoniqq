@@ -7,13 +7,15 @@ import { Social } from "@/components/frontend/Social";
 import { HomeAbout } from "@/components/frontend/HomeAbout";
 import { HowItWork } from "@/components/frontend/HowItWork";
 import { Testimony } from "@/components/frontend/Testimony";
+import { About } from "@/components/frontend/About";
 
 export default function Home() {
   return (
     <>
       <Navbar />
       <Hero />
-      
+
+      <About />
       <Social />
       <HowItWork />
       <HomeAbout />
