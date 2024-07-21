@@ -50,14 +50,15 @@ export function Navbar() {
             <Logo link="/" />
             <ul className="flex gap-1">
               {defaultLinks.map((link) => (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
+                <li key={link.title}>
+                  <Link
+                    href={link.href}
+                    className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
                   ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
-                >
-                  {link.title}
-                </Link>
+                  >
+                    {link.title}
+                  </Link>
+                </li>
               ))}
             </ul>
           </nav>
@@ -88,6 +89,7 @@ export function Navbar() {
                 </aside>
                 <ul className="mt-10 grid gap-6">
                   {defaultLinks.map((link) => (
+                    <li key={link.title}>
                     <Link
                       key={link.title}
                       href={link.href}
@@ -95,35 +97,36 @@ export function Navbar() {
                     >
                       {link.title}
                     </Link>
+                    </li>
                   ))}
-                </ul>
-              </nav>
-            </SheetContent>
-          </Sheet>
-          <div className="flex items-center gap-4 md:gap-2">
-            <div className="border-x-2 px-2 border-brand-surface dark:border-brand-onSurface"><ModeToggle /></div>
-            <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
-              <Link href={"/"}>Wallet</Link>
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="secondary" size="icon" className="rounded-full">
-                  <CircleUser className="h-5 w-5" />
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+              </ul>
+            </nav>
+          </SheetContent>
+        </Sheet>
+        <div className="flex items-center gap-4 md:gap-2">
+          <div className="border-x-2 px-2 border-brand-surface dark:border-brand-onSurface"><ModeToggle /></div>
+          <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
+            <Link href={"/"}>Wallet</Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <CircleUser className="h-5 w-5" />
+                <span className="sr-only">Toggle user menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-      </section>
-    </header>
+      </div>
+    </section>
+    </header >
   )
 }
