@@ -10,7 +10,7 @@ export function HomeAbout({ }: Props) {
     <section className="py-24 font-DMSans">
       <div className="container justify-start items-center gap-12 grid lg:grid-cols-2 grid-cols-1">
         <figure className="w-full">
-          <Image src={what} className="w-full" alt="about Us image" />
+          <Image src={what} className="w-full" alt="about Us image" priority />
         </figure>
         <article className="max-w-[580px] flex-col justify-center lg:items-start items-center gap-8 inline-flex">
           <h2 className="text-clamp-slg font-bold max-w-[30rem] leading-none">

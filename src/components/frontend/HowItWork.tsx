@@ -3,6 +3,7 @@ import bitcoinCloud from "@/assets/images/bitcoin-cloud.png";
 import bitcoinWallet from "@/assets/images/bitcoin-wallet.png";
 import bitcoinMinner from "@/assets/images/bitcoin-mining.png";
 import bitcoinComparison from "@/assets/images/bitcoin-comparison.png";
+import { ChevronsRight } from "lucide-react";
 
 export function HowItWork() {
   return (
@@ -25,17 +26,16 @@ export function HowItWork() {
                   width={96}
                   height={96}
                   priority={true}
-                  className="w-24 h-24"
+                  className="w-24 h-24 mb-2"
                 />
+                <p className="text-xs uppercase">Step 1</p>
                 <h4 className="self-stretch text-center text-2xl font-bold">Create an account</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">
                 Stacks is a production-ready library of stackable content blocks built in React Native.
               </p>
             </div>
-            <svg className="md:flex hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M5.50159 6L11.5018 12.0002L5.49805 18.004M12.5016 6L18.5018 12.0002L12.498 18.004" stroke="#4F46E5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <ChevronsRight size={28} className="md:flex hidden justify-center items-center w-7 h-7 text-brand-primary" />
             <div className="grow shrink basis-0 flex-col justify-start items-center gap-2.5 inline-flex">
               <div className="self-stretch flex-col justify-start items-center gap-0.5 flex">
                 <Image src={bitcoinWallet}
@@ -43,17 +43,16 @@ export function HowItWork() {
                   width={96}
                   height={96}
                   priority={true}
-                  className="w-24 h-24"
+                  className="w-24 h-24 mb-2"
                 />
+                <p className="text-xs uppercase">Step 2</p>
                 <h4 className="self-stretch text-center text-2xl font-bold">Verify your identity</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">
                 Stacks is a production-ready library of stackable content blocks built in React Native.
               </p>
             </div>
-            <svg className="md:flex hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M5.50159 6L11.5018 12.0002L5.49805 18.004M12.5016 6L18.5018 12.0002L12.498 18.004" stroke="#4F46E5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <ChevronsRight size={28} className="md:flex hidden justify-center items-center w-7 h-7 text-brand-primary" />
             <div className="grow shrink basis-0 flex-col justify-start items-center gap-2.5 inline-flex">
               <div className="self-stretch flex-col justify-start items-center gap-0.5 flex">
                 <Image src={bitcoinMinner}
@@ -61,17 +60,16 @@ export function HowItWork() {
                   width={96}
                   height={96}
                   priority={true}
-                  className="w-24 h-24"
+                  className="w-24 h-24 mb-2"
                 />
+                <p className="text-xs uppercase">Step 3</p>
                 <h4 className="self-stretch text-center text-2xl font-bold">Start Trading</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">
                 Stacks is a production-ready library of stackable content blocks built in React Native.
               </p>
             </div>
-            <svg className="md:flex hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M5.50159 6L11.5018 12.0002L5.49805 18.004M12.5016 6L18.5018 12.0002L12.498 18.004" stroke="#4F46E5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <ChevronsRight size={28} className="md:flex hidden justify-center items-center w-7 h-7 text-brand-primary" />
             <div className="grow shrink basis-0 flex-col justify-start items-center gap-2.5 inline-flex">
               <div className="self-stretch flex-col justify-start items-center gap-0.5 flex">
                 <Image src={bitcoinComparison}
@@ -79,8 +77,9 @@ export function HowItWork() {
                   width={96}
                   height={96}
                   priority={true}
-                  className="w-24 h-24"
+                  className="w-24 h-24 mb-2"
                 />
+                <p className="text-xs uppercase">Step 4</p>
                 <h4 className="self-stretch text-center text-2xl font-bold">Track every trade</h4>
               </div>
               <p className="self-stretch text-center  text-base font-normal leading-relaxed text-brand-secondary dark:text-brand-secondary2">

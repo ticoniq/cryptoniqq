@@ -64,7 +64,7 @@ export function Hero() {
             src={hero}
             width={570}
             height={448}
-            alt="Dashboard image"
+            alt="image"
             className="w-[35.7rem] h-[28rem]"
             priority={true}
           />
