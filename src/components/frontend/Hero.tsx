@@ -23,16 +23,16 @@ export function Hero() {
   return (
     <section className="">
       <div className="relative bg-brand-surface dark:bg-brand-bg font-DMSans py-10 lg:py-20 flex flex-col items-center pt-12 sm:pt-24 pb-36 sm:pb-56 md:pb-48 lg:pb-32 xl:pb-64">
-        <div className="container grid grid-cols-1 gap-14 items-center justify-between lg:grid-cols-12 lg:gap32">
-          <div className="w-full lg:col-span-6">
-            <h1 className="py-6 text-center font-bold text-clamp-lg lg:leading-[4.3rem] lg:text-left">
+        <div className="container grid grid-cols-1 gap-14 items-center justify-between lg:grid-cols-12">
+          <div className="w-full space-y-8 lg:col-span-6">
+            <h1 className="text-center font-bold text-clamp-lg lg:leading-[4.3rem] lg:text-left">
               Buy & Sell Digital <br /> Assets In The Rocket
             </h1>
-            <p className="text-gray-500 text-lg text-center lg:text-left max-w-[36rem] mx-auto lg:mx-0">
+            <p className="text-gray-500 text-xl text-center lg:text-left max-w-[36rem] mx-auto lg:mx-0">
               Coin rocket is the easiest, safest, and fastest way to buy & sell crypto asset exchange.
             </p>
             <span className="flex items-center justify-center gap-x-4 lg:justify-start">
-              <Button className="my-8 rounded-full bg-brand-primary">Get started now</Button>
+              <Button className="rounded-full bg-brand-primary">Get started now</Button>
             </span>
             <div className="flex flex-col justify-center gap-y-4 items-center lg:justify-start lg:items-start">
               <h2 className="text-2xl font-bold">Our Partners</h2>

@@ -20,14 +20,14 @@ export function CTA2() {
             <div className="space-y-2">
               <span className="flex items-center gap-2">
                 <CircleCheck size={19} className="text-brand-primary" />
-                <p className="text-2xl font-bold">Buy, Sell, And Trade On The Go</p>
+                <p className="text-clamp-sm font-bold">Buy, Sell, And Trade On The Go</p>
               </span>
               <p className="text-brand-secondary dark:text-brand-secondary2">Managa your holdings from your mobile decive</p>
             </div>
             <div className="space-y-2">
               <span className="flex items-center gap-2">
                 <CircleCheck size={19} className="text-brand-primary" />
-                <p className="text-2xl font-bold">Take Control Of Your Wealth</p>
+                <p className="text-clamp-sm font-bold">Take Control Of Your Wealth</p>
               </span>
               <p className="text-brand-secondary dark:text-brand-secondary2">Rest assured you (and only you) have access to your funds</p>
             </div>
