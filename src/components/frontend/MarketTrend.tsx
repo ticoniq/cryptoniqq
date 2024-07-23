@@ -117,7 +117,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     id: "select",
     header: ({ table }) => (
-      <div 
+      <div
         onClick={() => table.toggleAllPageRowsSelected()}
         className="cursor-pointer"
       >
@@ -129,7 +129,7 @@ export const columns: ColumnDef<Payment>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div 
+      <div
         onClick={() => row.toggleSelected()}
         className="cursor-pointer"
       >
