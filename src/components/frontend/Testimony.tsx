@@ -7,6 +7,8 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 import { useRef } from "react";
+import avatarPlaceholder from "@/assets/images/avatar_placeholder.png";
+import Image from "next/image";
 
 export function Testimony() {
   const plugin = useRef(
@@ -28,18 +30,27 @@ export function Testimony() {
               {"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. "}
             </p>
             <div className="flex items-center gap-4 text-brand-bg font-bold">
-              <Avatar className="h-12 w-12">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
-                <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
-              </Avatar>
-              <Avatar className="h-12 w-12">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
-                <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
-              </Avatar>
-              <Avatar className="h-12 w-12">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
-                <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
-              </Avatar>
+              <Image
+                src={avatarPlaceholder}
+                alt="User avatar"
+                width={48}
+                height={48}
+                className="aspect-square h-fit flex-none rounded-full bg-secondary object-cover"
+              />
+              <Image
+                src={avatarPlaceholder}
+                alt="User avatar"
+                width={48}
+                height={48}
+                className="aspect-square h-fit flex-none rounded-full bg-secondary object-cover"
+              />
+              <Image
+                src={avatarPlaceholder}
+                alt="User avatar"
+                width={48}
+                height={48}
+                className="aspect-square h-fit flex-none rounded-full bg-secondary object-cover"
+              />
             </div>
             <p className="text-brand-primary font-bold">30+
               <span className="text-sm font-semibold text-brand-secondary"> Customer Reviews</span></p>
@@ -62,10 +73,17 @@ export function Testimony() {
                         </p>
                       </div>
                       <div className="flex items-center gap-4">
-                        <Avatar className="h-12 w-12 text-brand-bg font-bold">
-                          <AvatarImage src="/avatars/01.png" alt="Avatar" className="bg-brand-secondary2" />
+                        {/* <Avatar className="h-12 w-12 text-brand-bg font-bold">
+                          <AvatarImage src={avatarPlaceholder.toString()} alt="Avatar" className="bg-brand-secondary2" />
                           <AvatarFallback className="bg-brand-secondary2">CQ</AvatarFallback>
-                        </Avatar>
+                        </Avatar> */}
+                        <Image
+                          src={avatarPlaceholder}
+                          alt="User avatar"
+                          width={48}
+                          height={48}
+                          className="aspect-square h-fit flex-none rounded-full bg-secondary object-cover"
+                        />
                         <div className="grid gap-1">
                           <p className="text-sm font-medium leading-none">
                             Johnny Andro
