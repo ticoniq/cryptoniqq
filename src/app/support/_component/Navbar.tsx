@@ -40,7 +40,8 @@ export function Navbar() {
 
   return (
     <header className={`sticky top-0 z-40 font-DMSans bg-background py-7 bg-cover bg-center
-      ${showShadow ? 'shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50' : ''}`}>
+      ${showShadow ? 'shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50' : ''}`}
+      style={{ backgroundImage: "url('https://pagedone.io/asset/uploads/1702271852.png')" }}>
       <section className="container">
         <div className="w-full flex items-center justify-between gap-4">
           <nav className="flex gap-3 md:items-center">
