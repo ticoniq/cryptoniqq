@@ -14,7 +14,7 @@ const config = {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "1300px",
+        "2xl": "1150px",
       },
     },
     extend: {
@@ -98,6 +98,10 @@ const config = {
         DMSans: ["DM Sans", "sans-serif"],
         lato: ["Lato", "sans-serif"],
       },
+      backgroundImage: theme => ({
+        'hero-pattern': "url('/assets/images/background.png')",
+        'custom-gradient': "linear-gradient(to right, #4f46e5, #3b82f6)",
+      }),
     },
   },
   plugins: [require("tailwindcss-animate")],
