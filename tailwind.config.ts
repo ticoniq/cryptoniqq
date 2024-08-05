@@ -1,30 +1,29 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "1400px",
-      },
-    },
-    navContainer: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1600px",
+        "2xl": "1150px",
       },
     },
     extend: {
+      fontSize: {
+        "clamp-lg": "clamp(2rem, 2vw + 2rem, 4rem)",
+        "clamp-slg": "clamp(1.2rem, 1.7vw + 1.5rem, 2.5rem)",
+        "clamp-md": "clamp(1rem, 1.5vw + 1.2rem, 2rem)",
+        "clamp-sm": "clamp(0.875rem, 1vw + 0.75rem, 1.5rem)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -73,6 +72,7 @@ const config = {
           highlight: "hsl(var(--brand-highlight))",
           decorative: "hsl(var(--brand-decorative))",
           hover: "hsl(var(--brand-hover))",
+          bg: "hsl(var(--brand-bg))",
         },
       },
       borderRadius: {
@@ -96,10 +96,15 @@ const config = {
       },
       fontFamily: {
         DMSans: ["DM Sans", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
       },
+      backgroundImage: theme => ({
+        'hero-pattern': "url('/assets/images/background.png')",
+        'custom-gradient': "linear-gradient(to right, #4f46e5, #3b82f6)",
+      }),
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
