@@ -30,13 +30,26 @@ type PhoneInputProps = Omit<
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
     ({ className, onChange, ...props }, ref) => {
+      const [selectedCountry, setSelectedCountry] = React.useState("NG");
+
       return (
         <RPNInput.default
           ref={ref}
           className={cn("flex", className)}
           flagComponent={FlagComponent}
-          countrySelectComponent={CountrySelect}
-          inputComponent={InputComponent}
+          countrySelectComponent={(props) => (
+            <CountrySelect
+              {...props}
+              value={selectedCountry}
+              onChange={(country) => {
+                setSelectedCountry(country);
+                props.onChange(country);
+              }}
+            />
+          )}
+          inputComponent={(props) => (
+            <InputComponent {...props} selectedCountry={selectedCountry} />
+          )}
           countries={["NG", "GH"]} // Only Nigeria and Ghana
           onChange={(value) => onChange?.(value || "")}
           {...props}
@@ -46,15 +59,19 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   );
 PhoneInput.displayName = "PhoneInput";
 
-const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...props }, ref) => (
+const InputComponent = React.forwardRef<
+  HTMLInputElement,
+  InputProps & { selectedCountry: string }
+>(({ className, selectedCountry, ...props }, ref) => (
+  <div className="flex items-center">
     <Input
       className={cn("rounded-e-lg rounded-s-none", className)}
       {...props}
       ref={ref}
     />
-  )
-);
+    <span className="ml-2">{selectedCountry}</span>
+  </div>
+));
 InputComponent.displayName = "InputComponent";
 
 type CountrySelectOption = { label: string; value: RPNInput.Country };

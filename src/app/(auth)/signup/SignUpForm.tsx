@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/PasswordInput";
 import LoadingButton from "@/components/LoadingButton";
 import { CountrySelect } from "@/components/CountrySelect";
+import { CustomLink } from "@/components/CustomLink";
 
 export function SignUpForm() {
   const [error, setError] = useState<string>();
@@ -41,7 +42,7 @@ export function SignUpForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 font-DMSans"
+        className="space-y-7 font-DMSans"
       >
         <FormField
           control={form.control}
@@ -49,7 +50,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-lg">Email</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Email*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
@@ -62,14 +63,14 @@ export function SignUpForm() {
             </FormItem>
           )}
         />
-        <div className="space-y-4">
+        <div className="space-y-2">
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
                 <span className="flex justify-start items-center gap-2">
-                  <FormLabel className="text-lg">Password</FormLabel>
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Password*</FormLabel>
                   <FormMessage />
                   {form.formState.errors.confirmPassword && (
                     <p className="text-sm font-medium text-destructive">
@@ -107,7 +108,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-lg">FullName</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal Full Name*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
@@ -126,7 +127,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-lg">Country</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Country*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
@@ -140,11 +141,29 @@ export function SignUpForm() {
           )}
         />
         {error && <p className="text-center text-destructive">{error}</p>}
+        <p className="text-muted-foreground break-all">
+          {"I certify that I am 18 years of age or older, I agree to the"}{" "}
+          <CustomLink
+            href="/terms"
+            className="text-brand-primary font-base"
+            textarea={'Terms of Service'}
+            divClassName="border-brand-primary border-b-2"
+          />{" "}
+          and{" "}
+          <CustomLink
+            href="/privacy"
+            className="text-brand-primary font-base"
+            textarea={'Privacy Policy'}
+            divClassName="border-brand-primary border-b-2"
+          />
+          .
+        </p>
         <LoadingButton
           loading={isPending}
           className="w-full"
+          size={"lg"}
         >
-          Create account
+          Create free account
         </LoadingButton>
       </form>
     </Form>

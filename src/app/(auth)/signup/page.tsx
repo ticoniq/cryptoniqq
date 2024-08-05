@@ -33,7 +33,7 @@ export default function page() {
       </section>
 
       <section className="max-w-2xl mx-auto px-4 py-10 space-y-8 md:py-16">
-      <div className="text-center">
+        <div className="text-center space-y-1">
           <h1 className="font-clash font-bold text-clamp-slg">
             Register To Cryptoniq
           </h1>
@@ -41,37 +41,19 @@ export default function page() {
             Register in advance and enjoy the event benefits
           </p>
         </div>
+        <p>Required fields have an asterisk: *</p>
 
         <SignUpForm />
 
-        <div className="space-y-2">
-          <p className="text-base text-muted-foreground">
-            Already have an account?{" "}
-            <CustomLink
-              href="/login"
-              className="text-brand-primary font-semibold"
-              textarea={'Login'}
-              divClassName="border-brand-primary border-b-2"
-            />
-          </p>
-          <p className="text-sm text-muted-foreground break-all">
-            {"By clicking 'Continue', you acknowledge that you have read and accept the"}{" "}
-            <CustomLink
-              href="/terms"
-              className="text-brand-primary font-base"
-              textarea={'Terms of Service'}
-              divClassName="border-brand-primary border-b-2"
-            />{" "}
-            and{" "}
-            <CustomLink
-              href="/privacy"
-              className="text-brand-primary font-base"
-              textarea={'Privacy Policy'}
-              divClassName="border-brand-primary border-b-2"
-            />
-            .
-          </p>
-        </div>
+        <p className="text-muted-foreground text-center">
+          Already have an account?{" "}
+          <CustomLink
+            href="/login"
+            className="text-brand-primary font-semibold"
+            textarea={'Login'}
+            divClassName="border-brand-primary border-b-2"
+          />
+        </p>
       </section>
     </main>
   )
