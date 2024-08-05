@@ -42,7 +42,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-40 font-DMSans h-12 flex items-center bg-background p-1
+    <header className={`sticky top-0 z-40 font-DMSans h-12 flex items-center bg-background py-1
       ${showShadow ? 'shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50' : ''}`}>
       <section className="container w-full">
         <div className="w-full flex items-center justify-between gap-4 py-2 lg:py-0">
