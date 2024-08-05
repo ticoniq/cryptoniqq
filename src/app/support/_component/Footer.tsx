@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <span className="flex justify-center ">
-              <Logo link="/support" />
+              <Logo link="/" />
             </span>
             <ul className="flex items-center justify-center transition-all duration-500 my-10 border-b" />
             <div className="flex space-x-10 justify-center items-center mb-14">

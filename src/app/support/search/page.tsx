@@ -6,6 +6,8 @@ export default function SearchPage() {
   return (
     <main className="container py-8 space-y-8 md:py-16 font-DMSans">
       <SearchField />
+
+      <h3 className="text-xl font-bold">Search results</h3>
       <SearchResults />
       <ContactCard />
     </main>

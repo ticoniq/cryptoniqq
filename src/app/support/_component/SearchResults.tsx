@@ -22,7 +22,7 @@ export function SearchResults() {
           subcategory.description.map(item => ({
             category: category.category,
             subcategory: subcategory.name,
-            item
+            item: typeof item === 'string' ? item : item.step // Assuming you want to use the 'step' property of the object as the 'item' value
           }))
         )
       ).filter(result =>
@@ -45,9 +45,9 @@ export function SearchResults() {
       {results.length === 0 ? (
         <p>No results found.</p>
       ) : (
-        <ul>
+        <section>
           {results.map((result, index) => (
-            <li key={index} className="border-b py-5">
+            <div key={index} className="border-b py-5">
               <strong>
                 <CustomLink
                   href={`/support/${replaceSpaceWithHyphen(result.category)}`}
@@ -55,13 +55,13 @@ export function SearchResults() {
                 />
               </strong> &gt; {" "}
               <CustomLink
-                href={`/support/${replaceSpaceWithHyphen(result.subcategory)}/${replaceSpaceWithHyphen(result.subcategory)}`}
+                href={`/support/${replaceSpaceWithHyphen(result.category)}/${replaceSpaceWithHyphen(result.subcategory)}`}
                 textarea={result.subcategory}
               />
               <p>{result.item}</p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </section>
       )}
     </>
   );
