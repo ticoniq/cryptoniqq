@@ -30,7 +30,7 @@ type PhoneInputProps = Omit<
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
     ({ className, onChange, ...props }, ref) => {
-      const [selectedCountry, setSelectedCountry] = React.useState("NG");
+      const [selectedCountry, setSelectedCountry] = React.useState<string>("NG");
 
       return (
         <RPNInput.default
@@ -51,7 +51,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
             <InputComponent {...props} selectedCountry={selectedCountry} />
           )}
           countries={["NG", "GH"]} // Only Nigeria and Ghana
-          onChange={(value) => onChange?.(value || "")}
+          onChange={(value) => onChange?.(value as RPNInput.Value)}
           {...props}
         />
       );
