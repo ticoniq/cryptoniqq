@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 // import { signUp } from "./actions";
 import { PasswordInput } from "@/components/PasswordInput";
 import LoadingButton from "@/components/LoadingButton";
+import { CountrySelect } from "@/components/CountrySelect";
 
 export function SignUpForm() {
   const [error, setError] = useState<string>();
@@ -18,6 +19,7 @@ export function SignUpForm() {
     defaultValues: {
       email: "",
       name: "",
+      country: "",
       password: "",
     },
   });
@@ -120,18 +122,18 @@ export function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="name"
+          name="country"
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-lg">FullName</FormLabel>
+                <FormLabel className="text-lg">Country</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
-                <Input
+                <CountrySelect
                   {...field}
-                  type="text"
-                  placeholder="Please enter your full name."
+                  className="bg-brand-surface dark:bg-brand-hover"
+                  whitelist={["GH", "NG"]}
                 />
               </FormControl>
             </FormItem>

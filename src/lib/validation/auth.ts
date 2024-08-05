@@ -19,6 +19,7 @@ export const signUpSchema = z
         /^[a-zA-Z\s'\-]+$/,
         "(Full name can only contain letters, spaces, apostrophes, and hyphens)",
       ),
+    country: requiredString,
     password: requiredString
     .min(8, "(8 or more characters, including numbers and special characters)")
     .regex(
