@@ -100,6 +100,12 @@ export function Navbar() {
                     </li>
                   ))}
                 </ul>
+                <Button variant="outline" asChild size={"lg"} className="rounded-full hidden sm:flex">
+                  <Link href={"/"}>Login</Link>
+                </Button>
+                <Button asChild size={"lg"} className="rounded-full hidden sm:flex">
+                  <Link href={"/signup"}>Sign up</Link>
+                </Button>
               </nav>
             </SheetContent>
           </Sheet>

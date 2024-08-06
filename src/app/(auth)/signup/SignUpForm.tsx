@@ -5,10 +5,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { SignUpValues, signUpSchema } from "@/lib/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-// import { signUp } from "./actions";
+import { signUp } from "./actions";
 import { PasswordInput } from "@/components/PasswordInput";
 import LoadingButton from "@/components/LoadingButton";
-import { CountrySelect } from "@/components/CountrySelect";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { CustomLink } from "@/components/CustomLink";
 
 export function SignUpForm() {
@@ -28,13 +36,12 @@ export function SignUpForm() {
   async function onSubmit(values: SignUpValues) {
     setError(undefined);
     startTransition(() => {
-      console.log(values);
-      // startTransition(async () => {
-      //   const { error } = await signUp(values);
-      //   if (error) {
-      //     setError(error);
-      //   }
-      // });
+      startTransition(async () => {
+        const { error } = await signUp(values);
+        if (error) {
+          setError(error);
+        }
+      });
     });
   }
 
@@ -126,16 +133,27 @@ export function SignUpForm() {
           name="country"
           render={({ field }) => (
             <FormItem>
-              <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Country*</FormLabel>
-                <FormMessage />
-              </span>
               <FormControl>
-                <CountrySelect
+                <Select
                   {...field}
-                  className="bg-brand-surface dark:bg-brand-hover"
-                  whitelist={["GH", "NG"]}
-                />
+                  defaultValue=""
+                  onValueChange={field.onChange}
+                >
+                  <span className="flex justify-start items-center gap-2">
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Country*</FormLabel>
+                    <FormMessage />
+                  </span>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Select Country</SelectLabel>
+                      <SelectItem value="Nigeria">Nigeria</SelectItem>
+                      <SelectItem value="Ghana">Ghana</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </FormControl>
             </FormItem>
           )}
