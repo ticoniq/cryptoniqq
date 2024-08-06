@@ -1,5 +1,5 @@
 "use server";
-import { getUserByEmail, getUserByUsername } from "@/data/user";
+import { getUserByEmail, getUserByphone, getUserByUsername } from "@/data/user";
 import { signUpSchema, SignUpValues } from "@/lib/validation/auth";
 import { generateIdFromEntropySize } from "lucia";
 import { redirect } from "next/navigation";
@@ -36,7 +36,7 @@ export async function signUp(
       return { error: "Email is already taken" };
     }
 
-    const existingPhone = await getUserByEmail(email);
+    const existingPhone = await getUserByphone(phone);
 
     if (existingPhone) {
       return { error: "Phone already taken" };
@@ -53,6 +53,7 @@ export async function signUp(
     });
 
     const verificationCode = await generateEmailVerificationCode(userId, email);
+    
     await sendVerificationCode(email, verificationCode);
 
     const session = await lucia.createSession(userId, {});

@@ -1,8 +1,9 @@
 import { TimeSpan, createDate } from "oslo";
 import { generateRandomString, alphabet } from "oslo/crypto";
-import prisma from "./prisma";
+import prisma from "@/lib/prisma";
+import { addHyphenAfterThreeDigits } from "@/lib/utils";
 
-async function generateEmailVerificationCode(userId: string, email: string): Promise<string> {
+export const generateEmailVerificationCode = async (userId: string, email: string): Promise<string> => {
   // Delete any existing verification codes for this user
   await prisma.emailVerificationCode.deleteMany({
     where: {
@@ -14,7 +15,7 @@ async function generateEmailVerificationCode(userId: string, email: string): Pro
   });
 
   // Generate a new code
-  const code = generateRandomString(8, alphabet("0-9"));
+  const code = addHyphenAfterThreeDigits(generateRandomString(6, alphabet("0-9")));
 
   // Calculate expiration date
   const expiresAt = createDate(new TimeSpan(15, "m")); // 15 minutes from now
@@ -24,12 +25,10 @@ async function generateEmailVerificationCode(userId: string, email: string): Pro
     data: {
       userId: userId,
       email: email,
-      code,
-      expiresAt
+      code: code,
+      expiresAt: expiresAt,
     }
   });
 
   return code;
 }
-
-export { generateEmailVerificationCode };

@@ -11,6 +11,8 @@ import { LoadingButton } from "@/components/LoadingButton";
 import { CustomLink } from "@/components/CustomLink";
 import { PhoneInput } from "@/components/PhoneInput";
 import { CountryCode } from "libphonenumber-js";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { XIcon } from "lucide-react";
 
 export function SignUpForm() {
   const [error, setError] = useState<string>();
@@ -39,6 +41,7 @@ export function SignUpForm() {
       lastName: "",
       phone: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -147,11 +150,6 @@ export function SignUpForm() {
                 <span className="flex justify-start items-center gap-2">
                   <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Password*</FormLabel>
                   <FormMessage />
-                  {form.formState.errors.confirmPassword && (
-                    <p className="text-sm font-medium text-destructive">
-                      {form.formState.errors.confirmPassword.message}
-                    </p>
-                  )}
                 </span>
                 <FormControl>
                   <PasswordInput
@@ -173,11 +171,21 @@ export function SignUpForm() {
                     placeholder="Please re-enter your password."
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        {error && <p className="text-center text-destructive">{error}</p>}
+        {error &&
+          <Alert className="bg-red-600/20 border-l-8 border-brand-critical flex items-center gap-2">
+            <div className="h-8 w-8 bg-brand-critical rounded-md flex justify-center items-center">
+              <XIcon className="h-4 w-4" />
+            </div>
+            <AlertDescription>
+              {error}
+            </AlertDescription>
+          </Alert>
+        }
         <p className="text-muted-foreground break-all">
           {"I certify that I am 18 years of age or older, I agree to the"}{" "}
           <CustomLink
