@@ -31,9 +31,9 @@ export const ConfirmEmail = ({
         <Section style={logoContainer}>
           <Img
             src={`${websiteUrl}/logo/logo.png`}
-            width="120"
-            height="36"
-            alt="Cryptoniq"
+            alt="cryptoniq Logo"
+            width={160}
+            height={32}
           />
         </Section>
         <Heading style={h1}>Confirm your email address</Heading>
@@ -54,9 +54,9 @@ export const ConfirmEmail = ({
             <Column style={{ width: "66%" }}>
               <Img
                 src={`${websiteUrl}/logo/logo.png`}
-                width="120"
-                height="36"
-                alt="Cryptoniq"
+                alt="cryptoniq Logo"
+                width={160}
+                height={32}
               />
             </Column>
             <Column>
