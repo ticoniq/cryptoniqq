@@ -37,7 +37,7 @@ export default async function page() {
                 <SlashIcon />
               </BreadcrumbSeparator>
               <BreadcrumbItem>
-                <BreadcrumbPage>Register</BreadcrumbPage>
+                <BreadcrumbPage>Login</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -57,7 +57,7 @@ export default async function page() {
               <LockOpen className="w-5 h-5" />
             </span>
             <p className="text-brand-success">https://
-              <span className="text-white">accounts.rockie.com/login</span>
+              <span className="text-white">accounts.cryptoniq.com/login</span>
             </p>
           </div>
         </div>

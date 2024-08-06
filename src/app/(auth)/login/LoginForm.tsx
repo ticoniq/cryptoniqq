@@ -98,7 +98,7 @@ export function LoginForm() {
           className="w-full"
           size={"lg"}
         >
-          Create free account
+          Login
         </LoadingButton>
       </form>
     </Form>
