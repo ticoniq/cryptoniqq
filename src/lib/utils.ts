@@ -12,3 +12,10 @@ export function replaceSpaceWithHyphen(str: string): string {
 export function replaceHyphenWithSpace(str: string): string {
   return str.replace(/-/g, ' ');
 }
+
+export function addHyphenAfterThreeDigits(input: string): string {
+  if (typeof input !== 'string' || input.length < 3) {
+    return input;
+  }
+  return input.slice(0, 3) + '-' + input.slice(3);
+}
