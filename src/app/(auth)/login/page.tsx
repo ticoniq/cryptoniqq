@@ -52,12 +52,12 @@ export default async function page() {
           <p className="text-xl font-lato text-muted-foreground">
             Welcome back! Log In now to start trading
           </p>
-          <div className="flex items-center gap-5 rounded-full bg-green-900/30 w-3/5 mx-auto">
+          <div className="flex items-center gap-5 rounded-full bg-green-900/30 sm:w-3/5 mx-auto">
             <span className="p-2 bg-brand-success w-10 h-10 flex justify-center items-center rounded-full">
               <LockOpen className="w-5 h-5" />
             </span>
             <p className="text-brand-success">https://
-              <span className="text-white">accounts.cryptoniq.com/login</span>
+              <span className="text-white break-all">accounts.cryptoniq.com/login</span>
             </p>
           </div>
         </div>
