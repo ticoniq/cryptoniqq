@@ -93,7 +93,7 @@ export function Navbar() {
                   ))}
                 </ul>
                 <Button variant="outline" asChild size={"lg"} className="rounded-full hidden sm:flex">
-                  <Link href={"/"}>Login</Link>
+                  <Link href={"/login"}>Login</Link>
                 </Button>
                 <Button asChild size={"lg"} className="rounded-full hidden sm:flex">
                   <Link href={"/signup"}>Sign up</Link>
@@ -104,7 +104,7 @@ export function Navbar() {
           <div className="flex items-center gap-4 md:gap-2">
             <div className="border-x-2 px-2 border-brand-surface dark:border-brand-onSurface"><ModeToggle /></div>
             <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
-              <Link href={"/"}>Login</Link>
+              <Link href={"/login"}>Login</Link>
             </Button>
             <Button asChild size={"xs"} className="rounded-full hidden sm:flex">
               <Link href={"/signup"}>Sign up</Link>

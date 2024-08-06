@@ -50,3 +50,19 @@ export const signUpSchema = z
   });
 
 export type SignUpValues = z.infer<typeof signUpSchema>;
+
+/*
+  Login schema
+  username: requiredString,
+  password: requiredString,
+ */
+  export const loginSchema = z.object({
+    email: z
+      .string()
+      .trim()
+      .min(1, "(Required)")
+      .email("(Invalid email address)"),
+    password: requiredString,
+  });
+  
+  export type LoginValues = z.infer<typeof loginSchema>;

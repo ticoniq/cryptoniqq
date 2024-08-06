@@ -19,6 +19,11 @@ export const lucia = new Lucia(adapter, {
       email: databaseUserAttributes.email,
       name: databaseUserAttributes.name,
       avatarUrl: databaseUserAttributes.avatarUrl,
+      phone: databaseUserAttributes.phone,
+      country: databaseUserAttributes.country,
+      username: databaseUserAttributes.username,
+      onboardingCompleted: databaseUserAttributes.onboardingCompleted,
+      email_verified: databaseUserAttributes.email_verified,
       googleId: databaseUserAttributes.googleId,
     };
   },
@@ -36,6 +41,11 @@ interface DatabaseUserAttributes {
   email: string;
   name: string;
   avatarUrl: string | null;
+  phone: string | null;
+  country: string | null;
+  username: string | null;
+  onboardingCompleted: boolean;
+  email_verified: boolean;
   googleId: string | null;
 }
 

@@ -56,16 +56,8 @@ export async function signUp(
         passwordHash,
       },
     });
-
-    const session = await lucia.createSession(userId, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
-    cookies().set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes,
-    );
     
-    return redirect("/dashboard");
+    return redirect("/verify-email");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { error: "Something went wrong. Please try again" };

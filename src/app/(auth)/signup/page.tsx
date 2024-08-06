@@ -5,12 +5,23 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { SlashIcon } from "@radix-ui/react-icons"
-import { SignUpForm } from "./SignUpForm"
-import { CustomLink } from "@/components/CustomLink"
+} from "@/components/ui/breadcrumb";
+import { SlashIcon } from "@radix-ui/react-icons";
+import { SignUpForm } from "./SignUpForm";
+import { CustomLink } from "@/components/CustomLink";
+import { Metadata } from "next";
+import { validateRequest } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function page() {
+export const metadata: Metadata = {
+  title: "Sign Up",
+};
+
+export default async function page() {
+  const session = await validateRequest();
+
+  if (session.user) return redirect("/dashboard");
+  
   return (
     <main className="font-DMSans">
       <section className="py-10 bg-brand-surface dark:bg-brand-hover">

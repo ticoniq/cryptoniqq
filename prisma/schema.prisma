@@ -14,17 +14,19 @@ datasource db {
 }
 
 model User {
-  id                  String    @id
-  username            String?   @unique
-  name                String
-  email               String?   @unique
-  phone               String?   @unique
-  passwordHash        String?
-  googleId            String?   @unique
-  avatarUrl           String?
-  country             String?
-  onboardingCompleted Boolean   @default(false)
-  sessions            Session[]
+  id                      String                    @id
+  username                String?                   @unique
+  name                    String
+  email                   String?                   @unique
+  phone                   String?                   @unique
+  passwordHash            String?
+  googleId                String?                   @unique
+  avatarUrl               String?
+  country                 String?
+  onboardingCompleted     Boolean                   @default(false)
+  email_verified          Boolean                   @default(false)
+  sessions                Session[]
+  email_verification_code email_verification_code[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -36,7 +38,20 @@ model Session {
   id        String   @id
   userId    String
   expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model email_verification_code {
+  id        String   @id @default(cuid())
+  code      String
+  userId    String
+  email     String
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_codes")
 }
