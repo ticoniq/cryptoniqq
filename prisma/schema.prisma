@@ -26,7 +26,7 @@ model User {
   onboardingCompleted     Boolean                   @default(false)
   email_verified          Boolean                   @default(false)
   sessions                Session[]
-  email_verification_code email_verification_code[]
+  email_verification_code emailVerificationCode[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -44,7 +44,7 @@ model Session {
   @@map("sessions")
 }
 
-model email_verification_code {
+model emailVerificationCode {
   id        String   @id @default(cuid())
   code      String
   userId    String

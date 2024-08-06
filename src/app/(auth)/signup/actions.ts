@@ -8,6 +8,8 @@ import { hash } from "@node-rs/argon2";
 import prisma from "@/lib/prisma";
 import { lucia } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { generateEmailVerificationCode } from "@/lib/tokens";
+import { sendVerificationCode } from "@/lib/mail";
 
 export async function signUp(
   credentials: SignUpValues,
@@ -15,15 +17,8 @@ export async function signUp(
   try {
     const validatedData = signUpSchema.parse(credentials);
 
-    
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      phone,
-    } = validatedData;
-    
+    const { email, password, firstName, lastName, phone } = validatedData;
+
     const name = `${firstName} ${lastName}`;
 
     const passwordHash = await hash(password, {
@@ -40,7 +35,7 @@ export async function signUp(
     if (existingEmail) {
       return { error: "Email is already taken" };
     }
-    
+
     const existingPhone = await getUserByEmail(email);
 
     if (existingPhone) {
@@ -56,8 +51,19 @@ export async function signUp(
         passwordHash,
       },
     });
-    
-    return redirect("/verify-email");
+
+    const verificationCode = await generateEmailVerificationCode(userId, email);
+    await sendVerificationCode(email, verificationCode);
+
+    const session = await lucia.createSession(userId, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
+
+    return redirect("/dashboard");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { error: "Something went wrong. Please try again" };
