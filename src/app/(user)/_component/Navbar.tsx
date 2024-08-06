@@ -12,10 +12,13 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetOverlay, Sheet
 import { usePathname } from "next/navigation";
 import { defaultLinks } from "@/config/nav";
 import { useEffect, useState } from "react";
+import { UserButton } from "./UserButton";
+import { useSession } from "./SessionProvider";
 
 export function Navbar() {
   const pathname = usePathname();
   const [showShadow, setShowShadow] = useState(false);
+  const { user } = useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,12 +106,18 @@ export function Navbar() {
           </Sheet>
           <div className="flex items-center gap-4 md:gap-2">
             <div className="border-x-2 px-2 border-brand-surface dark:border-brand-onSurface"><ModeToggle /></div>
-            <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
-              <Link href={"/"}>Login</Link>
-            </Button>
-            <Button asChild size={"xs"} className="rounded-full hidden sm:flex">
-              <Link href={"/signup"}>Sign up</Link>
-            </Button>
+            {user ? (
+              <UserButton />
+            ) : (
+              <>
+                <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
+                  <Link href={"/"}>Login</Link>
+                </Button>
+                <Button asChild size={"xs"} className="rounded-full hidden sm:flex">
+                  <Link href={"/signup"}>Sign up</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </section>

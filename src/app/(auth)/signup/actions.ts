@@ -65,7 +65,7 @@ export async function signUp(
       sessionCookie.attributes,
     );
     
-    return redirect("/");
+    return redirect("/dashboard");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { error: "Something went wrong. Please try again" };
