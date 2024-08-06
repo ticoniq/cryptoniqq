@@ -21,23 +21,22 @@ export async function signUp(
       email,
       password,
       name,
-      country,
     } = validatedData;
 
-    // const passwordHashed = await hash(password, {
-    //   memoryCost: 19456,
-    //   timeCost: 2,
-    //   outputLen: 32,
-    //   parallelism: 1,
-    // });
+    const passwordHashed = await hash(password, {
+      memoryCost: 19456,
+      timeCost: 2,
+      outputLen: 32,
+      parallelism: 1,
+    });
 
-    // const userId = generateIdFromEntropySize(10);
+    const userId = generateIdFromEntropySize(10);
 
-    // const existingUsername = await getUserByUsername(username);
+    const existingUser = await getUserByEmail(email);
 
-    // if (existingUsername) {
-    //   return { error: "Username is already taken" };
-    // }
+    if (existingUser) {
+      return { error: "Username is already taken" };
+    }
     
     // const existingEmail = await getUserByEmail(email);
 

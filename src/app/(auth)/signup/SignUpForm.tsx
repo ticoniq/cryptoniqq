@@ -1,5 +1,5 @@
 "use client";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { SignUpValues, signUpSchema } from "@/lib/validation/auth";
@@ -7,28 +7,36 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { signUp } from "./actions";
 import { PasswordInput } from "@/components/PasswordInput";
-import LoadingButton from "@/components/LoadingButton";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { LoadingButton } from "@/components/LoadingButton";
 import { CustomLink } from "@/components/CustomLink";
+import { PhoneInput } from "@/components/PhoneInput";
+import { CountryCode } from "libphonenumber-js";
 
 export function SignUpForm() {
   const [error, setError] = useState<string>();
   const [isPending, startTransition] = useTransition();
+  const [defaultCountryName, setdefaultCountryName] = useState<CountryCode | undefined>("NG" as CountryCode);
+
+  useEffect(() => {
+    const fetchCountry = async () => {
+      try {
+        const response = await fetch('/api/get-country');
+        if (!response.ok) throw new Error(`Error fetching country`);
+        const data = await response.json();
+        if (data.country) setdefaultCountryName(data.country);
+      } catch (error) {
+        throw new Error(`Something went wrong`);
+      }
+    };
+    fetchCountry();
+  }, []);
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       name: "",
-      country: "",
+      phone: "",
       password: "",
     },
   });
@@ -130,30 +138,19 @@ export function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="country"
+          name="phone"
           render={({ field }) => (
             <FormItem>
+              <span className="flex justify-start items-center gap-2">
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone*</FormLabel>
+                <FormMessage />
+              </span>
               <FormControl>
-                <Select
+                <PhoneInput
                   {...field}
-                  defaultValue=""
-                  onValueChange={field.onChange}
-                >
-                  <span className="flex justify-start items-center gap-2">
-                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Country*</FormLabel>
-                    <FormMessage />
-                  </span>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Select Country</SelectLabel>
-                      <SelectItem value="Nigeria">Nigeria</SelectItem>
-                      <SelectItem value="Ghana">Ghana</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                  international
+                  defaultCountry={defaultCountryName}
+                />
               </FormControl>
             </FormItem>
           )}

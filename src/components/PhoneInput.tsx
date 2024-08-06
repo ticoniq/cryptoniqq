@@ -1,5 +1,5 @@
-import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
+import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 import { Button } from "@/components/ui/button";
@@ -30,48 +30,40 @@ type PhoneInputProps = Omit<
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
     ({ className, onChange, ...props }, ref) => {
-      const [selectedCountry, setSelectedCountry] = React.useState<string>("NG");
-
       return (
         <RPNInput.default
           ref={ref}
           className={cn("flex", className)}
           flagComponent={FlagComponent}
-          countrySelectComponent={(props) => (
-            <CountrySelect
-              {...props}
-              value={selectedCountry}
-              onChange={(country) => {
-                setSelectedCountry(country);
-                props.onChange(country);
-              }}
-            />
-          )}
-          inputComponent={(props) => (
-            <InputComponent {...props} selectedCountry={selectedCountry} />
-          )}
-          countries={["NG", "GH"]} // Only Nigeria and Ghana
+          countrySelectComponent={CountrySelect}
+          inputComponent={InputComponent}
+          /**
+           * Handles the onChange event.
+           *
+           * react-phone-number-input might trigger the onChange event as undefined
+           * when a valid phone number is not entered. To prevent this,
+           * the value is coerced to an empty string.
+           *
+           * @param {E164Number | undefined} value - The entered value
+           */
+          countries={["NG", "GH"]}
           onChange={(value) => onChange?.(value as RPNInput.Value)}
           {...props}
         />
       );
-    }
+    },
   );
 PhoneInput.displayName = "PhoneInput";
 
-const InputComponent = React.forwardRef<
-  HTMLInputElement,
-  InputProps & { selectedCountry: string }
->(({ className, selectedCountry, ...props }, ref) => (
-  <div className="flex items-center">
+const InputComponent = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, ...props }, ref) => (
     <Input
       className={cn("rounded-e-lg rounded-s-none", className)}
       {...props}
       ref={ref}
     />
-    <span className="ml-2">{selectedCountry}</span>
-  </div>
-));
+  ),
+);
 InputComponent.displayName = "InputComponent";
 
 type CountrySelectOption = { label: string; value: RPNInput.Country };
@@ -93,7 +85,7 @@ const CountrySelect = ({
     (country: RPNInput.Country) => {
       onChange(country);
     },
-    [onChange]
+    [onChange],
   );
 
   return (
@@ -109,16 +101,16 @@ const CountrySelect = ({
           <ChevronsUpDown
             className={cn(
               "-mr-2 h-4 w-4 opacity-50",
-              disabled ? "hidden" : "opacity-100"
+              disabled ? "hidden" : "opacity-100",
             )}
           />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[300px] p-0">
         <Command>
-          <CommandInput placeholder="Search country..." />
-          <CommandEmpty>No country found.</CommandEmpty>
+          <CommandInput placeholder="Search framework..." className="h-9" />
           <CommandList>
+            <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
               {options
                 .filter((x) => x.value)
@@ -133,10 +125,15 @@ const CountrySelect = ({
                       countryName={option.label}
                     />
                     <span className="flex-1 text-sm">{option.label}</span>
+                    {option.value && (
+                      <span className="text-foreground/50 text-sm">
+                        {`+${RPNInput.getCountryCallingCode(option.value)}`}
+                      </span>
+                    )}
                     <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4",
-                        option.value === value ? "opacity-100" : "opacity-0"
+                        option.value === value ? "opacity-100" : "opacity-0",
                       )}
                     />
                   </CommandItem>

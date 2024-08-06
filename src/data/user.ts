@@ -17,6 +17,23 @@ export const getUserByUsername = async (username: string) => {
   }
 }
 
+export const phone = async (phone: string) => {
+ try {
+   const user = await prisma.user.findFirst({
+    where: {
+      phone: {
+        equals: phone,
+        mode: "insensitive",
+      },
+    },
+   });
+
+   return user;
+ } catch {
+    return null;
+  }
+}
+
 export const getUserByEmail = async (email: string) => {
  try {
    const user = await prisma.user.findFirst({
