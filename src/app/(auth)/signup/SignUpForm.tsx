@@ -20,7 +20,7 @@ export function SignUpForm() {
   useEffect(() => {
     const fetchCountry = async () => {
       try {
-        const response = await fetch('/api/get-country');
+        const response = await fetch('/api/get-country/name');
         if (!response.ok) throw new Error(`Error fetching country`);
         const data = await response.json();
         if (data.country) setdefaultCountryName(data.country);
@@ -35,7 +35,8 @@ export function SignUpForm() {
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
-      name: "",
+      firstName: "",
+      lastName: "",
       phone: "",
       password: "",
     },
@@ -59,6 +60,46 @@ export function SignUpForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-7 font-DMSans"
       >
+        <div className="grid grid-cols-1 space-y-7 md:grid-cols-2 md:gap-x-5 md:space-y-0">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <span className="flex justify-start items-center gap-x-2">
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal first name*</FormLabel>
+                  <FormMessage />
+                </span>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="Legal first name*"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <span className="flex justify-start items-center gap-x-2">
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal last name*</FormLabel>
+                  <FormMessage />
+                </span>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="Legal last name*"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="email"
@@ -73,6 +114,25 @@ export function SignUpForm() {
                   {...field}
                   type="email"
                   placeholder="Please enter your email."
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <span className="flex justify-start items-center gap-2">
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone*</FormLabel>
+                <FormMessage />
+              </span>
+              <FormControl>
+                <PhoneInput
+                  {...field}
+                  international
+                  defaultCountry={defaultCountryName}
                 />
               </FormControl>
             </FormItem>
@@ -117,44 +177,6 @@ export function SignUpForm() {
             )}
           />
         </div>
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal Full Name*</FormLabel>
-                <FormMessage />
-              </span>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="Please enter your full name."
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone*</FormLabel>
-                <FormMessage />
-              </span>
-              <FormControl>
-                <PhoneInput
-                  {...field}
-                  international
-                  defaultCountry={defaultCountryName}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
         {error && <p className="text-center text-destructive">{error}</p>}
         <p className="text-muted-foreground break-all">
           {"I certify that I am 18 years of age or older, I agree to the"}{" "}

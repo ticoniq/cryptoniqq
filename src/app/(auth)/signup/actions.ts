@@ -15,15 +15,18 @@ export async function signUp(
   try {
     const validatedData = signUpSchema.parse(credentials);
 
-    console.log(validatedData);
-
+    
     const {
       email,
       password,
-      name,
+      firstName,
+      lastName,
+      phone,
     } = validatedData;
+    
+    const name = `${firstName} ${lastName}`;
 
-    const passwordHashed = await hash(password, {
+    const passwordHash = await hash(password, {
       memoryCost: 19456,
       timeCost: 2,
       outputLen: 32,
@@ -32,37 +35,37 @@ export async function signUp(
 
     const userId = generateIdFromEntropySize(10);
 
-    const existingUser = await getUserByEmail(email);
+    const existingEmail = await getUserByEmail(email);
 
-    if (existingUser) {
-      return { error: "Username is already taken" };
+    if (existingEmail) {
+      return { error: "Email is already taken" };
     }
     
-    // const existingEmail = await getUserByEmail(email);
+    const existingPhone = await getUserByEmail(email);
 
-    // if (existingEmail) {
-    //   return { error: "Esmail already taken" };
-    // }
+    if (existingPhone) {
+      return { error: "Phone already taken" };
+    }
 
-    // await prisma.user.create({
-    //   data: {
-    //     id: userId,
-    //     email,
-    //     username,
-    //     displayName: username,
-    //     passwordHashed,
-    //   },
-    // });
+    await prisma.user.create({
+      data: {
+        id: userId,
+        email,
+        name,
+        phone,
+        passwordHash,
+      },
+    });
 
-    // const session = await lucia.createSession(userId, {});
-    // const sessionCookie = lucia.createSessionCookie(session.id);
-    // cookies().set(
-    //   sessionCookie.name,
-    //   sessionCookie.value,
-    //   sessionCookie.attributes,
-    // );
+    const session = await lucia.createSession(userId, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
     
-    // return redirect("/");
+    return redirect("/");
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { error: "Something went wrong. Please try again" };
