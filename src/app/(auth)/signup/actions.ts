@@ -10,6 +10,7 @@ import { lucia } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { generateEmailVerificationCode } from "@/lib/tokens";
 import { sendVerificationCode } from "@/lib/mail";
+import { Paths } from "@/lib/constants";
 
 export async function signUp(
   credentials: SignUpValues,
@@ -64,7 +65,7 @@ export async function signUp(
       sessionCookie.attributes,
     );
 
-    return redirect("/dashboard");
+    return redirect(Paths.VerifyEmail);
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { error: "Something went wrong. Please try again" };
