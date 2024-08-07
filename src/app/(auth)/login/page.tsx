@@ -14,11 +14,11 @@ import { Metadata } from "next";
 import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
-import { CTA } from "@/components/frontend/CTA";
-import { Footer } from "@/components/Footer";
+import { FooterSmall } from "@/components/FooterSmall";
 
 export const metadata: Metadata = {
   title: "Login",
+  description: "Login to Cryptoniq",
 };
 
 export default async function page() {
@@ -80,8 +80,7 @@ export default async function page() {
           </p>
         </section>
       </main>
-      <CTA />
-      <Footer />
+      <FooterSmall />
     </>
   )
 }
