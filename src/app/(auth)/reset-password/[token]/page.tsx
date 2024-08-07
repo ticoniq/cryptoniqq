@@ -7,24 +7,18 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "@radix-ui/react-icons";
-import { ResetPasswordForm } from "./ResetPasswordForm";
 import { CustomLink } from "@/components/CustomLink";
 import { Metadata } from "next";
-import { validateRequest } from "@/auth";
-import { redirect } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { FooterSmall } from "@/components/FooterSmall";
+import { NewPasswordForm } from "./NewPasswordForm";
 
 export const metadata: Metadata = {
   title: "Reset Password",
-  description: "Reset your password",
+  description: "Reset Password Page",
 };
 
-export default async function page() {
-  const session = await validateRequest();
-
-  if (session.user) return redirect("/dashboard");
-
+export default async function page({ params }: { params: { token: string } }) {
   return (
     <>
       <Navbar />
@@ -60,11 +54,11 @@ export default async function page() {
               Reset password
             </h1>
             <p className="text-xl font-lato text-muted-foreground">
-              {"Enter your email address and we'll send you the link to reset your password"}
+              Enter your new password below
             </p>
           </div>
 
-          <ResetPasswordForm />
+          <NewPasswordForm token={params.token} />
 
           <p className="text-muted-foreground text-center">
             Not a member?{" "}

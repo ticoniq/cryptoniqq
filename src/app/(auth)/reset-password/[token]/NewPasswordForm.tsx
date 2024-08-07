@@ -2,36 +2,44 @@
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ResetPasswordValues, resetPasswordSchema } from "@/lib/validation/auth";
+import { NewPasswordValues, newPasswordSchema } from "@/lib/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-import { resetPasswordLink } from "./actions";
+import { newPassword } from "./actions";
 import { LoadingButton } from "@/components/LoadingButton";
 import {
   Alert,
   AlertDescription,
 } from "@/components/ui/alert";
-import { CircleCheck, XIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
+import { PasswordInput } from "@/components/PasswordInput";
+import { Paths } from "@/lib/constants";
+import { redirect } from "next/navigation";
 
-export function ResetPasswordForm() {
+interface NewPasswordFormProps {
+  token: string;
+}
+
+export function NewPasswordForm({ token }: NewPasswordFormProps) {
   const [error, setError] = useState<string>();
-  const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<ResetPasswordValues>({
-    resolver: zodResolver(resetPasswordSchema),
+  const form = useForm<NewPasswordValues>({
+    resolver: zodResolver(newPasswordSchema),
+    mode: "onChange",
     defaultValues: {
-      email: "",
+      token: token,
+      password: "",
+      confirmPassword: "",
     },
   });
 
-  async function onSubmit(values: ResetPasswordValues) {
+  async function onSubmit(values: NewPasswordValues) {
     setError(undefined);
     startTransition(() => {
       startTransition(async () => {
-        const { error, success } = await resetPasswordLink(values);
+        const { error, success } = await newPassword(values);
         if (success) {
-          setSuccess(success);
+          redirect(Paths.Dashboard);
         }
         if (error) {
           setError(error);
@@ -48,18 +56,35 @@ export function ResetPasswordForm() {
       >
         <FormField
           control={form.control}
-          name="email"
+          name="password"
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Email*</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Password*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
-                <Input
+                <PasswordInput
                   {...field}
-                  type="email"
-                  placeholder="Please enter your email."
+                  placeholder="Please enter a password."
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <span className="flex justify-start items-center gap-2">
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Confirm Password*</FormLabel>
+                <FormMessage />
+              </span>
+              <FormControl>
+                <PasswordInput
+                  {...field}
+                  placeholder="Please re-enter your password."
                 />
               </FormControl>
             </FormItem>
@@ -72,16 +97,6 @@ export function ResetPasswordForm() {
             </div>
             <AlertDescription>
               {error}
-            </AlertDescription>
-          </Alert>
-        }
-        {success &&
-          <Alert className="bg-green-600/20 border-l-8 border-brand-success flex items-center gap-2">
-            <div className="h-8 w-8 bg-brand-success rounded-md flex justify-center items-center">
-              <CircleCheck className="h-4 w-4" />
-            </div>
-            <AlertDescription>
-              {success}
             </AlertDescription>
           </Alert>
         }
