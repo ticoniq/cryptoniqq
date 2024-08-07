@@ -70,10 +70,19 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Password*</FormLabel>
-                <FormMessage />
-              </span>
+              <div className="flex justify-between items-center">
+                <span className="flex justify-start items-center gap-2">
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Password*</FormLabel>
+                  <FormMessage />
+                </span>
+                <CustomLink
+                  href="/reset-password"
+                  className="text-brand-primary font-semibold"
+                  textarea={'Forgot your password?'}
+                  size={"sm"}
+                  divClassName="border-brand-primary border-b-2"
+                />
+              </div>
               <FormControl>
                 <PasswordInput
                   {...field}
@@ -95,6 +104,7 @@ export function LoginForm() {
         }
         <LoadingButton
           loading={isPending}
+          disabled={!form.formState.isValid}
           className="w-full"
           size={"lg"}
         >

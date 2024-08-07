@@ -2,10 +2,14 @@
 import { logout } from "@/app/(auth)/action";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
-import { Home, LogOutIcon } from "lucide-react";
+import { privateLinks } from "@/lib/constants";
+import { LayoutPanelLeft, LogOutIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SideBar() {
+  const pathname = usePathname();
+
   return (
     <div className="hidden border-r bg-muted/40 md:block font-DMSans">
       <div className="flex h-full max-h-screen flex-col gap-2">
@@ -13,14 +17,21 @@ export default function SideBar() {
           <Logo link="/dashboard" />
         </div>
         <div className="flex-1">
-          <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-            <Link
-              href="#"
-              className="flex items-center gap-3 rounded-full bg-brand-primary px-3 py-2 text-primary transition-all hover:text-primary"
-            >
-              <Home className="h-6 w-6" />
-              Dashboard
-            </Link>
+          <nav className="grid items-start px-2 mt-2 text-sm font-medium lg:px-4">
+            <ul className="flex flex-col gap-y-2">
+              {privateLinks.map((link) => (
+                <Link
+                  href={link.href}
+                  key={link.title}
+                  className={`group/item flex items-center gap-3 rounded-full px-5 py-3 text-primary transition-all hover:bg-brand-primary hover:text-white
+                  ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
+                >
+                  {link.icon && <link.icon className={`text-brand-primary h-6 w-6 group/edit group-hover/item:text-white
+                  ${pathname === link.href ? "text-white" : ""}`} />}
+                  {link.title}
+                </Link>
+              ))}
+            </ul>
           </nav>
         </div>
         <div className="mt-auto p-4">
