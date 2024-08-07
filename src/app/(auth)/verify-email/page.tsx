@@ -31,15 +31,6 @@ export default async function page() {
 
         <VerifyCodeForm />
 
-        <p className="text-muted-foreground text-center">
-          Already have an account?{" "}
-          <CustomLink
-            href="/login"
-            className="text-brand-primary font-semibold"
-            textarea={'Login'}
-            divClassName="border-brand-primary border-b-2"
-          />
-        </p>
       </section>
     </main>
   )

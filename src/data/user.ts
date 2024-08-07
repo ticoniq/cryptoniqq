@@ -75,3 +75,34 @@ export const getVerifyEmailCode = async (code: string) => {
     return null;
   }
 }
+
+export const getLastSentVerificationCode = async (userId: string) => {
+  try {
+    const verificationCode = await prisma.emailVerificationCode.findFirst({
+      where: {
+        userId: {
+          equals: userId,
+        },
+      },
+      select: {
+        expiresAt: true,
+        code: true,
+        user: {
+          select: {
+            id: true,
+            email: true,
+            email_verified: true,
+          },
+        },
+      },
+      orderBy: {
+        expiresAt: 'desc',
+      },
+    });
+
+    return verificationCode;
+  } catch (error) {
+    console.error("Error fetching last sent verification code:", error);
+    return null;
+  }
+}

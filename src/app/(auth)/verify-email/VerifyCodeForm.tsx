@@ -6,6 +6,7 @@ import { confirmEmailSchema, ConfirmEmailValues } from "@/lib/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@/components/LoadingButton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useToast } from "@/components/ui/use-toast";
 import { XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,11 +15,16 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
-import { verifyEmail } from "./actions";
+import { verifyEmail, resendVerificationEmail } from "./actions";
+import { CustomLink } from "@/components/CustomLink";
+import { logout } from "../action";
 
 export function VerifyCodeForm() {
+  const { toast } = useToast();
   const [error, setError] = useState<string>();
+  const [success, setSuccess] = useState<string>();
   const [isPending, startTransition] = useTransition();
+  const [isPendingSubmit, startTransitionSubmit] = useTransition();
 
   const form = useForm<ConfirmEmailValues>({
     resolver: zodResolver(confirmEmailSchema),
@@ -39,8 +45,31 @@ export function VerifyCodeForm() {
     });
   }
 
+  const resendForm = useForm();
+  async function onSubmitEmailVerify() {
+    setError(undefined);
+    startTransitionSubmit(() => {
+      startTransitionSubmit(async () => {
+        const { error, success } = await resendVerificationEmail();
+        if (success) {
+          toast({
+            title: "Verification code sent",
+            description: "Please check your email for the new verification code.",
+          })
+        }
+        if (error) {
+          toast({
+            title: "Error",
+            description: error || "Failed to resend verification code",
+            variant: "destructive",
+          })
+        }
+      });
+    });
+  }
+
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 space-y-10">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -96,16 +125,33 @@ export function VerifyCodeForm() {
           </LoadingButton>
         </form>
       </Form>
-      <form>
-        <Button className="w-full" variant="secondary">
-          Resend Code
-        </Button>
-      </form>
-      <form>
-        <Button variant="link" className="p-0 font-normal">
-          want to use another email? Log out now.
-        </Button>
-      </form>
+      <Form {...resendForm}>
+        <form
+          onSubmit={resendForm.handleSubmit(onSubmitEmailVerify)}
+        >
+          <LoadingButton
+            loading={isPendingSubmit}
+            className="w-full"
+            variant="secondary"
+            size={"lg"}
+          >
+            Resend Code
+          </LoadingButton>
+        </form>
+      </Form>
+
+      <p className="text-muted-foreground text-center">
+        want to use another email?{" "}
+        <CustomLink
+          href="/login"
+          onClick={() => {
+            logout();
+          }}
+          className="text-brand-primary font-semibold"
+          textarea={'Log out now'}
+          divClassName="border-brand-primary border-b-2"
+        />
+      </p>
     </div>
   )
 }
