@@ -14,19 +14,20 @@ datasource db {
 }
 
 model User {
-  id                      String                    @id
-  username                String?                   @unique
+  id                      String                  @id
+  username                String?                 @unique
   name                    String
-  email                   String?                   @unique
-  phone                   String?                   @unique
+  email                   String?                 @unique
+  phone                   String?                 @unique
   passwordHash            String?
-  googleId                String?                   @unique
+  googleId                String?                 @unique
   avatarUrl               String?
   country                 String?
-  onboardingCompleted     Boolean                   @default(false)
-  email_verified          Boolean                   @default(false)
+  onboardingCompleted     Boolean                 @default(false)
+  email_verified          Boolean                 @default(false)
   sessions                Session[]
   email_verification_code emailVerificationCode[]
+  resetTokens             passwordResetToken[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -54,4 +55,15 @@ model emailVerificationCode {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("email_verification_codes")
+}
+
+model passwordResetToken {
+  id         String   @id @default(cuid())
+  token_hash String
+  userId     String
+  expiresAt  DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reset_tokens")
 }

@@ -1,55 +1,59 @@
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
+import { TimeSpan, createDate } from "oslo";
+import { sha256 } from "oslo/crypto";
+import { encodeHex } from "oslo/encoding";
+import { generateIdFromEntropySize } from "lucia";
 
 export const getUserByUsername = async (username: string) => {
- try {
-   const user = await prisma.user.findFirst({
-    where: {
-      username: {
-        equals: username,
-        mode: "insensitive",
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        username: {
+          equals: username,
+          mode: "insensitive",
+        },
       },
-    },
-   });
+    });
 
-   return user;
- } catch {
+    return user;
+  } catch {
     return null;
   }
-}
+};
 
 export const getUserByphone = async (phone: string) => {
- try {
-   const user = await prisma.user.findFirst({
-    where: {
-      phone: {
-        equals: phone,
-        mode: "insensitive",
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        phone: {
+          equals: phone,
+          mode: "insensitive",
+        },
       },
-    },
-   });
+    });
 
-   return user;
- } catch {
+    return user;
+  } catch {
     return null;
   }
-}
+};
 
 export const getUserByEmail = async (email: string) => {
- try {
-   const user = await prisma.user.findFirst({
-    where: {
-      email: {
-        equals: email,
-        mode: "insensitive",
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: {
+          equals: email,
+          mode: "insensitive",
+        },
       },
-    },
-   });
+    });
 
-   return user;
- } catch {
+    return user;
+  } catch {
     return null;
   }
-}
+};
 
 export const getVerifyEmailCode = async (code: string) => {
   try {
@@ -74,7 +78,7 @@ export const getVerifyEmailCode = async (code: string) => {
   } catch (error) {
     return null;
   }
-}
+};
 
 export const getLastSentVerificationCode = async (userId: string) => {
   try {
@@ -96,13 +100,40 @@ export const getLastSentVerificationCode = async (userId: string) => {
         },
       },
       orderBy: {
-        expiresAt: 'desc',
+        expiresAt: "desc",
       },
     });
 
     return verificationCode;
   } catch (error) {
-    console.error("Error fetching last sent verification code:", error);
+    return null;
+  }
+};
+
+export const generatePasswordResetToken = async (userId: string) => {
+  try {
+    // Invalidate all existing tokens
+    await prisma.passwordResetToken.deleteMany({
+      where: {
+        userId: userId
+      }
+    });
+
+    const tokenId = generateIdFromEntropySize(25); // 40 character
+    const tokenHash = encodeHex(await sha256(new TextEncoder().encode(tokenId)));
+
+    await prisma.passwordResetToken.create({
+      data: {
+        token_hash: tokenHash,
+        userId: userId,
+        expiresAt: createDate(new TimeSpan(2, "h"))
+      }
+    });
+
+    return tokenId;
+  } catch (error) {
     return null;
   }
 }
+
+

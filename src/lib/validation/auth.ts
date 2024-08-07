@@ -16,19 +16,12 @@ export const signUpSchema = z
     firstName: requiredString
       .min(3, "(at least 2 characters)")
       .max(30, "(less than 30 characters)")
-      .regex(
-        /^[a-zA-Z]+$/,
-        "(only contain letters)",
-      ),
+      .regex(/^[a-zA-Z]+$/, "(only contain letters)"),
     lastName: requiredString
       .min(3, "(at least 2 characters)")
       .max(30, "(less than 30 characters)")
-      .regex(
-        /^[a-zA-Z]+$/,
-       "(only contain letters)",
-      ),
-    email: requiredString
-      .email("(Invalid email address)"),
+      .regex(/^[a-zA-Z]+$/, "(only contain letters)"),
+    email: requiredString.email("(Invalid email address)"),
     phone: requiredString,
     password: requiredString
       .min(
@@ -53,19 +46,24 @@ export type SignUpValues = z.infer<typeof signUpSchema>;
   username: requiredString,
   password: requiredString,
  */
-  export const loginSchema = z.object({
-    email: requiredString
-      .email("(Invalid email address)"),
-    password: requiredString,
-  });
-  
-  export type LoginValues = z.infer<typeof loginSchema>;
+export const loginSchema = z.object({
+  email: requiredString.email("(Invalid email address)"),
+  password: requiredString,
+});
 
-  export const confirmEmailSchema = z.object({
-    code: requiredString
-      .min(8, "Must be at least 8 characters")
-      .max(8, "Cannot exceed 6 characters")
-      .regex(/^[A-Za-z0-9]+$/, "Must only contain alphanumeric characters"),
-  });
-  
-  export type ConfirmEmailValues = z.infer<typeof confirmEmailSchema>;
+export type LoginValues = z.infer<typeof loginSchema>;
+
+export const confirmEmailSchema = z.object({
+  code: requiredString
+    .min(8, "Must be at least 8 characters")
+    .max(8, "Cannot exceed 6 characters")
+    .regex(/^[A-Za-z0-9]+$/, "Must only contain alphanumeric characters"),
+});
+
+export type ConfirmEmailValues = z.infer<typeof confirmEmailSchema>;
+
+export const resetPasswordSchema = z.object({
+  email: requiredString.email("(Invalid email address)"),
+});
+
+export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
