@@ -30,7 +30,7 @@ export const signUpSchema = z
       )
       .regex(
         passwordRegex,
-        "(6 or more characters, including numbers and special characters)",
+        "(8 or more characters, including numbers and special characters)",
       ),
     confirmPassword: requiredString,
   })
@@ -67,3 +67,24 @@ export const resetPasswordSchema = z.object({
 });
 
 export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
+
+export const newPasswordSchema = z
+.object({
+  token: requiredString,
+  password: requiredString
+    .min(
+      6,
+      "(8 or more characters, including numbers and special characters)",
+    )
+    .regex(
+      passwordRegex,
+      "(8 or more characters, including numbers and special characters)",
+    ),
+  confirmPassword: requiredString,
+})
+.refine((data) => data.password === data.confirmPassword, {
+  message: "(Passwords don't match)",
+  path: ["confirmPassword"],
+});
+
+export type NewPasswordValues = z.infer<typeof newPasswordSchema>;
