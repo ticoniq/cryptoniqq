@@ -72,8 +72,6 @@ export async function resendVerificationEmail() {
     return redirect(Paths.Login);
   }
 
-  console.log("working");
-
   const lastSent = await getLastSentVerificationCode(user.id);
 
   if (lastSent && isWithinExpirationDate(lastSent.expiresAt)) {
