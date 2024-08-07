@@ -50,3 +50,28 @@ export const getUserByEmail = async (email: string) => {
     return null;
   }
 }
+
+export const getVerifyEmailCode = async (code: string) => {
+  try {
+    const verificationCode = await prisma.emailVerificationCode.findFirst({
+      where: {
+        code: {
+          equals: code,
+        },
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            email_verified: true,
+          },
+        },
+      },
+    });
+
+    return verificationCode;
+  } catch (error) {
+    return null;
+  }
+}

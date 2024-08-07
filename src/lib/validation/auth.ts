@@ -27,10 +27,7 @@ export const signUpSchema = z
         /^[a-zA-Z]+$/,
        "(only contain letters)",
       ),
-    email: z
-      .string()
-      .trim()
-      .min(1, "(Required)")
+    email: requiredString
       .email("(Invalid email address)"),
     phone: requiredString,
     password: requiredString
@@ -57,12 +54,18 @@ export type SignUpValues = z.infer<typeof signUpSchema>;
   password: requiredString,
  */
   export const loginSchema = z.object({
-    email: z
-      .string()
-      .trim()
-      .min(1, "(Required)")
+    email: requiredString
       .email("(Invalid email address)"),
     password: requiredString,
   });
   
   export type LoginValues = z.infer<typeof loginSchema>;
+
+  export const confirmEmailSchema = z.object({
+    code: requiredString
+      .min(8, "Must be at least 8 characters")
+      .max(8, "Cannot exceed 6 characters")
+      .regex(/^[A-Za-z0-9]+$/, "Must only contain alphanumeric characters"),
+  });
+  
+  export type ConfirmEmailValues = z.infer<typeof confirmEmailSchema>;

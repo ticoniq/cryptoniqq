@@ -14,8 +14,8 @@ export function replaceHyphenWithSpace(str: string): string {
 }
 
 export function addHyphenAfterThreeDigits(input: string): string {
-  if (typeof input !== 'string' || input.length < 3) {
+  if (typeof input !== 'string' || input.length < 8) {
     return input;
   }
-  return input.slice(0, 3) + '-' + input.slice(3);
+  return input.slice(0, 4) + '-' + input.slice(4);
 }

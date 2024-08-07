@@ -11,6 +11,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { generateEmailVerificationCode } from "@/lib/tokens";
 import { sendVerificationCode } from "@/lib/mail";
 import { Paths } from "@/lib/constants";
+import { addHyphenAfterThreeDigits } from "@/lib/utils";
 
 export async function signUp(
   credentials: SignUpValues,
@@ -53,7 +54,8 @@ export async function signUp(
       },
     });
 
-    const verificationCode = await generateEmailVerificationCode(userId, email);
+    const code = await generateEmailVerificationCode(userId, email);
+    const verificationCode = addHyphenAfterThreeDigits(code);
     
     await sendVerificationCode(email, verificationCode);
 

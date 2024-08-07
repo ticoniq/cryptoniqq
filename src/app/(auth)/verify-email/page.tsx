@@ -3,9 +3,7 @@ import { Metadata } from "next";
 import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
 import { Paths } from "@/lib/constants";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { VerifyCodeForm } from "./VerifyCodeForm";
 
 export const metadata: Metadata = {
   title: "Verify Email",
@@ -31,25 +29,7 @@ export default async function page() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <form>
-            <Label htmlFor="code">Verification Code</Label>
-            <Input className="mt-2" type="text" id="code" name="code" required />
-            <Button className="mt-4 w-full" aria-label="submit-btn">
-              Verify
-            </Button>
-          </form>
-          <form>
-            <Button className="w-full" variant="secondary">
-              Resend Code
-            </Button>
-          </form>
-          <form>
-            <Button variant="link" className="p-0 font-normal">
-              want to use another email? Log out now.
-            </Button>
-          </form>
-        </div>
+        <VerifyCodeForm />
 
         <p className="text-muted-foreground text-center">
           Already have an account?{" "}
