@@ -21,7 +21,7 @@ export function CTA() {
             </p>
           </div>
           <Button asChild className="bg-white font-bold text-brand-onSurface rounded-full">
-            <Link href={"/"}>
+            <Link href={"/signup"}>
               Create Account
             </Link>
           </Button>

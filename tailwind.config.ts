@@ -14,7 +14,7 @@ const config = {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "1150px",
+        "2xl": "1200px",
       },
     },
     extend: {
@@ -89,10 +89,26 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-10px)' },
+          '20%, 40%, 60%, 80%': { transform: 'translateX(10px)' },
+        },
+        sway: {
+          '0%': { transform: 'rotate(0deg)' },
+          '50%': { transform: 'rotate(15deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        shake: 'shake 0.5s ease-in-out',
+        sway: 'sway 0.6s ease-out',
       },
       fontFamily: {
         DMSans: ["DM Sans", "sans-serif"],
@@ -101,6 +117,7 @@ const config = {
       backgroundImage: theme => ({
         'hero-pattern': "url('/assets/images/background.png')",
         'custom-gradient': "linear-gradient(to right, #4f46e5, #3b82f6)",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
       }),
     },
   },

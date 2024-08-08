@@ -13,7 +13,7 @@ export function Logo({ link = "/" }: LogoProps) {
       <span className="sr-only">JobConiq</span>
       <Image
         src={logo}
-        alt="JobConiq Logo"
+        alt="cryptoniq Logo"
         width={160}
         height={32}
         priority={true}
@@ -21,7 +21,7 @@ export function Logo({ link = "/" }: LogoProps) {
       />
       <Image
         src={logoLight}
-        alt="JobConiq Logo"
+        alt="cryptoniq Logo"
         width={160}
         height={32}
         priority={true}
