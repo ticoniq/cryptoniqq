@@ -1,32 +1,33 @@
-"use client";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
-import { useSession } from "../_component/SessionProvider";
-import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+import { Separator } from "@/components/ui/separator";
+import { validateRequest } from "@/auth";
+import { VerificiationWarning } from "../_component/VerificiationWarning";
 
-export default function Page() {
-  const { user } = useSession();
+export const metadata: Metadata = {
+  title: "Dashboard",
+}
+
+export default async function Page() {
+  const session = await validateRequest();
 
   // useEffect(() => {
-  //   if (!user.onboardingCompleted) return redirect("/onboarding");
+  //   if (!session.user?.onboardingCompleted) return redirect("/onboarding");
   // }, [user.onboardingCompleted]);
 
   return (
     <>
-      <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
-      </div>
-      <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
-        <div className="flex flex-col items-center gap-1 text-center">
-          <h3 className="text-2xl font-bold tracking-tight">
-            You have no products
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            You can start selling as soon as you add a product.
-          </p>
-          <Button className="mt-4">Add Product</Button>
+      <section className="container py-10 md:py-20 space-y-6">
+        <VerificiationWarning />
+        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+          <article className="flex-1">
+            <div>
+              <h3 className="text-lg md:text-3xl">Dashboard </h3>
+              <Separator className="my-10" />
+            </div>
+            things on things
+          </article>
         </div>
-      </div>
+      </section>
     </>
   )
 }
