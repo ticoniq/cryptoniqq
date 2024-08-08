@@ -6,7 +6,6 @@ import { InfoSchema, infoSchema } from "@/lib/validation/account";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 // import { login } from "./actions";
-import { PasswordInput } from "@/components/PasswordInput";
 import { LoadingButton } from "@/components/LoadingButton";
 import { CustomLink } from "@/components/CustomLink";
 import { useSession } from "../_component/SessionProvider";
@@ -17,6 +16,9 @@ import {
 } from "@/components/ui/alert";
 import { RocketIcon, XIcon } from "lucide-react";
 import { getFirstName, getLastName } from "@/lib/utils";
+import { PhoneInput } from "@/components/PhoneInput";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Information() {
   const { user } = useSession();
@@ -33,7 +35,7 @@ export default function Information() {
       lastName: lastname,
       username: user.username || "",
       email: user.email,
-      phone: "",
+      phone: user.phone || "",
     },
   });
 
@@ -49,7 +51,7 @@ export default function Information() {
       });
     });
   }
-  
+
 
   return (
     <div>
@@ -136,10 +138,43 @@ export default function Information() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <span className="flex justify-start items-center gap-2">
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone*</FormLabel>
+                    <FormMessage />
+                  </span>
+                  <FormControl>
+                    <div className="flex justify-between items-center gap-x-3">
+                      <PhoneInput
+                        {...field}
+                        international
+                        defaultCountry={"US"}
+                        className="w-full"
+                      />
+                      <Button
+                        variant={"outline"}
+                        size={"sm"}
+                        className="rounded-lg h-10"
+                        asChild
+                      >
+                        <Link href="/account">
+                          verify
+                        </Link>
+                      </Button>
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </div>
           <LoadingButton
             loading={isPending}
             size={"sm"}
+            className="w-full md:w-fit"
           >
             Update Info
           </LoadingButton>
