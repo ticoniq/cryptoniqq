@@ -10,6 +10,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "@radix-ui/react-icons";
+import Information from "./Information";
 
 export const metadata: Metadata = {
   title: "General Settings",
@@ -47,7 +48,9 @@ export default function page() {
               <h3 className="text-lg md:text-3xl">General Settings</h3>
               <Separator className="my-10" />
             </div>
-            things on things
+            <div>
+              <Information />
+            </div>
           </article>
         </div>
       </section>
