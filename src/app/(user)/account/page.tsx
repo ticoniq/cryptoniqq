@@ -26,7 +26,7 @@ export default function page() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/Dashboard">Dashboard</BreadcrumbLink>
+                <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator>
                 <SlashIcon />
@@ -38,7 +38,7 @@ export default function page() {
           </Breadcrumb>
         </div>
       </section>
-      <section className="container py-10 md:py-[4.4rem] space-y-6">
+      <section className="container py-10 md:py-20 space-y-6">
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="lg:w-1/5">
             <SidebarNav />

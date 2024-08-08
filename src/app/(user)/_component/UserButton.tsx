@@ -48,19 +48,19 @@ export function UserButton({ className }: UserButtonProps) {
         </DropdownMenuLabel>
         <div className="py-1">
           <Link href="/account">
-            <DropdownMenuItem className="text-base text-brand-hover dark:text-brand-secondary2 focus:bg-brand-surface hover:dark:bg-brand-bg py-2">
+            <DropdownMenuItem className="cursor-pointer text-base text-brand-hover dark:text-brand-secondary2 focus:bg-brand-surface hover:dark:bg-brand-bg py-2">
               <Settings className="mr-2 size-4" />
               Account Settings
             </DropdownMenuItem>
           </Link>
           <Link href="/account">
-            <DropdownMenuItem className="text-base text-brand-hover dark:text-brand-secondary2 focus:bg-brand-surface hover:dark:bg-brand-bg py-2">
+            <DropdownMenuItem className="cursor-pointer text-base text-brand-hover dark:text-brand-secondary2 focus:bg-brand-surface hover:dark:bg-brand-bg py-2">
               <SendToBack className="mr-2 size-4" />
               Order & Trade
             </DropdownMenuItem>
           </Link>
           <Link href="/account">
-            <DropdownMenuItem className="text-base text-brand-hover dark:text-brand-secondary2 focus:bg-brand-surface hover:dark:bg-brand-bg py-2">
+            <DropdownMenuItem className="cursor-pointer text-base text-brand-hover dark:text-brand-secondary2 focus:bg-brand-surface hover:dark:bg-brand-bg py-2">
               <MessageSquare className="mr-2 size-4" />
               Support
             </DropdownMenuItem>
@@ -73,7 +73,7 @@ export function UserButton({ className }: UserButtonProps) {
             onClick={() => {
               logout();
             }}
-            className="px-3 text-base text-brand-critical focus:text-brand-critical w-fit dark:text-red-300 focus:bg-red-500/20 hover:dark:bg-red-600/20"
+            className="cursor-pointer px-3 text-base text-brand-critical focus:text-brand-critical w-fit dark:text-red-300 focus:bg-red-500/20 hover:dark:bg-red-600/20"
           >
             Logout
             <PowerIcon className="ml-2 size-4 text-brand-critical" />

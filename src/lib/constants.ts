@@ -1,4 +1,4 @@
-import { Cog, LayoutPanelLeft, User, Settings, Shield, Users, Lock } from "lucide-react";
+import { Cog, LayoutPanelLeft, User, Settings, LockIcon, Lock, GiftIcon } from "lucide-react";
 
 export const APP_TITLE = "Cryptoniq";
 export const EMAIL_SENDER = '"Cryptoniq" <no-reply@cryptoniq.tech>';
@@ -24,8 +24,8 @@ export const privateLinks = [
 
 export const SettingsSidebarLinks = [
   { href: "/account", title: "General", icon: Settings },
-  { href: "/account/security", title: "Security", icon: Shield },
-  { href: "/account/referrals", title: "Referrals", icon: Users },
+  { href: "/account/security", title: "Security", icon: LockIcon },
+  { href: "/account/referrals", title: "Referrals", icon: GiftIcon },
   { href: "/account/change-password", title: "Change Password", icon: Lock },
 ];
 
