@@ -44,7 +44,7 @@ export function Navbar() {
   return (
     // <header className={`sticky top-0 z-40 font-DMSans h-12 flex items-center bg-background py-1
     //   ${showShadow ? 'shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50' : ''}`}>
-    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 font-DMSans">
+    <header className="flex h-14 items-center gap-4 px-4 lg:h-[60px] lg:px-6 font-DMSans dark:bg-brand-bg">
       <Sheet>
         <SheetTrigger asChild>
           <Button
