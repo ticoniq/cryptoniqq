@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "@radix-ui/react-icons";
 import Information from "./Information";
+import { Button } from "@/components/ui/button";
+import { CircleXIcon, Loader2 } from "lucide-react";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "General Settings",
@@ -49,8 +52,18 @@ export default function page() {
               <Separator className="my-10" />
             </div>
             <div>
-              <Information />
+              <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+                <Information />
+              </Suspense>
             </div>
+            <Button
+              className="mt-10 px-5 border-brand-critical space-x-2 text-brand-critical hover:bg-red-600/20"
+              variant={"outline"}
+              size={"sm"}
+            >
+              <CircleXIcon className="w-5 h-5" />
+              <span>Delete Account</span>
+            </Button>
           </article>
         </div>
       </section>
