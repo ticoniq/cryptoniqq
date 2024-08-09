@@ -5,12 +5,12 @@ import { cookies } from "next/headers";
 
 export async function logout() {
   const { session } = await validateRequest();
-  
+
   if (session) {
     try {
       await lucia.invalidateSession(session.id);
     } catch (error) {
-      console.error("Failed to invalidate session:", error);
+      throw new Error ("Failed to invalidate session");
     }
   }
 

@@ -60,13 +60,13 @@ export default function Information() {
         });
   
         toast({
-          description: response.data.message || 'User information updated successfully',
+          description: response.data.message || 'Profile updated!',
         });
       } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
           toast({
             variant: "destructive",
-            description: err.response.data.message || 'Failed to update user information',
+            description: err.response.data.message || 'Failed to update profile',
           });
         } else {
           toast({

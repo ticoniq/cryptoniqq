@@ -8,7 +8,7 @@ export async function PUT(req: NextRequest) {
   try {
     const session = await validateRequest();
     if (!session || !session.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized!" }, { status: 401 });
     }
 
     const body = await req.json();
@@ -20,7 +20,7 @@ export async function PUT(req: NextRequest) {
     const validatedData = infoSchema.parse(body);
 
     if (!validatedData) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid data!" }, { status: 400 });
     }
 
     const name = `${validatedData.firstName} ${validatedData.lastName}`;
@@ -40,10 +40,10 @@ export async function PUT(req: NextRequest) {
     revalidatePath("/account");
 
     return NextResponse.json(
-      { message: "User information updated successfully", user: updatedUser },
+      { message: "Profile updated!", user: updatedUser },
       { status: 200 },
     );
   } catch (error) {
-    return Response.json({ error: "Internal server error" }, { status: 500 });
+    return Response.json({ error: "Internal server error!" }, { status: 500 });
   }
 }

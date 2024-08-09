@@ -96,7 +96,6 @@ export function DeleteAccountButton() {
         <Input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
         />
       </div>
       <div className="flex justify-start sm:justify-end space-x-2">
@@ -106,6 +105,7 @@ export function DeleteAccountButton() {
         <LoadingButton
           variant="destructive"
           loading={isPending}
+          disabled={email !== user.email}
           onClick={handleDelete}
         >
           Yes, Delete Account Forever

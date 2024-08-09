@@ -10,18 +10,18 @@ export async function DELETE(request: Request) {
     const session = await validateRequest();
 
     if (!session || !session.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized!" }, { status: 401 });
     }
 
     const body = await request.json();
     const validatedData = deleteAccountSchema.parse(body);
 
     if (!validatedData) {
-      return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid data!' }, { status: 400 });
     }
 
     if (validatedData.email !== session.user.email) {
-      return NextResponse.json({ error: 'Email does not match the logged-in user' }, { status: 400 });
+      return NextResponse.json({ error: 'Email does not match the logged-in user!' }, { status: 400 });
     }
 
     // Delete the user account
@@ -35,7 +35,7 @@ export async function DELETE(request: Request) {
 
     // TODO: do some weird stuff later
 
-    return NextResponse.json({ message: 'Account deleted successfully' }, { status: 200 });
+    return NextResponse.json({ message: 'Account deleted!' }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
   }

@@ -40,7 +40,6 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
     >
       <div className="mb-6 rounded-md flex flex-col justify-center items-center gap-y-4">
         <div className="relative inline-block">
-          {/* <UserAvatar avatarUrl={user.avatarUrl} size={100} /> */}
           <UserAvatar avatarUrl={previewUrl || user.avatarUrl} size={100} />
           <div className="absolute bottom-0 right-0">
             <Button
