@@ -128,7 +128,7 @@ export function DeleteAccountButton() {
               <span>Delete Account</span>
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="p-2 sm:hidden">
+          <DrawerContent className="p-2">
             <DrawerHeader className="text-start font-DMSans rounded-md space-y-5">
               <DrawerTitle className="text-lg">Delete Account</DrawerTitle>
               <DrawerDescription className="space-y-3">
@@ -155,7 +155,7 @@ export function DeleteAccountButton() {
               <span>Delete Account</span>
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent className="font-DMSans rounded-md space-y-5 w-[30rem] hidden sm:block">
+          <AlertDialogContent className="font-DMSans rounded-md space-y-5 w-[30rem]">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-lg">Delete Account</AlertDialogTitle>
               <AlertDialogDescription className="space-y-3">
