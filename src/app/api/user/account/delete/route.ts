@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import { deleteAccountSchema } from "@/lib/validation/account";
 import { validateRequest } from "@/auth";
+import { getFirstName } from "@/lib/utils";
+import { AccountDeletionEmail } from "@/lib/mail";
 
 export async function DELETE(request: Request) {
   try {
@@ -18,7 +20,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
     }
 
-    if (validatedData.email !== session.user?.email) {
+    if (validatedData.email !== session.user.email) {
       return NextResponse.json({ error: 'Email does not match the logged-in user' }, { status: 400 });
     }
 
@@ -26,6 +28,10 @@ export async function DELETE(request: Request) {
     await prisma.user.delete({
       where: { email: validatedData.email },
     });
+
+    const firstname = getFirstName(session.user.name);
+    
+    await AccountDeletionEmail(session.user.email, firstname);
 
     // TODO: do some weird stuff later
 
