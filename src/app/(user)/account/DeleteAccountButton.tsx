@@ -1,5 +1,4 @@
 "use client";
-import axios from "axios";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleXIcon } from "lucide-react";
@@ -35,56 +34,36 @@ export function DeleteAccountButton() {
     }
 
     try {
-      const response = await axios.delete('/api/user/account/delete', {
-        data: { email },
+      const response = await fetch('/api/user/account/delete', {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        timeout: 10000,
+        body: JSON.stringify({ email }),
       });
 
-      if (response.status === 200) {
-        toast({
-          title: "Success",
-          description: "Your account has been deleted successfully.",
-        });
+      const data = await response.json();
 
-        await logout(); // Using Lucia for logout
-      } else {
+      if (!response.ok) {
         toast({
           title: "Error",
-          description: response.data?.error || "Failed to delete the account. Please try again later.",
+          description: "An unexpected error occurred. Please try again later",
           variant: "destructive",
         });
       }
+
+      toast({
+        title: "Success",
+        description: "Your account has been deleted successfully.",
+      });
+
+      await logout(); // using Lucia
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          toast({
-            title: "Error",
-            description: error.response.data?.error || "Server error occurred. Please try again later.",
-            variant: "destructive",
-          });
-        } else if (error.request) {
-          toast({
-            title: "Error",
-            description: "No response from the server. Please check your internet connection.",
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: "Request setup error. Please try again later.",
-            variant: "destructive",
-          });
-        }
-      } else {
-        toast({
-          title: "Error",
-          description: "An unexpected error occurred. Please try again later.",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again later",
+        variant: "destructive",
+      });
     }
   };
 
