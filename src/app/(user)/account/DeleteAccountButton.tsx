@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleXIcon } from "lucide-react";
@@ -34,23 +35,13 @@ export function DeleteAccountButton() {
     }
 
     try {
-      const response = await fetch('/api/user/account/delete', {
-        method: 'DELETE',
+      const response = await axios.delete('/api/user/account/delete', {
+        data: { email },
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        timeout: 10000,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast({
-          title: "Error",
-          description: "An unexpected error occurred. Please try again later",
-          variant: "destructive",
-        });
-      }
 
       toast({
         title: "Success",
@@ -58,12 +49,18 @@ export function DeleteAccountButton() {
       });
 
       await logout(); // using Lucia
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again later",
-        variant: "destructive",
-      });
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        toast({
+          variant: "destructive",
+          description: err.response.data.message || 'An unexpected error occurred. Please try again later',
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          description: "An unexpected error occurred. Please try again later",
+        });
+      }
     }
   };
 
