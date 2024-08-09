@@ -3,13 +3,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SettingsSidebarLinks } from "@/lib/constants";
-import { UserAvatar } from "../_component/UserAvatar";
 import { useSession } from "../_component/SessionProvider";
-import { CameraIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import ImageUpload from "./ImageUpload";
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> { }
 
@@ -39,27 +35,7 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
       {...props}
     >
       <div className="mb-6 rounded-md flex flex-col justify-center items-center gap-y-4">
-        <div className="relative inline-block">
-          <UserAvatar avatarUrl={previewUrl || user.avatarUrl} size={100} />
-          <div className="absolute bottom-0 right-0">
-            <Button
-              variant="default"
-              size="icon"
-              className="h-[29px] w-[29px] rounded-full bg-brand-primary shadow-brand-primary shadow-md"
-            >
-              <Label htmlFor="upload" className="flex flex-col justify-center h-full items-center gap-2 cursor-pointer">
-                <CameraIcon className="h-4 w-4" />
-                <Input
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileSelect}
-                  accept="image/*"
-                  id="upload"
-                />
-              </Label>
-          </Button>
-        </div>
-      </div>
+        <ImageUpload />
       <span className="text-center">
         <p className="text-xl font-semibold text-brand-hover dark:text-brand-surface">
           {user.name}
