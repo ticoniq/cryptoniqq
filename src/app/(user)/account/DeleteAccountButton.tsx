@@ -43,9 +43,10 @@ export function DeleteAccountButton() {
         timeout: 10000,
       });
 
+      const message = "Your account has been successfully deleted. We're sorry to see you go. If you change your mind, you can always create a new account. Thank you for being a part of our community."
       toast({
         title: "Success",
-        description: "Your account has been deleted successfully.",
+        description: message,
       });
 
       await logout(); // using Lucia
