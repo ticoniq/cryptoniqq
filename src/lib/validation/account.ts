@@ -24,6 +24,15 @@ export const infoSchema = z
     username: requiredString,
     email: requiredString.email("(Invalid email address)"),
     phone: requiredString,
+    country: requiredString,
+    gender: requiredString,
+    dob: z.date(),
   })
 
   export type InfoSchema = z.infer<typeof infoSchema>;
+
+  export const deleteAccountSchema = z.object({
+    email: requiredString.email('Invalid email address'),
+  });
+  
+  export type DeleteAccountSchema = z.infer<typeof deleteAccountSchema>;

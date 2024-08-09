@@ -14,12 +14,12 @@ export enum Paths {
 
 
 export const privateLinks = [
-  { href: "/dashboard", title: "Home", icon: LayoutPanelLeft },
+  { href: Paths.Dashboard, title: "Dashboard", icon: LayoutPanelLeft },
   { href: "/buy-crypto", title: "Buy Crypto", icon: User },
   { href: "/market", title: "Market", icon: Cog },
+  { href: "/exchange", title: "Exchange", icon: Cog },
   { href: "/spot", title: "Spot", icon: Cog },
   { href: "/order-&-trades", title: "Order & Trades", icon: Cog },
-  { href: "/wallet", title: "Wallet", icon: Cog },
 ];
 
 export const SettingsSidebarLinks = [

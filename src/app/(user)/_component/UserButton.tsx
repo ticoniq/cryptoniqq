@@ -1,24 +1,24 @@
 "use client";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import { logout } from "@/app/(auth)/action";
 import { useSession } from "./SessionProvider";
-import { Check, LogOutIcon, MessageSquare, Monitor, Moon, PowerIcon, SendToBack, Settings, Sun, UserIcon } from "lucide-react";
+import {
+  ChevronDownIcon,
+  MessageSquare,
+  PowerIcon,
+  SendToBack,
+  Settings
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "./UserAvatar";
-import { ModeToggle } from "@/components/ModeToggle";
 import { ThemeDropdown } from "@/components/ThemeDropdown";
 
 interface UserButtonProps {
@@ -28,13 +28,12 @@ interface UserButtonProps {
 export function UserButton({ className }: UserButtonProps) {
   const { user } = useSession();
 
-  const { theme, setTheme } = useTheme();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className={cn("flex-none rounded-full", className)}>
+        <button className={cn("flex-none rounded-full flex flex-nowrap items-center", className)}>
           <UserAvatar avatarUrl={user.avatarUrl} size={30} />
+          <ChevronDownIcon className="ml-2 size-4" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72 p-2 mr-5 mt-5 space-y-2">

@@ -18,6 +18,8 @@ model User {
   name                    String
   email                   String?                 @unique
   phone                   String?                 @unique
+  gender                  String?
+  dob                     DateTime?
   passwordHash            String?
   googleId                String?                 @unique
   avatarUrl               String?

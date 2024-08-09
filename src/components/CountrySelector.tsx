@@ -38,12 +38,12 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <SelectTrigger className="w-[280px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="h-52">
                 {countryList.map((country) => (
-                  <SelectItem key={country.code} value={country.code}>
+                  <SelectItem key={country.name} value={country.name}>
                     <div className="flex items-center">
                       <ReactCountryFlag
                         countryCode={country.code}

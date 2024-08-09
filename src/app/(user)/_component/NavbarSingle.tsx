@@ -4,9 +4,7 @@ import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
 import {
   Bell,
-  CircleUser,
   Menu,
-  Package2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetOverlay, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -14,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { defaultLinks } from "@/config/nav";
 import { useEffect, useState } from "react";
 import { UserButton } from "./UserButton";
+import { privateLinks } from "@/lib/constants";
 
 export function NavbarSingle() {
   const pathname = usePathname();
@@ -41,9 +40,9 @@ export function NavbarSingle() {
       <section className="container">
         <div className="w-full flex items-center justify-between gap-4 py-2 lg:py-0">
           <nav className="hidden flex-col gap-6 text-lg font-medium lg:flex lg:flex-row md:items-center md:text-sm lg:gap-1">
-            <Logo link="/" />
+            <Logo link="/dashboard" />
             <ul className="flex gap-1">
-              {defaultLinks.map((link) => (
+              {privateLinks.map((link) => (
                 <li key={link.title}>
                   <Link
                     href={link.href}
@@ -108,6 +107,9 @@ export function NavbarSingle() {
             <Button variant="ghost" size="icon" className="ml-auto h-8 w-8">
               <Bell className="h-4 w-4" />
               <span className="sr-only">Toggle notifications</span>
+            </Button>
+            <Button variant="outline" asChild size={"xs"} className="rounded-full hidden sm:flex">
+              <Link href={"/wallet"}>Wallet</Link>
             </Button>
             <UserButton />
           </div>
