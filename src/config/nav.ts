@@ -1,7 +1,9 @@
 import { Cog, Globe, User, HomeIcon } from "lucide-react";
 
 export const defaultLinks = [
-  { href: "/", title: "Home", icon: HomeIcon },
-  { href: "/account", title: "Account", icon: User },
-  { href: "/settings", title: "Settings", icon: Cog },
+  { href: "/", title: "Blog", icon: HomeIcon },
+  { href: "/", title: "About", icon: HomeIcon },
+  { href: "/", title: "Help", icon: HomeIcon },
+  { href: "/", title: "Careers", icon: HomeIcon },
+  // { href: "/", title: "Home", icon: HomeIcon },
 ];
