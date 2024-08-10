@@ -1,24 +1,25 @@
-import { useCallback, useState } from 'react';
-import { useDropzone } from '@uploadthing/react/hooks';
-import { generateClientDropzoneAccept } from 'uploadthing/client';
+import { useState } from 'react';
 import { useUploadThing } from '@/lib/uploadthing';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
-import { CameraIcon, UploadIcon } from 'lucide-react';
+import { CameraIcon } from 'lucide-react';
 import { UserAvatar } from "../_component/UserAvatar";
 import { useSession } from "../_component/SessionProvider";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const CustomUploadButton = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { user } = useSession()
+  const router = useRouter();
 
   const { startUpload, isUploading } = useUploadThing('avatar', {
     onClientUploadComplete: (res) => {
       toast({
         description: "Upload Completed",
       });
+      router.refresh();
     },
     onUploadError: (error) => {
       toast({
@@ -29,30 +30,18 @@ const CustomUploadButton = () => {
     },
   });
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      if (acceptedFiles && acceptedFiles[0]) {
-        // Create a preview URL for the dropped file
-        const filePreviewUrl = URL.createObjectURL(acceptedFiles[0]);
-        setPreviewUrl(filePreviewUrl);
-        
-        // Start the upload process
-        startUpload(acceptedFiles);
-      }
-    },
-    [startUpload]
-  );
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: generateClientDropzoneAccept(['image']),
-    multiple: false,
-  });
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const filePreviewUrl = URL.createObjectURL(file);
+      setPreviewUrl(filePreviewUrl);
+      startUpload([file]);
+    }
+  };
 
   return (
-    <div {...getRootProps()} className="relative inline-block">
+    <div className="relative inline-block">
       <UserAvatar avatarUrl={previewUrl || user.avatarUrl} size={100} />
-      {/* <input {...getInputProps()} /> */}
       <div className="absolute bottom-0 right-0">
         <Button
           disabled={isUploading}
@@ -67,7 +56,9 @@ const CustomUploadButton = () => {
               <CameraIcon className="h-4 w-4" />
             )}
             <Input
-              {...getInputProps()}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
               className="hidden"
               id="upload"
             />
