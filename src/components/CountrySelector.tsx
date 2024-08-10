@@ -61,7 +61,6 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
               </SelectContent>
             </Select>
           </FormControl>
-          <FormMessage />
         </FormItem>
       )}
     />
