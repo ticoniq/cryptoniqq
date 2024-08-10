@@ -21,6 +21,7 @@ import { PhoneInput } from "@/components/PhoneInput";
 import { Button } from "@/components/ui/button";
 import { CountrySelector } from "@/components/CountrySelector";
 import { useToast } from "@/components/ui/use-toast";
+import { CalendarIcon } from "lucide-react";
 
 export default function Information() {
   const { user } = useSession();
@@ -51,14 +52,14 @@ export default function Information() {
           ...values,
           dob: values.dob ? values.dob.toISOString() : null,
         };
-  
+
         const response = await axios.put('/api/user/account/general', formattedValues, {
           headers: {
             'Content-Type': 'application/json',
           },
           timeout: 10000,
         });
-  
+
         toast({
           description: response.data.message || 'Profile updated!',
         });
@@ -260,15 +261,19 @@ export default function Information() {
                     <FormMessage />
                   </span>
                   <FormControl>
-                    <Input
-                      type="date"
-                      {...field}
-                      value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : ''}
-                      onChange={(e) => {
-                        const date = new Date(e.target.value);
-                        field.onChange(isNaN(date.getTime()) ? undefined : date);
-                      }}
-                    />
+                    <div className="relative">
+                      <Input
+                        type="date"
+                        {...field}
+                        value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : ''}
+                        onChange={(e) => {
+                          const date = new Date(e.target.value);
+                          field.onChange(isNaN(date.getTime()) ? undefined : date);
+                        }}
+                        className="pr-28"
+                      />
+                      <CalendarIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
+                    </div>
                   </FormControl>
                 </FormItem>
               )}
