@@ -31,33 +31,30 @@ export async function setupTwoFactor() {
   return { qrCode, qrCodeBase64 };
 }
 
-export async function verifyAndEnableTwoFactor(credentials: TwoFactorFormValues,) {
+export async function verifyAndEnableTwoFactor(
+  credentials: TwoFactorFormValues,
+) {
   const validatedData = twoFactorSchema.parse(credentials);
 
   if (!validatedData) throw new Error("Invalid data");
-  
+
   const { code } = validatedData;
-  
-  const session = await validateRequest();
 
-  if (!session || !session.user) throw new Error("Unauthorized");
+  const { user } = await validateRequest();
 
-  const existingUser = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { twoFactorSecret: true },
-  });
+  if (!user) throw new Error("Unauthorized");
 
-  if (!existingUser?.twoFactorSecret) {
+  if (!user.twoFactorSecret) {
     throw new Error("Two-factor authentication not set up");
   }
 
-  const isValid = await verifyTOTP(code, existingUser.twoFactorSecret);
+  const isValid = await verifyTOTP(code, user.twoFactorSecret);
   if (!isValid) {
     throw new Error("Invalid OTP");
   }
 
   await prisma.user.update({
-    where: { id: session.user.id },
+    where: { id: user.id },
     data: { twoFactorEnabled: true },
   });
 
@@ -66,24 +63,40 @@ export async function verifyAndEnableTwoFactor(credentials: TwoFactorFormValues,
   return { success: true };
 }
 
-export async function disable2FA(): Promise<{ error?: string, success?: string }> {
+export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
+  error?: string;
+  success?: string;
+}> {
   try {
-    const { user } = await validateRequest();
-    if (!user) throw new Error("Unauthorized");
+    const validatedData = twoFactorSchema.parse(credentials);
+    const { code } = validatedData;
 
-    if (!user.twoFactorEnabled) {
-      return { error: "Two-factor authentication not enabled!" };
+    const { user } = await validateRequest();
+    if (!user) return { error: "Unauthorized!" };
+
+    if (!user.twoFactorEnabled || !user.twoFactorSecret) {
+      return { error: "Two-factor authentication is not currently enabled!" };
+    }
+
+    const isValid = await verifyTOTP(code, user.twoFactorSecret);
+
+    if (!isValid) {
+      return { error: "Invalid code. Please try again!" };
     }
 
     await prisma.user.update({
       where: { id: user.id },
-      data: { twoFactorEnabled: false, twoFactorSecret: null }
+      data: { twoFactorEnabled: false, twoFactorSecret: null },
     });
 
     revalidatePath("/account/security");
 
-    return { success: "Two-factor disabled!" };
+    return { success: "Two-factor authentication disabled!" };
   } catch (error) {
+    console.error("Error disabling 2FA:", error);
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
     return { error: "An unexpected error occurred. Please try again later!" };
   }
 }
