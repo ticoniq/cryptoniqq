@@ -65,7 +65,7 @@ export function TwoFactorVerification() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Password*</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Verification code*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>

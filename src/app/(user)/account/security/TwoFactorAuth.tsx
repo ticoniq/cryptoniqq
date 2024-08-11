@@ -21,11 +21,17 @@ import { useToast } from "@/components/ui/use-toast";
 import { useSession } from "../../_component/SessionProvider";
 import { Disable2FA } from "./Disable2FA";
 
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoadingButton } from "@/components/LoadingButton";
+import { TwoFactorFormValues, twoFactorSchema } from "@/lib/validation/account";
+
 export default function TwoFactorAuth() {
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [twofactorCode, setTwofactorCode] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [otp, setOtp] = useState('');
+  const [isLoading, startLoadingTransition] = useTransition();
   const { toast } = useToast();
   const { user } = useSession();
 
@@ -44,18 +50,29 @@ export default function TwoFactorAuth() {
     });
   };
 
-  const handleVerify = async () => {
-    try {
-      await verifyAndEnableTwoFactor(otp);
-      toast({
-        description: "Two-factor authentication enabled!",
+  const form = useForm<TwoFactorFormValues>({
+    resolver: zodResolver(twoFactorSchema),
+    defaultValues: {
+      code: "",
+    },
+  });
+
+  const handleVerify = async (values: TwoFactorFormValues) => {
+    startLoadingTransition(() => {
+      startLoadingTransition(async () => {
+        try {
+          await verifyAndEnableTwoFactor(values);
+          toast({
+            description: "Two-factor authentication enabled!",
+          });
+        } catch (err) {
+          toast({
+            variant: "destructive",
+            description: "Something went wrong. Please try again!",
+          });
+        }
       });
-    } catch (err) {
-      toast({
-        variant: "destructive",
-        description: "Something went wrong. Please try again!",
-      });
-    }
+    });
   };
 
   return (
@@ -107,28 +124,47 @@ export default function TwoFactorAuth() {
                 </span>
                 <span className="block">After scanning the barcode above, the app will display a six-digit code that you can enter below. Upon successful activation, you will also be logged out of all other active sessions.</span>
               </AlertDialogDescription>
-              <div>
-                <Input
-                  type="text"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  placeholder="123456"
-                  maxLength={6}
-                />
-              </div>
-              <AlertDialogFooter className="flex flex-row justify-end items-center gap-4">
-                <AlertDialogCancel
-                  className="w-fit"
+
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(handleVerify)}
+                  className="font-DMSans space-y-4"
                 >
-                  Cancel
-                </AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={handleVerify}
-                  className="w-fit"
-                >
-                  Enable
-                </AlertDialogAction>
-              </AlertDialogFooter>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="code"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              placeholder="Enter 6-digit code"
+                              maxLength={6}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <AlertDialogFooter className="flex flex-row justify-end items-center gap-4">
+                    <AlertDialogCancel
+                      className="w-fit"
+                    >
+                      Cancel
+                    </AlertDialogCancel>
+                    <LoadingButton
+                      loading={isLoading}
+                      className="w-fit"
+                      size={"lg"}
+                    >
+                      Enable
+                    </LoadingButton>
+                  </AlertDialogFooter>
+                </form>
+              </Form>
+
             </AlertDialogContent>
           </AlertDialog>
         )}

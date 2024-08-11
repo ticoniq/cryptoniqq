@@ -10,6 +10,9 @@ export async function verifyTwoFactorCode(
 ): Promise<{ error?: string, success?: string }> {
   try {
     const validatedData = twoFactorSchema.parse(credentials);
+
+    if (!validatedData) throw new Error("Invalid data");
+    
     const { code, userId } = validatedData;
     
     const user = await prisma.user.findUnique({
