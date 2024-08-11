@@ -26,10 +26,10 @@ export function Hero() {
         <div className="container grid grid-cols-1 gap-14 items-center justify-between lg:grid-cols-12">
           <div className="w-full space-y-8 lg:col-span-6">
             <h1 className="text-center font-bold text-clamp-lg lg:leading-[4.3rem] lg:text-left">
-              Buy & Sell Digital <br /> Assets In The Rocket
+              Buy & Sell Digital <br /> Assets In The Cryptoniq
             </h1>
             <p className="text-brand-secondary dark:text-brand-secondary2 text-xl text-center lg:text-left max-w-[36rem] mx-auto lg:mx-0">
-              Coin rocket is the easiest, safest, and fastest way to buy & sell crypto asset exchange.
+              Cryptoniq is the easiest, safest, and fastest way to buy & sell crypto asset exchange.
             </p>
             <span className="flex items-center justify-center gap-x-4 lg:justify-start">
               <Button className="rounded-full bg-brand-primary">Get started now</Button>
