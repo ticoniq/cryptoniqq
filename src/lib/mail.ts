@@ -2,6 +2,7 @@ import ConfirmEmail from "@/components/mail/ConfirmEmail";
 import ResetPasswordEmail from "@/components/mail/ResetPassword";
 import { Resend } from "resend";
 import { APP_TITLE, EMAIL_SENDER } from "@/lib/constants";
+import AccountDelete from "@/components/mail/AccountDelete";
 
 const RESEND_API_KEY = new Resend(process.env.RESEND_API_KEY);
 const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL as string;
@@ -21,5 +22,14 @@ export const passwordVerificationLink = async (email: string, name: string, rese
     to: email,
     subject: `${APP_TITLE} reset your password`,
     react: ResetPasswordEmail({ websiteUrl: WEBSITE_URL, firstname: name, resetPasswordLink: resetPasswordLink }),
+  });
+};
+
+export const AccountDeletionEmail = async (email: string, name: string) => {
+  await RESEND_API_KEY.emails.send({
+    from: EMAIL_SENDER,
+    to: email,
+    subject: `Farewell from ${APP_TITLE} - Account Closure Confirmation`,
+    react: AccountDelete({ websiteUrl: WEBSITE_URL, firstname: name }),
   });
 };

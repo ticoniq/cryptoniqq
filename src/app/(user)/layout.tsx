@@ -25,8 +25,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
         </div>
       </div> */}
       <NavbarSingle />
-      <main className="font-DMSans">
-        <VerificiationWarning />
+      <main className="font-DMSans border-b">
         {children}
       </main>
       <Footer />

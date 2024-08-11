@@ -6,11 +6,13 @@ import { cookies } from "next/headers";
 export async function logout() {
   const { session } = await validateRequest();
 
-  if (!session) {
-    throw new Error("Unauthorized");
+  if (session) {
+    try {
+      await lucia.invalidateSession(session.id);
+    } catch (error) {
+      throw new Error ("Failed to invalidate session");
+    }
   }
-
-  await lucia.invalidateSession(session.id);
 
   const sessionCookie = lucia.createBlankSessionCookie();
 

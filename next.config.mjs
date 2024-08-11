@@ -5,7 +5,17 @@ const nextConfig = {
       dynamic: 30,
     },
   },
-  serverExternalPackages: ["@node-re/argon2"]
+  serverExternalPackages: ["@node-re/argon2"],
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        pathname: `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/*`,
+      },
+    ],
+  },
 };
 
 export default nextConfig;

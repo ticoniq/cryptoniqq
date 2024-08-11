@@ -61,3 +61,15 @@ export function getFirstName(fullName: string): string {
   const firstName = trimmedName.split(' ')[0];
   return firstName;
 }
+
+/**
+ * Extracts the last name from a full name string.
+ * 
+ * @param fullName - The full name string (e.g., "Robert Duke")
+ * @returns The last name, or the entire string if no space is found
+ */
+export function getLastName(fullName: string): string {
+  const trimmedName = fullName.trim();
+  const lastName = trimmedName.split(' ')[1];
+  return lastName;
+}

@@ -22,6 +22,8 @@ export const lucia = new Lucia(adapter, {
       phone: databaseUserAttributes.phone,
       country: databaseUserAttributes.country,
       username: databaseUserAttributes.username,
+      gender: databaseUserAttributes.gender,
+      dob: databaseUserAttributes.dob,
       onboardingCompleted: databaseUserAttributes.onboardingCompleted,
       email_verified: databaseUserAttributes.email_verified,
       googleId: databaseUserAttributes.googleId,
@@ -44,6 +46,8 @@ interface DatabaseUserAttributes {
   phone: string | null;
   country: string | null;
   username: string | null;
+  gender: string | null;
+  dob: string | null;
   onboardingCompleted: boolean;
   email_verified: boolean;
   googleId: string | null;
