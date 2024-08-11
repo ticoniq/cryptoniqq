@@ -21,9 +21,10 @@ model User {
   gender                  String?
   dob                     DateTime?
   passwordHash            String?
-  googleId                String?                 @unique
   avatarUrl               String?
   country                 String?
+  twoFactorSecret         String?
+  twoFactorEnabled        Boolean                 @default(false)
   onboardingCompleted     Boolean                 @default(false)
   email_verified          Boolean                 @default(false)
   role                    UserRole                @default(USER)
