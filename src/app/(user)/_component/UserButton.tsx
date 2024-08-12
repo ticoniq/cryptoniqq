@@ -45,7 +45,7 @@ export function UserButton({ className }: UserButtonProps) {
             <div className="self-start -mb-4">
               <Button
                 asChild
-                className="text-sm rounded-sm px-2 py-1 h-7 bg-brand-critical text-brand-critical dark:bg-red-500/20"
+                className="text-sm rounded-sm px-2 py-1 h-7 text-brand-critical bg-red-500/20"
               >
                 <Link href="/verify-email">Verify Email</Link>
               </Button>

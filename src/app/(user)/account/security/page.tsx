@@ -13,6 +13,7 @@ import { SlashIcon } from "@radix-ui/react-icons";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 import TwoFactorAuth from "./TwoFactorAuth";
+import { SessionManagement } from "./SessionManagement";
 
 export const metadata: Metadata = {
   title: "Security",
@@ -56,11 +57,33 @@ export default function page() {
               <h3 className="text-lg md:text-3xl">Security</h3>
               <Separator className="my-10" />
             </div>
-            <div>
-              <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-                <TwoFactorAuth />
-              </Suspense>
-            </div>
+            <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+              <TwoFactorAuth />
+            </Suspense>
+
+            {/* <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+              <div className="flex flex-col space-y-4">
+                <h5 className="text-lg">Password</h5>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Update your password to keep your account secure.
+                </p>
+                <button className="btn btn-primary">Change Password</button>
+              </div> 
+            </Suspense>
+
+            <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+              <div className="flex flex-col space-y-4">
+                <h5 className="text-lg">Email</h5>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Update your email address to keep your account secure.
+                </p>
+                <button className="btn btn-primary">Change Email</button>
+              </div>
+            </Suspense> */}
+
+            <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+              <SessionManagement />
+            </Suspense>
           </article>
         </div>
       </section>
