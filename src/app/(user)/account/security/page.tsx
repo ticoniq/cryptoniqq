@@ -12,8 +12,8 @@ import {
 import { SlashIcon } from "@radix-ui/react-icons";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
-import TwoFactorAuth from "./TwoFactorAuth";
-import { SessionManagement } from "./SessionManagement";
+import TwoFactorAuth from "./_component/TwoFactorAuth";
+import { SessionManagement } from "./_component/SessionManagement";
 
 export const metadata: Metadata = {
   title: "Security",

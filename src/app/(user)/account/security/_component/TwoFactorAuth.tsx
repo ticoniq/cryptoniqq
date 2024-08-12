@@ -11,14 +11,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { setupTwoFactor, verifyAndEnableTwoFactor } from './actions';
+import { setupTwoFactor, verifyAndEnableTwoFactor } from '../actions';
 import { TwoFaCode } from "./TwoFaCode";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useSession } from "../../_component/SessionProvider";
+import { useSession } from "../../../_component/SessionProvider";
 import { Disable2FA } from "./Disable2FA";
 
 import { useForm } from "react-hook-form";

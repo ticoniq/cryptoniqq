@@ -1,7 +1,7 @@
 "use client";
 import { useTransition } from "react";
 import { LoadingButton } from "@/components/LoadingButton";
-import { disable2FA } from "./actions";
+import { disable2FA } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
 import {
   AlertDialog,
