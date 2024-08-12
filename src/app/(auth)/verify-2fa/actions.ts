@@ -14,23 +14,22 @@ export async function verifyTwoFactorCode(
     if (!validatedData) throw new Error("Invalid data");
     
     const { code, userId } = validatedData;
-    
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { twoFactorSecret: true },
+
+    const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
+      where: { userId: userId },
+      select: { secret: true, verified: true },
     });
 
-    if (!user || !user.twoFactorSecret) {
-      return { error: "User not found or 2FA not set up!" };
+    if (!twoFactorAuth || !twoFactorAuth.verified) {
+      return { error: "Two-factor authentication is not currently enabled!" };
     }
 
-    const isValid = await verifyTOTP(code, user.twoFactorSecret);
+    const isValid = await verifyTOTP(code, twoFactorAuth.secret);
 
     if (!isValid) {
       return { error: "Invalid verification code!" };
     }
 
-    // If the code is valid, create a session
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
     cookies().set(
