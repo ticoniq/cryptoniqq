@@ -53,35 +53,3 @@ export async function login(
     return { error: "Something went wrong. Please try again" };
   }
 }
-
-
-export async function verifyTwoFactorCode(userId: string, code: string) {
-  try {
-    const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
-      where: { userId: userId },
-      select: { secret: true, verified: true },
-    });
-
-    if (!twoFactorAuth || !twoFactorAuth.verified) {
-      return { error: "User not found or 2FA not enable" };
-    }
-
-    const isValid = verifyTOTP(code, twoFactorAuth.secret);
-
-    if (!isValid) return { error: "Invalid verification code. Please try again!" };
-
-    // If the code is valid, create a session
-    const session = await lucia.createSession(userId, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
-    cookies().set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes
-    );
-
-    return { success: true };
-  } catch (error) {
-    console.error("2FA verification error:", error);
-    return { error: "An unexpected error occurred" };
-  }
-}

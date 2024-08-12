@@ -5,13 +5,11 @@ import { lucia } from "@/auth";
 import { verifyTOTP } from "@/lib/twoFactor";
 import { TwoFactorFormValues, twoFactorSchema } from "@/lib/validation/auth";
 
-export async function verifyTwoFactorCode(
+export async function verifyLoginTwoFactorCode(
   credentials: TwoFactorFormValues,
 ): Promise<{ error?: string, success?: string }> {
   try {
     const validatedData = twoFactorSchema.parse(credentials);
-
-    if (!validatedData) throw new Error("Invalid data");
     
     const { code, userId } = validatedData;
 
@@ -24,11 +22,9 @@ export async function verifyTwoFactorCode(
       return { error: "Two-factor authentication is not currently enabled!" };
     }
 
-    const isValid = await verifyTOTP(code, twoFactorAuth.secret);
+    const isValid = verifyTOTP(code, twoFactorAuth.secret);
 
-    if (!isValid) {
-      return { error: "Invalid verification code!" };
-    }
+    if (!isValid) return { error: "Invalid verification code!" };
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
@@ -38,7 +34,7 @@ export async function verifyTwoFactorCode(
       sessionCookie.attributes,
     );
 
-    return { success: "Account verified!" };
+    return { success: "Login successful!" };
   } catch (error) {
     return { error: "An unexpected error occurred" };
   }

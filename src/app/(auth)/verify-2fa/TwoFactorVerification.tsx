@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { verifyTwoFactorCode } from "./actions";
+import { verifyLoginTwoFactorCode } from "./actions";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -36,18 +36,14 @@ export function TwoFactorVerification() {
     startTransition(() => {
       startTransition(async () => {
         setError(undefined);
-        try {
-          const { error, success } = await verifyTwoFactorCode(values);
-          if (success) {
-            toast({
-              description: success,
-            });
-          }
-          if (error) {
-            setError(error);
-          }
-        } catch (error) {
-          setError("An unexpected error occurred. Please try again.");
+        const { error, success } = await verifyLoginTwoFactorCode(values);
+        if (success) {
+          toast({
+            description: success,
+          });
+        }
+        if (error) {
+          setError(error);
         }
       });
     });
