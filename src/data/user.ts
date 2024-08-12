@@ -4,6 +4,22 @@ import { sha256 } from "oslo/crypto";
 import { encodeHex } from "oslo/encoding";
 import { generateIdFromEntropySize } from "lucia";
 
+export const getUserById = async (id: string) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
+    });
+
+    return user;
+  } catch {
+    return null;
+  }
+};
+
 export const getUserByUsername = async (username: string) => {
   try {
     const user = await prisma.user.findFirst({
