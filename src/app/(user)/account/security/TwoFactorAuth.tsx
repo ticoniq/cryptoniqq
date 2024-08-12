@@ -4,7 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import { Loader2, Smartphone } from "lucide-react";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -29,7 +28,7 @@ import { TwoFactorFormValues, twoFactorSchema } from "@/lib/validation/account";
 
 export default function TwoFactorAuth() {
   const [qrCode, setQrCode] = useState<string | null>(null);
-  const [twofactorCode, setTwofactorCode] = useState<string | null>(null);
+  const [setupKey, setSetupkay] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [isLoading, startLoadingTransition] = useTransition();
   const { toast } = useToast();
@@ -40,7 +39,7 @@ export default function TwoFactorAuth() {
       try {
         const result = await setupTwoFactor();
         setQrCode(result.qrCode);
-        setTwofactorCode(result.qrCodeBase64);
+        setSetupkay(result.setupKey);
       } catch (error) {
         toast({
           variant: "destructive",
@@ -60,15 +59,17 @@ export default function TwoFactorAuth() {
   const handleVerify = async (values: TwoFactorFormValues) => {
     startLoadingTransition(() => {
       startLoadingTransition(async () => {
-        try {
-          await verifyAndEnableTwoFactor(values);
-          toast({
-            description: "Two-factor authentication enabled!",
-          });
-        } catch (err) {
+        const {error, success} = await verifyAndEnableTwoFactor(values);
+        if (error) {
           toast({
             variant: "destructive",
-            description: "Something went wrong. Please try again!",
+            description: error,
+          });
+          return;
+        }
+        if (success) {
+          toast({
+            description: success,
           });
         }
       });
@@ -115,7 +116,7 @@ export default function TwoFactorAuth() {
                     <Loader2 className="animate-spin" size={32} />
                   </div>
                 ) : (
-                  <TwoFaCode qrCode={qrCode} twofactorCode={twofactorCode} />
+                  <TwoFaCode qrCode={qrCode} setupKey={setupKey} />
                 )}
               </Suspense>
               <AlertDialogDescription>
@@ -138,7 +139,7 @@ export default function TwoFactorAuth() {
                         <FormItem>
                           <FormControl>
                             <Input
-                              placeholder="Enter 6-digit code"
+                              placeholder="123456"
                               maxLength={6}
                               {...field}
                             />

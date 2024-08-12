@@ -1,6 +1,5 @@
 "use client";
 import { Logo } from "@/components/Logo";
-import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
 import {
   Bell,
@@ -103,7 +102,6 @@ export function NavbarSingle() {
             </SheetContent>
           </Sheet>
           <div className="flex items-center gap-4 md:gap-2">
-            <div className="border-x-2 px-2 border-brand-surface dark:border-brand-onSurface"><ModeToggle /></div>
             <Button variant="ghost" size="icon" className="ml-auto h-8 w-8">
               <Bell className="h-4 w-4" />
               <span className="sr-only">Toggle notifications</span>
