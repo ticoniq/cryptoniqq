@@ -8,7 +8,6 @@ import { verify } from "@node-rs/argon2";
 import prisma from "@/lib/prisma";
 import { lucia, validateRequest } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { verifyTOTP } from "@/lib/twoFactor";
 
 export async function login(
   credentials: LoginValues,
