@@ -56,7 +56,7 @@ export async function setupTwoFactor() {
 
 export async function verifyAndEnableTwoFactor(
   credentials: TwoFactorFormValues,
-): Promise<{ error?: string; success?: string }> {
+): Promise<{ error?: string; success?: string; backupCodes?: string[] }> {
   try {
     const validatedData = twoFactorSchema.parse(credentials);
     const { code } = validatedData;
@@ -99,12 +99,8 @@ export async function verifyAndEnableTwoFactor(
 
     revalidatePath("/account/security");
 
-    return { success: "Two-factor authentication enabled!" };
+    return { success: "Two-factor authentication enabled!", backupCodes };
   } catch (error) {
-    console.error("Error enabling 2FA:", error);
-    if (error instanceof Error) {
-      return { error: error.message };
-    }
     return { error: "Something went wrong. Please try again!" };
   }
 }
@@ -148,10 +144,6 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
 
     return { success: "Two-factor authentication disabled!" };
   } catch (error) {
-    console.error("Error disabling 2FA:", error);
-    if (error instanceof Error) {
-      return { error: error.message };
-    }
     return { error: "Something went wrong. Please try again!" };
   }
 }

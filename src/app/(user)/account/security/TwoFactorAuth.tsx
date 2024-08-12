@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, lazy, useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, Smartphone } from "lucide-react";
 import {
@@ -11,6 +11,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { setupTwoFactor, verifyAndEnableTwoFactor } from './actions';
@@ -25,12 +26,15 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@/components/LoadingButton";
 import { TwoFactorFormValues, twoFactorSchema } from "@/lib/validation/account";
+import { BackupCodes } from "./BackupCodes";
 
 export default function TwoFactorAuth() {
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [setupKey, setSetupkay] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [isLoading, startLoadingTransition] = useTransition();
+  const [backupCodes, setBackupCodes] = useState<string[]>([]);
+  const [showBackupCodesDialog, setShowBackupCodesDialog] = useState<boolean>(false);
   const { toast } = useToast();
   const { user } = useSession();
 
@@ -59,7 +63,7 @@ export default function TwoFactorAuth() {
   const handleVerify = async (values: TwoFactorFormValues) => {
     startLoadingTransition(() => {
       startLoadingTransition(async () => {
-        const {error, success} = await verifyAndEnableTwoFactor(values);
+        const { error, success, backupCodes } = await verifyAndEnableTwoFactor(values);
         if (error) {
           toast({
             variant: "destructive",
@@ -67,7 +71,9 @@ export default function TwoFactorAuth() {
           });
           return;
         }
-        if (success) {
+        if (success && backupCodes) {
+          setBackupCodes(backupCodes);
+          setShowBackupCodesDialog(true);
           toast({
             description: success,
           });
@@ -170,6 +176,15 @@ export default function TwoFactorAuth() {
           </AlertDialog>
         )}
       </div>
+
+      {backupCodes.length > 0 && (
+        <BackupCodes
+          ids={backupCodes}
+          showBackupCodesDialog={showBackupCodesDialog}
+          setShowBackupCodesDialog={setShowBackupCodesDialog}
+        />
+      )}
+
     </section>
   )
 }
