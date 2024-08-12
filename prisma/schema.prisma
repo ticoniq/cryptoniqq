@@ -23,7 +23,6 @@ model User {
   passwordHash            String?
   avatarUrl               String?
   country                 String?
-  twoFactorSecret         String?
   twoFactorEnabled        Boolean                 @default(false)
   onboardingCompleted     Boolean                 @default(false)
   email_verified          Boolean                 @default(false)

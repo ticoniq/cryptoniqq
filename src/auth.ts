@@ -24,7 +24,6 @@ export const lucia = new Lucia(adapter, {
       username: databaseUserAttributes.username,
       gender: databaseUserAttributes.gender,
       dob: databaseUserAttributes.dob,
-      twoFactorSecret: databaseUserAttributes.twoFactorSecret,
       twoFactorEnabled: databaseUserAttributes.twoFactorEnabled,
       onboardingCompleted: databaseUserAttributes.onboardingCompleted,
       email_verified: databaseUserAttributes.email_verified,
@@ -49,7 +48,6 @@ interface DatabaseUserAttributes {
   username: string | null;
   gender: string | null;
   dob: string | null;
-  twoFactorSecret: string | null;
   twoFactorEnabled: boolean;
   onboardingCompleted: boolean;
   email_verified: boolean;

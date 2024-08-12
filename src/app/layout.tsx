@@ -8,7 +8,7 @@ import { fileRouter } from "./api/uploadthing/core";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Cryptoniq",
+    template: "Cryptoniq | %s",
     default: "Cryptoniq",
   },
   description: "Cryptoniq",

@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { verify } from "@node-rs/argon2";
 import prisma from "@/lib/prisma";
-import { lucia } from "@/auth";
+import { lucia, validateRequest } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { verifyTOTP } from "@/lib/twoFactor";
 
@@ -57,20 +57,18 @@ export async function login(
 
 export async function verifyTwoFactorCode(userId: string, code: string) {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { twoFactorSecret: true }
+    const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
+      where: { userId: userId },
+      select: { secret: true, verified: true },
     });
 
-    if (!user || !user.twoFactorSecret) {
-      return { error: "User not found or 2FA not set up" };
+    if (!twoFactorAuth || !twoFactorAuth.verified) {
+      return { error: "User not found or 2FA not enable" };
     }
 
-    const isValid = await verifyTOTP(code, user.twoFactorSecret);
+    const isValid = verifyTOTP(code, twoFactorAuth.secret);
 
-    if (!isValid) {
-      return { error: "Invalid verification code" };
-    }
+    if (!isValid) return { error: "Invalid verification code. Please try again!" };
 
     // If the code is valid, create a session
     const session = await lucia.createSession(userId, {});
