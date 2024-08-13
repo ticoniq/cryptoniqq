@@ -12,6 +12,7 @@ import { generateEmailVerificationCode } from "@/lib/tokens";
 import { sendVerificationCode } from "@/lib/mail";
 import { Paths } from "@/lib/constants";
 import { addHyphenAfterThreeDigits } from "@/lib/utils";
+import { handleDeviceTracking } from "@/lib/DeviceTracking";
 
 export async function signUp(
   credentials: SignUpValues,
@@ -56,7 +57,7 @@ export async function signUp(
 
     const code = await generateEmailVerificationCode(userId, email);
     const verificationCode = addHyphenAfterThreeDigits(code);
-    
+
     await sendVerificationCode(email, verificationCode);
 
     const session = await lucia.createSession(userId, {});
@@ -66,6 +67,8 @@ export async function signUp(
       sessionCookie.value,
       sessionCookie.attributes,
     );
+
+    await handleDeviceTracking(userId, session.id);
 
     return redirect(Paths.VerifyEmail);
   } catch (error) {

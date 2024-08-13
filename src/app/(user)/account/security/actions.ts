@@ -157,7 +157,7 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
 }
 
 export async function changePassword(
-  credentials: ChangePasswordSchema
+  credentials: ChangePasswordSchema,
 ): Promise<{ error?: string; success?: string }> {
   try {
     const validatedData = changePasswordSchema.parse(credentials);
@@ -195,11 +195,11 @@ export async function changePassword(
         where: { userId: user.id },
         select: { secret: true, verified: true },
       });
-  
+
       if (!twoFactorAuth || !twoFactorAuth.verified) {
         return { error: "Two-factor authentication is not currently enabled!" };
       }
-  
+
       const isValid = verifyTOTP(code, twoFactorAuth.secret);
 
       if (!isValid) {

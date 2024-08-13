@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { lucia } from "@/auth";
 import { verifyTOTP } from "@/lib/twoFactor";
 import { TwoFactorFormValues, twoFactorSchema } from "@/lib/validation/auth";
+import { handleDeviceTracking } from "@/lib/DeviceTracking";
 
 export async function verifyLoginTwoFactorCode(
   credentials: TwoFactorFormValues,
@@ -33,6 +34,14 @@ export async function verifyLoginTwoFactorCode(
       sessionCookie.value,
       sessionCookie.attributes,
     );
+
+    await handleDeviceTracking(userId, session.id);
+
+    //TODO: Implement new device notification
+    // You can use deviceResult.isNewDevice to notify the user if this is a new device
+    // if (deviceResult.isNewDevice) {
+    //   await sendNewDeviceNotification(userId, deviceResult.device);
+    // }
 
     return { success: "Login successful!" };
   } catch (error) {

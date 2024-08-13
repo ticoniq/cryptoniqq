@@ -1,17 +1,18 @@
 "use server";
 import { getUserByEmail } from "@/data/user";
 import { loginSchema, LoginValues } from "@/lib/validation/auth";
-import { generateIdFromEntropySize } from "lucia";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { verify } from "@node-rs/argon2";
-import prisma from "@/lib/prisma";
-import { lucia, validateRequest } from "@/auth";
+import { lucia } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { handleDeviceTracking } from "@/lib/DeviceTracking";
 
-export async function login(
-  credentials: LoginValues,
-): Promise<{ error?: string; requiresTwoFactor?: boolean; currentUserId?: any }> {
+export async function login(credentials: LoginValues): Promise<{
+  error?: string;
+  requiresTwoFactor?: boolean;
+  currentUserId?: any;
+}> {
   try {
     const validatedData = loginSchema.parse(credentials);
 
@@ -45,6 +46,8 @@ export async function login(
       sessionCookie.value,
       sessionCookie.attributes,
     );
+
+    await handleDeviceTracking(existingUser.id, session.id);
 
     return redirect("/dashboard");
   } catch (error) {
