@@ -31,6 +31,8 @@ model User {
   email_verification_code emailVerificationCode[]
   resetTokens             passwordResetToken[]
   twoFactorAuth           twoFactorAuth[]
+  device                  Device[]
+  // LoginLog                LoginLog[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -42,11 +44,43 @@ model Session {
   id        String   @id
   userId    String
   expiresAt DateTime
+  deviceId  String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device Device? @relation(fields: [deviceId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
+
+model Device {
+  id       String    @id @default(cuid())
+  userId   String
+  name     String
+  type     String
+  os       String
+  sessions Session[]
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // LoginLog LoginLog[]
+
+  createdAt  DateTime @default(now())
+  lastUsedAt DateTime @updatedAt
+
+  @@map("devices")
+}
+
+// model LoginLog {
+//   id        String  @id @default(cuid())
+//   userId    String
+//   ipAddress String?
+//   userAgent String?
+//   deviceId  String?
+
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   device    Device?  @relation(fields: [deviceId], references: [id])
+//   timestamp DateTime @default(now())
+
+//   @@map("login_logs")
+// }
 
 model emailVerificationCode {
   id        String   @id @default(cuid())
