@@ -74,7 +74,6 @@ const CustomUploadButton = () => {
         
         const uploadResult = await startUpload([resizedImage]);
       } catch (error) {
-        console.error('Error resizing image:', error);
         toast({
           title: "Error",
           description: "Failed to resize image. Please try again.",
