@@ -19,7 +19,6 @@ export function useDownload() {
 
       setTimeout(() => setIsDownloaded(false), 2000); // Reset after 2 seconds
     } catch (error) {
-      console.error("Failed to download file:", error);
       setIsDownloaded(false);
     }
   };
