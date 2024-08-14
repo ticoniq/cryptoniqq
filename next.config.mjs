@@ -16,6 +16,20 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/:path*",
+        destination: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "support.cryptoniq.tech",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
