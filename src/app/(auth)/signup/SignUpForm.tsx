@@ -20,18 +20,23 @@ export function SignUpForm() {
   const [defaultCountryName, setdefaultCountryName] = useState<CountryCode | undefined>("NG" as CountryCode);
 
   useEffect(() => {
-    const fetchCountry = async () => {
+    async function fetchData() {
       try {
         const response = await fetch('/api/get-country/name');
         if (!response.ok) throw new Error(`Error fetching country`);
         const data = await response.json();
-        if (data.country) setdefaultCountryName(data.country);
+
+        console.log(data);
+        
+        setdefaultCountryName(data.country.country);
       } catch (error) {
         throw new Error(`Something went wrong`);
-      }
-    };
-    fetchCountry();
+      } 
+    }
+
+    fetchData();
   }, []);
+
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
