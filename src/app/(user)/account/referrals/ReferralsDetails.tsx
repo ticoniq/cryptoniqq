@@ -55,7 +55,7 @@ export function ReferralsDetails() {
             />
             <button
               className="absolute right-5 top-1/2 -translate-y-1/2 transform text-muted-foreground"
-              onClick={() => copyToClipboard(user.username || "nousername")}
+              onClick={() => copyToClipboard(`https://cryptoniq.tech?referralCode=${user.username || "nousername"}`)}
             >
               {isCopied ? <CheckIcon className="size-4" /> : <CopyIcon className="size-4" />}
             </button>
