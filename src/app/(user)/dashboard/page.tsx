@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { Separator } from "@/components/ui/separator";
-import { validateRequest } from "@/auth";
 import { VerificiationWarning } from "../_component/VerificiationWarning";
 
 export const metadata: Metadata = {
@@ -8,11 +7,6 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-  const session = await validateRequest();
-
-  // useEffect(() => {
-  //   if (!session.user?.onboardingCompleted) return redirect("/onboarding");
-  // }, [user.onboardingCompleted]);
 
   return (
     <>
