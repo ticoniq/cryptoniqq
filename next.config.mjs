@@ -20,7 +20,7 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        destination: '/:path*',
+        destination: '/support/:path*',
         has: [
           {
             type: 'host',
