@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/support",
+      "has": [
+        {
+          "type": "host",
+          "value": "support.cryptoniq.tech"
+        }
+      ]
+    }
+  ]
+}
