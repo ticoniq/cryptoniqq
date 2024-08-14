@@ -16,15 +16,6 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/support',
-        destination: 'https://support.cryptoniq.tech',
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
