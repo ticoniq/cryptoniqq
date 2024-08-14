@@ -5,6 +5,9 @@ import { lucia } from "@/auth";
 import { verifyTOTP } from "@/lib/twoFactor";
 import { TwoFactorFormValues, twoFactorSchema } from "@/lib/validation/auth";
 import { handleDeviceTracking } from "@/lib/DeviceTracking";
+import { getFirstName } from "@/lib/utils";
+import { sendNewDeviceNotification } from "@/lib/mail";
+import { getUserById } from "@/data/user";
 
 export async function verifyLoginTwoFactorCode(
   credentials: TwoFactorFormValues,
@@ -35,13 +38,19 @@ export async function verifyLoginTwoFactorCode(
       sessionCookie.attributes,
     );
 
-    await handleDeviceTracking(userId, session.id);
+    const deviceResult = await handleDeviceTracking(userId, session.id);
+    const device = `${deviceResult.device.name} on ${deviceResult.device.os}`;
+    const firstname = getFirstName(userId);
+    const existingUser = await getUserById(userId);
 
-    //TODO: Implement new device notification
+    if (!existingUser) return { error: "User not found!" };
+
+    console.log("existingUser", existingUser.email);
+
     // You can use deviceResult.isNewDevice to notify the user if this is a new device
-    // if (deviceResult.isNewDevice) {
-    //   await sendNewDeviceNotification(userId, deviceResult.device);
-    // }
+    if (deviceResult.isNewDevice) {
+      await sendNewDeviceNotification(existingUser.email || "", firstname, device);
+    }
 
     return { success: "Login successful!" };
   } catch (error) {
