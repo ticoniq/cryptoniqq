@@ -50,12 +50,12 @@ export function ReferralsDetails() {
           <div className="relative">
             <Input
               className="pe-10"
-              value={`https://cryptoniq.tech?referralCode=${user.username || "nousername"}`}
+              value={`https://cryptoniq.tech/login?referralCode=${user.username || "nousername"}`}
               readOnly
             />
             <button
               className="absolute right-5 top-1/2 -translate-y-1/2 transform text-muted-foreground"
-              onClick={() => copyToClipboard(`https://cryptoniq.tech?referralCode=${user.username || "nousername"}`)}
+              onClick={() => copyToClipboard(`https://cryptoniq.tech/login?referralCode=${user.username || "nousername"}`)}
             >
               {isCopied ? <CheckIcon className="size-4" /> : <CopyIcon className="size-4" />}
             </button>
