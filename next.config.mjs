@@ -19,12 +19,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/:path*",
-        destination: "/:path*",
+        source: '/:path*',
+        destination: '/:path*',
         has: [
           {
-            type: "host",
-            value: "support.cryptoniq.tech",
+            type: 'host',
+            value: 'support.cryptoniq.tech',
           },
         ],
       },
