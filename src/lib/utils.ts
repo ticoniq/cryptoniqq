@@ -82,7 +82,7 @@ export function formatYDate(date: Date): string {
   return format(date, "MMMM d, yyyy");
 }
 
-export function formatRelativeDate(from: Date) {
+export function formatRelativeDate(from: Date): string {
   const currentDate = new Date();
   if (currentDate.getTime() - from.getTime() < 24 * 60 * 60 * 1000) {
     return formatDistanceToNowStrict(from, { addSuffix: true });
@@ -93,4 +93,8 @@ export function formatRelativeDate(from: Date) {
       return formatDate(from, "MMM d, yyyy");
     }
   }
+}
+
+export function formattedDateTime(date: Date): string {
+  return format(date, "MMMM d, yyyy 'at' h:mm a");
 }
