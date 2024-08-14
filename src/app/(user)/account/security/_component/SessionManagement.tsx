@@ -1,4 +1,5 @@
 "use client";
+import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
@@ -9,12 +10,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatRelativeDate, relativeDate } from "@/lib/utils";
+import { relativeDate } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { EllipsisVertical, GlobeIcon, Loader2 } from "lucide-react";
 import { Device } from "@prisma/client";
+import { useCurrentDevice } from '@/hooks/useCurrentDevice';
+import { deleteDevice } from "../actions";
+import { useToast } from "@/components/ui/use-toast";
+import Loading from "@/app/loading";
+import { LoadingButton } from "@/components/LoadingButton";
 
 export function SessionManagement() {
+  const currentDevice = useCurrentDevice();
+  const [isPending, startTransition] = useTransition()
+  const { toast } = useToast();
 
   const { data, status, error } = useQuery<Device[]>({
     queryKey: ["user-devices"],
@@ -33,6 +42,29 @@ export function SessionManagement() {
         An error occurred while loading posts.
       </p>
     );
+  }
+
+  const isCurrentDevice = (device: Device) => {
+    if (!currentDevice) return false;
+    return device.name === currentDevice.browser && device.os === currentDevice.os;
+  };
+
+  const handleDeleteDevice = (deviceId: string) => {
+    startTransition(async () => {
+      const { success, error } = await deleteDevice(deviceId)
+      if (success) {
+        toast({
+          variant: "destructive",
+          description: success,
+        });
+      }
+      if (error) {
+        toast({
+          variant: "destructive",
+          description: error,
+        });
+      }
+    })
   }
 
   return (
@@ -71,9 +103,11 @@ export function SessionManagement() {
                     <GlobeIcon className="text-brand-secondary dark:text-brand-secondary w-5 h-5" />
                     <aside className="space-y-1">
                       <p className="text-base whitespace-nowrap">{device.name} ({device.os})</p>
-                      <p className="text-xs font-semibold text-brand-secondary dark:text-brand-secondary">
-                        (This Device)
-                      </p>
+                      {isCurrentDevice(device) && (
+                        <p className="text-xs font-semibold text-brand-secondary dark:text-brand-secondary">
+                          (This Device)
+                        </p>
+                      )}
                     </aside>
                   </TableCell>
                   <TableCell className="whitespace-nowrap">
@@ -95,8 +129,12 @@ export function SessionManagement() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem className="text-brand-critical">
-                          Delete
+                        <DropdownMenuItem
+                          className="text-brand-critical"
+                          onClick={() => handleDeleteDevice(device.id)}
+                          disabled={isPending}
+                        >
+                          {isPending ? 'Deleting...' : 'Delete'}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

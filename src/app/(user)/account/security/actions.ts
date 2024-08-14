@@ -20,6 +20,7 @@ import { revalidatePath } from "next/cache";
 import { getUserById } from "@/data/user";
 import { verify } from "@node-rs/argon2";
 import { hash } from "@node-rs/argon2";
+import { Device } from "@prisma/client";
 
 export async function setupTwoFactor() {
   const { user } = await validateRequest();
@@ -223,6 +224,32 @@ export async function changePassword(
 
     revalidatePath("/account/security");
     return { success: "Password has been updated!" };
+  } catch (error) {
+    return { error: "Something went wrong. Please try again!" };
+  }
+}
+
+export async function deleteDevice(
+  deviceId: string,
+): Promise<{ error?: string; success?: string }> {
+  try {
+    const result = await prisma.$transaction(async (tx) => {
+      // Delete all sessions associated with this device
+      await tx.session.deleteMany({
+        where: { deviceId: deviceId }
+      })
+
+      // Delete the device
+      const deletedDevice = await tx.device.delete({
+        where: { id: deviceId },
+      })
+
+      return deletedDevice
+    })
+
+    revalidatePath("/devices");
+
+    return { success: "Device deleted!" };
   } catch (error) {
     return { error: "Something went wrong. Please try again!" };
   }

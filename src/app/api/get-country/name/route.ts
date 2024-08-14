@@ -8,7 +8,7 @@ const getCountryData = unstable_cache(
     const response = await fetch(`https://ipinfo.io?token=${ip_token}`);
     if (!response.ok) throw new Error(`Error fetching country: ${response.statusText}`);
     const data = await response.json();
-    return data.country;
+    return data;
   },
   ['country-data'],
   { revalidate: 3600 }
