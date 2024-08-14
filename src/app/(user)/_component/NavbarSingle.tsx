@@ -35,23 +35,30 @@ export function NavbarSingle() {
 
   return (
     <header className={`top-0 z-40 font-DMSans h-12 flex items-center bg-background py-1
-      ${showShadow ? 'shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50' : 'border-b'}`}>
+      ${showShadow ? "shadow-sm dark:shadow-brand-onSurface sticky top-0 z-50" : ""}`}>
       <section className="container">
         <div className="w-full flex items-center justify-between gap-4 py-2 lg:py-0">
           <nav className="hidden flex-col gap-6 text-lg font-medium lg:flex lg:flex-row md:items-center md:text-sm lg:gap-1">
             <Logo link="/dashboard" />
             <ul className="flex gap-1">
-              {privateLinks.map((link) => (
-                <li key={link.title}>
-                  <Link
-                    href={link.href}
-                    className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
-                  ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
-                  >
-                    {link.title}
-                  </Link>
-                </li>
-              ))}
+              {privateLinks && privateLinks.map((link) => {
+                if (pathname.includes('/dashboard') && link.href === '/dashboard') {
+                  return null;
+                }
+
+                return (
+                  <li key={link.title}>
+                    <Link
+                      href={link.href}
+                      target={link.target}
+                      className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
+                      ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
           <Sheet>
