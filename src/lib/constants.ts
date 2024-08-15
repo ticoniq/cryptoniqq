@@ -31,8 +31,8 @@ export const SettingsSidebarLinks = [
 ];
 
 export const defaultLinks = [
-  { href: "/blog", title: "Blog", icon: HomeIcon },
-  { href: "/about", title: "About", icon: HomeIcon },
-  { href: "/help", title: "Help", icon: HomeIcon },
-  { href: "/careers", title: "Careers", icon: HomeIcon },
+  { href: "/blog", title: "Blog", target: "_blank", icon: HomeIcon },
+  { href: "/about", title: "About", target: "", icon: HomeIcon },
+  { href: "/help", title: "Help", target: "_blank", icon: HomeIcon },
+  { href: "/careers", title: "Careers", target: "", icon: HomeIcon },
 ];

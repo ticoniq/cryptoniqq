@@ -41,6 +41,7 @@ export function Navbar() {
                 <li key={link.title}>
                   <Link
                     href={link.href}
+                    target={link.target}
                     className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
                   ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
                   >
@@ -79,8 +80,8 @@ export function Navbar() {
                   {defaultLinks.map((link) => (
                     <li key={link.title}>
                       <Link
-                        key={link.title}
                         href={link.href}
+                        target={link.target}
                         className="hover:text-foreground"
                       >
                         {link.title}

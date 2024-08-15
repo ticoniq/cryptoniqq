@@ -13,10 +13,9 @@ export function Footer() {
           <div className="col-span-full mb-10 space-y-5 lg:col-span-2 lg:mb-0">
             <Logo link="/" />
             <div className="space-y-2">
-              <h4 className="text-2xl font-bold">{"Let's talk! 🤙"}</h4>
-              <Link href="tel:+2349876543210" className="text-base block">{"+234 987 654 3210"}</Link>
-              <Link href="mailto:info@cryptoniq.tech" className="text-base">{"info@cryptoniq.tech"}</Link>
-              <h4 className="text-base">{"Let's talk!"}</h4>
+              <h4 className="text-base">
+                {"Empowering global trade through secure and seamless cryptocurrency solutions, fostering equal opportunities worldwide."}
+              </h4>
             </div>
           </div>
           {/* <!--End Col--> */}
@@ -45,7 +44,7 @@ export function Footer() {
             <h4 className="text-sm font-bold mb-4 uppercase">Support</h4>
             <ul className="space-y-2 text-brand-secondary dark:text-brand-secondary2 transition-all duration-500">
               <li><CustomLink href="/" textarea={"Cryptoniq Learn"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
-              <li><CustomLink href="/support" textarea={"Help Center"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
+              <li><CustomLink href="/support" target="_blank" textarea={"Help Center"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
               <li><CustomLink href="/" textarea={"User Feedback"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
               <li><CustomLink href="/" textarea={"Submit a request"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
               <li><CustomLink href="/" textarea={"Trading Rules"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
@@ -59,7 +58,7 @@ export function Footer() {
               <li><CustomLink href="/" textarea={"Authenticity Check"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
               <li><CustomLink href="/" textarea={"Careers"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
               <li><CustomLink href="/" textarea={"Business Contacts"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
-              <li><CustomLink href="/" textarea={"Blog"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
+              <li><CustomLink href="/" target="_blank" textarea={"Blog"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} /></li>
             </ul>
           </div>
         </div>
@@ -68,21 +67,21 @@ export function Footer() {
         <div className="container">
           <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
             <span className="text-sm text-brand-secondary dark:text-brand-secondary2 ">
-              &copy; 2023 {" "}
+              &copy; 2024 {" "}
               <CustomLink href="/" textarea={" Cryptoniq"} divClassName={"h-[1px] bg-brand-secondary dark:bg-brand-secondary2"} />
               . All rights reserved.
             </span>
             <div className="flex mt-4 space-x-4 items-center sm:justify-center lg:mt-0">
-              <Link href="#" className="block transition-all duration-500 hover:text-brand-primary">
+              <Link href="x.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
                 <FaXTwitter className="w-6 h-6" />
               </Link>
-              <Link href="#" className="block transition-all duration-500 hover:text-brand-primary">
+              <Link href="instagram.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
                 <FaInstagram className="w-6 h-6" />
               </Link>
-              <Link href="#" className="block transition-all duration-500 hover:text-brand-primary">
+              <Link href="facebook.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
                 <FaFacebook className="w-6 h-6" />
               </Link>
-              <Link href="#" className="block transition-all duration-500 hover:text-brand-warning">
+              <Link href="youtube.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-warning">
                 <FaYoutube className="w-8 h-8" />
               </Link>
             </div>
