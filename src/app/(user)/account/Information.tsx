@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { CountrySelector } from "@/components/CountrySelector";
 import { useToast } from "@/components/ui/use-toast";
 import { CalendarIcon } from "lucide-react";
+import { updateProfile } from "./actions";
 
 export default function Information() {
   const { user } = useSession();
@@ -47,34 +48,18 @@ export default function Information() {
 
   async function onSubmit(values: InfoSchema) {
     startTransition(async () => {
-      try {
-        const formattedValues = {
-          ...values,
-          dob: values.dob ? values.dob.toISOString() : null,
-        };
+      const { error, success } = await updateProfile(values);
 
-        const response = await axios.put('/api/user/account/general', formattedValues, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 10000,
-        });
-
+      if (error) {
         toast({
-          description: response.data.message || 'Profile updated!',
+          variant: "destructive",
+          description: error || 'Failed to update profile',
         });
-      } catch (err) {
-        if (axios.isAxiosError(err) && err.response) {
-          toast({
-            variant: "destructive",
-            description: err.response.data.message || 'Failed to update profile',
-          });
-        } else {
-          toast({
-            variant: "destructive",
-            description: "An unexpected error occurred. Please try again later",
-          });
-        }
+      }
+      if (success) {
+        toast({
+          description: success || 'Profile updated!',
+        });
       }
     });
   }
