@@ -60,27 +60,12 @@ model Device {
   os       String
   sessions Session[]
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  // LoginLog LoginLog[]
 
   createdAt  DateTime @default(now())
   lastUsedAt DateTime @updatedAt
 
   @@map("devices")
 }
-
-// model LoginLog {
-//   id        String  @id @default(cuid())
-//   userId    String
-//   ipAddress String?
-//   userAgent String?
-//   deviceId  String?
-
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   device    Device?  @relation(fields: [deviceId], references: [id])
-//   timestamp DateTime @default(now())
-
-//   @@map("login_logs")
-// }
 
 model emailVerificationCode {
   id        String   @id @default(cuid())
