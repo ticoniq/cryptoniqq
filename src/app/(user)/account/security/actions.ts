@@ -216,9 +216,10 @@ export async function changePassword(
       data: { passwordHash: newPasswordHash },
     });
 
+    revalidatePath("/account/security");
+
     return { success: "Password has been updated successfully!" };
   } catch (error) {
-    console.error("Password change error:", error);
     return { error: "An unexpected error occurred. Please try again later." };
   }
 }

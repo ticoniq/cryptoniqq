@@ -16,7 +16,6 @@ export async function GET() {
 
     return Response.json(devices, { status: 200 });
   } catch (error) {
-    console.error(error);
     return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }

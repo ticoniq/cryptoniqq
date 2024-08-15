@@ -45,8 +45,6 @@ export async function verifyLoginTwoFactorCode(
 
     if (!existingUser) return { error: "User not found!" };
 
-    console.log("existingUser", existingUser.email);
-
     // You can use deviceResult.isNewDevice to notify the user if this is a new device
     if (deviceResult.isNewDevice) {
       await sendNewDeviceNotification(existingUser.email || "", firstname, device);

@@ -66,6 +66,7 @@ export default function Information() {
   function handleNumberVerification(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
 
+    //TODO: Implement phone verification
     console.log("verify");
   }
 

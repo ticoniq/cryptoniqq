@@ -25,8 +25,6 @@ export function SignUpForm() {
         const response = await fetch('/api/get-country/name');
         if (!response.ok) throw new Error(`Error fetching country`);
         const data = await response.json();
-
-        console.log(data);
         
         setdefaultCountryName(data.country.country);
       } catch (error) {
