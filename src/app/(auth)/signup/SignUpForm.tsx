@@ -73,14 +73,14 @@ export function SignUpForm() {
             render={({ field }) => (
               <FormItem>
                 <span className="flex justify-start items-center gap-x-2">
-                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal first name*</FormLabel>
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">First name*</FormLabel>
                   <FormMessage />
                 </span>
                 <FormControl>
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Legal first name*"
+                    placeholder="First name*"
                   />
                 </FormControl>
               </FormItem>
@@ -92,14 +92,14 @@ export function SignUpForm() {
             render={({ field }) => (
               <FormItem>
                 <span className="flex justify-start items-center gap-x-2">
-                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal last name*</FormLabel>
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Last name*</FormLabel>
                   <FormMessage />
                 </span>
                 <FormControl>
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Legal last name*"
+                    placeholder="Last name*"
                   />
                 </FormControl>
               </FormItem>

@@ -86,14 +86,14 @@ export default function Information() {
               render={({ field }) => (
                 <FormItem>
                   <span className="flex justify-start items-center gap-x-2">
-                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Legal first name</FormLabel>
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">First name</FormLabel>
                     <FormMessage />
                   </span>
                   <FormControl>
                     <Input
                       {...field}
                       type="text"
-                      placeholder="Legal first name*"
+                      placeholder="First name*"
                     />
                   </FormControl>
                 </FormItem>
@@ -105,14 +105,14 @@ export default function Information() {
               render={({ field }) => (
                 <FormItem>
                   <span className="flex justify-start items-center gap-x-2">
-                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Legal last name</FormLabel>
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Last name</FormLabel>
                     <FormMessage />
                   </span>
                   <FormControl>
                     <Input
                       {...field}
                       type="text"
-                      placeholder="Legal last name*"
+                      placeholder="Last name*"
                     />
                   </FormControl>
                 </FormItem>
