@@ -14,6 +14,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+import Link from "next/link";
 
 export function Hero() {
   const plugin = useRef(
@@ -32,7 +33,9 @@ export function Hero() {
               Cryptoniq is the easiest, safest, and fastest way to buy & sell crypto asset exchange.
             </p>
             <span className="flex items-center justify-center gap-x-4 lg:justify-start">
-              <Button className="rounded-full bg-brand-primary">Get started now</Button>
+              <Button className="rounded-full bg-brand-primary" asChild>
+                <Link href="/signup">Get started now</Link>
+              </Button>
             </span>
             <div className="flex flex-col justify-center gap-y-4 items-center lg:justify-start lg:items-start">
               <h2 className="text-2xl font-bold">Our Partners</h2>
