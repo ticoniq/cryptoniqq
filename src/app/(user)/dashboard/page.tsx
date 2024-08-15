@@ -36,13 +36,12 @@ export default async function Page() {
               <p className="text-lg font-medium leading-none">
                 {session.user?.name}
               </p>
-              <p className="text-sm text-muted-foreground">
-                {!session.user?.email_verified && (
-                  <div className="self-start">
-                    <Link href="/verify-email">Verify Email</Link>
-                  </div>
-                )}
-              </p>
+              {!session.user?.email_verified && (
+                <Link
+                  href="/verify-email"
+                  className="text-sm text-muted-foreground"
+                >Verify Email</Link>
+              )}
             </div>
           </aside>
           <div className="font-medium">
