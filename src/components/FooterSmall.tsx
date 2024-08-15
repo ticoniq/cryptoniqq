@@ -15,16 +15,16 @@ export function FooterSmall() {
               . All rights reserved.
             </span>
             <div className="flex mt-4 space-x-4 items-center sm:justify-center lg:mt-0">
-              <Link href="x.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
+              <Link href="https://www.x.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
                 <FaXTwitter className="w-6 h-6" />
               </Link>
-              <Link href="instagram.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
+              <Link href="https://www.instagram.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
                 <FaInstagram className="w-6 h-6" />
               </Link>
-              <Link href="facebook.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
+              <Link href="https://www.facebook.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-primary">
                 <FaFacebook className="w-6 h-6" />
               </Link>
-              <Link href="youtube.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-warning">
+              <Link href="https://www.youtube.com/cryptoniq" target="_blank" className="block transition-all duration-500 hover:text-brand-warning">
                 <FaYoutube className="w-8 h-8" />
               </Link>
             </div>
