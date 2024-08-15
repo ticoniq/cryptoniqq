@@ -80,7 +80,7 @@ export function SignUpForm() {
                   <Input
                     {...field}
                     type="text"
-                    placeholder="First name*"
+                    placeholder="Enter first name*"
                   />
                 </FormControl>
               </FormItem>
@@ -99,7 +99,7 @@ export function SignUpForm() {
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Last name*"
+                    placeholder="Enter last name*"
                   />
                 </FormControl>
               </FormItem>
@@ -119,7 +119,7 @@ export function SignUpForm() {
                 <Input
                   {...field}
                   type="email"
-                  placeholder="Please enter your email."
+                  placeholder="Enter your email."
                 />
               </FormControl>
             </FormItem>
@@ -157,7 +157,7 @@ export function SignUpForm() {
                 <FormControl>
                   <PasswordInput
                     {...field}
-                    placeholder="Please enter a password."
+                    placeholder="Enter password."
                   />
                 </FormControl>
               </FormItem>
@@ -171,7 +171,7 @@ export function SignUpForm() {
                 <FormControl>
                   <PasswordInput
                     {...field}
-                    placeholder="Please re-enter your password."
+                    placeholder="Confirm password."
                   />
                 </FormControl>
                 <FormMessage />
