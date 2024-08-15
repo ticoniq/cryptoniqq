@@ -15,7 +15,7 @@ import { UserButton } from "../_component/UserButton";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Logo } from "@/components/Logo";
 import { usePathname } from "next/navigation";
-import { useSession } from "./SessionProvider";
+import { useSession } from "../../SessionProvider";
 import { useEffect, useState } from "react";
 import { logout } from "@/app/(auth)/action";
 import { privateLinks } from "@/lib/constants";

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCopy } from "@/hooks/useCopy";
 import { CheckIcon, CopyIcon } from "lucide-react";
-import { useSession } from "../../_component/SessionProvider";
+import { useSession } from "../../../SessionProvider";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import {

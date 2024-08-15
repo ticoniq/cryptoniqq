@@ -14,7 +14,7 @@ import { InfoSchema, infoSchema } from "@/lib/validation/account";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/LoadingButton";
-import { useSession } from "../_component/SessionProvider";
+import { useSession } from "../../SessionProvider";
 import { getFirstName, getLastName } from "@/lib/utils";
 import { PhoneInput } from "@/components/PhoneInput";
 import { Button } from "@/components/ui/button";

@@ -17,7 +17,7 @@ import { setupTwoFactor, verifyAndEnableTwoFactor } from '../actions';
 import { TwoFaCode } from "./TwoFaCode";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useSession } from "../../../_component/SessionProvider";
+import { useSession } from "../../../../SessionProvider";
 import { Disable2FA } from "./Disable2FA";
 
 import { useForm } from "react-hook-form";

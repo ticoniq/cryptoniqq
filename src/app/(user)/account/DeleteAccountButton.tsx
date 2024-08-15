@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useSession } from "../_component/SessionProvider";
+import { useSession } from "../../SessionProvider";
 import { logout } from "@/app/(auth)/action";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { LoadingButton } from "@/components/LoadingButton";

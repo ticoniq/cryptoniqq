@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { logout } from "@/app/(auth)/action";
-import { useSession } from "./SessionProvider";
+import { useSession } from "../../SessionProvider";
 import {
   ChevronDownIcon,
   MessageSquare,
