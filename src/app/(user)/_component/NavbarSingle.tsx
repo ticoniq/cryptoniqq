@@ -1,17 +1,13 @@
 "use client";
 import { Logo } from "@/components/Logo";
 import Link from "next/link";
-import {
-  Bell,
-  Menu,
-} from "lucide-react"
+import { Bell, Menu, } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetOverlay, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { defaultLinks } from "@/config/nav";
 import { useEffect, useState } from "react";
 import { UserButton } from "./UserButton";
-import { privateLinks } from "@/lib/constants";
+import { APP_TITLE, privateLinks } from "@/lib/constants";
 
 export function NavbarSingle() {
   const pathname = usePathname();
@@ -76,35 +72,35 @@ export function NavbarSingle() {
             <SheetOverlay className="lg:hidden" />
             <SheetContent side="left" className="lg:hidden">
               <SheetHeader className="sr-only">
-                <SheetTitle>Cryptoniq</SheetTitle>
+                <SheetTitle>{APP_TITLE}</SheetTitle>
                 <SheetDescription>
                   {"one stop shop for all your crypto needs"}
                 </SheetDescription>
               </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium">
                 <aside className="flex items-center gap-2 text-lg font-semibold">
-                  <Logo link="/" />
-                  <span className="sr-only">Cryptoniq</span>
+                  <Logo link="/dashboard" />
+                  <span className="sr-only">{APP_TITLE}</span>
                 </aside>
                 <ul className="mt-10 grid gap-6">
-                  {defaultLinks.map((link) => (
-                    <li key={link.title}>
-                      <Link
-                        key={link.title}
-                        href={link.href}
-                        className="hover:text-foreground"
-                      >
-                        {link.title}
-                      </Link>
-                    </li>
-                  ))}
+                  {privateLinks && privateLinks.map((link) => {
+                    if (pathname.includes('/dashboard') && link.href === '/dashboard') {
+                      return null;
+                    }
+
+                    return (
+                      <li key={link.title}>
+                        <Link
+                          key={link.title}
+                          href={link.href}
+                          className="hover:text-foreground"
+                        >
+                          {link.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
-                <Button variant="outline" asChild size={"lg"} className="rounded-full hidden sm:flex">
-                  <Link href={"/login"}>Login</Link>
-                </Button>
-                <Button asChild size={"lg"} className="rounded-full hidden sm:flex">
-                  <Link href={"/signup"}>Sign up</Link>
-                </Button>
               </nav>
             </SheetContent>
           </Sheet>

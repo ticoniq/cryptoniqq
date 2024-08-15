@@ -3,6 +3,7 @@ import {
   Settings,
   LockIcon,
   GiftIcon,
+  HomeIcon,
 } from "lucide-react";
 
 export const APP_TITLE = "Cryptoniq";
@@ -27,4 +28,11 @@ export const SettingsSidebarLinks = [
   { href: "/account", title: "General", icon: Settings },
   { href: "/account/security", title: "Security", icon: LockIcon },
   { href: "/account/referrals", title: "Referrals", icon: GiftIcon },
+];
+
+export const defaultLinks = [
+  { href: "/blog", title: "Blog", icon: HomeIcon },
+  { href: "/about", title: "About", icon: HomeIcon },
+  { href: "/help", title: "Help", icon: HomeIcon },
+  { href: "/careers", title: "Careers", icon: HomeIcon },
 ];
