@@ -20,7 +20,6 @@ import { revalidatePath } from "next/cache";
 import { getUserById } from "@/data/user";
 import { verify } from "@node-rs/argon2";
 import { hash } from "@node-rs/argon2";
-import { Device } from "@prisma/client";
 
 export async function setupTwoFactor() {
   const { user } = await validateRequest();
@@ -64,14 +63,11 @@ export async function setupTwoFactor() {
 }
 
 export async function verifyAndEnableTwoFactor(
-  credentials: TwoFactorFormValues,
+  credentials: TwoFactorFormValues
 ): Promise<{ error?: string; success?: string; backupCodes?: string[] }> {
   try {
-    const validatedData = twoFactorSchema.parse(credentials);
-    const { code } = validatedData;
-
+    const { code } = twoFactorSchema.parse(credentials);
     const { user } = await validateRequest();
-
     if (!user) throw new Error("Unauthorized!");
 
     const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
@@ -87,7 +83,7 @@ export async function verifyAndEnableTwoFactor(
       return { error: "Two-factor authentication is already enabled!" };
     }
 
-    const isValid = verifyTOTP(code, twoFactorAuth.secret);
+    const isValid = await verifyTOTP(code, twoFactorAuth.secret);
 
     if (!isValid) {
       return { error: "Invalid OTP. Please try again!" };
@@ -119,9 +115,7 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
   success?: string;
 }> {
   try {
-    const validatedData = twoFactorSchema.parse(credentials);
-    const { code } = validatedData;
-
+    const { code } = twoFactorSchema.parse(credentials);
     const { user } = await validateRequest();
     if (!user) throw new Error("Unauthorized!");
 
@@ -134,7 +128,7 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
       return { error: "Two-factor authentication is not currently enabled!" };
     }
 
-    const isValid = verifyTOTP(code, twoFactorAuth.secret);
+    const isValid = await verifyTOTP(code, twoFactorAuth.secret);
 
     if (!isValid) return { error: "Invalid code. Please try again!" };
 
@@ -157,8 +151,80 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
   }
 }
 
+// export async function changePassword(
+//   credentials: ChangePasswordSchema,
+// ): Promise<{ error?: string; success?: string }> {
+//   try {
+//     const validatedData = changePasswordSchema.parse(credentials);
+//     const { password, newPassword, code } = validatedData;
+
+//     const { user } = await validateRequest();
+//     if (!user) {
+//       return { error: "Unauthorized" };
+//     }
+
+//     const existingUser = await getUserById(user.id);
+//     if (!existingUser || !existingUser.passwordHash) {
+//       return { error: "User not found or password not set!" };
+//     }
+
+//     // Verify current password
+//     const validPassword = await verify(existingUser.passwordHash, password, {
+//       memoryCost: 19456,
+//       timeCost: 2,
+//       outputLen: 32,
+//       parallelism: 1,
+//     });
+
+//     if (!validPassword) {
+//       return { error: "Current password is incorrect!" };
+//     }
+
+//     // Check if 2FA is enabled and verify the code
+//     if (existingUser.twoFactorEnabled) {
+//       if (!code) {
+//         return { error: "Two-factor authentication code is required!" };
+//       }
+
+//       const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
+//         where: { userId: user.id },
+//         select: { secret: true, verified: true },
+//       });
+
+//       if (!twoFactorAuth || !twoFactorAuth.verified) {
+//         return { error: "Two-factor authentication is not currently enabled!" };
+//       }
+
+//       const isValid = verifyTOTP(code, twoFactorAuth.secret);
+
+//       if (!isValid) {
+//         return { error: "Invalid two-factor authentication code!" };
+//       }
+//     }
+
+//     // Hash the new password
+//     const newPasswordHash = await hash(newPassword, {
+//       memoryCost: 19456,
+//       timeCost: 2,
+//       outputLen: 32,
+//       parallelism: 1,
+//     });
+
+//     // Update the password
+//     await prisma.user.update({
+//       where: { id: user.id },
+//       data: { passwordHash: newPasswordHash },
+//     });
+
+//     revalidatePath("/account/security");
+//     return { success: "Password has been updated!" };
+//   } catch (error) {
+//     return { error: "Something went wrong. Please try again!" };
+//   }
+// }
+
 export async function changePassword(
-  credentials: ChangePasswordSchema,
+  credentials: ChangePasswordSchema
 ): Promise<{ error?: string; success?: string }> {
   try {
     const validatedData = changePasswordSchema.parse(credentials);
@@ -198,10 +264,10 @@ export async function changePassword(
       });
 
       if (!twoFactorAuth || !twoFactorAuth.verified) {
-        return { error: "Two-factor authentication is not currently enabled!" };
+        return { error: "Two-factor authentication is not properly set up!" };
       }
 
-      const isValid = verifyTOTP(code, twoFactorAuth.secret);
+      const isValid = await verifyTOTP(code, twoFactorAuth.secret);
 
       if (!isValid) {
         return { error: "Invalid two-factor authentication code!" };
@@ -222,10 +288,10 @@ export async function changePassword(
       data: { passwordHash: newPasswordHash },
     });
 
-    revalidatePath("/account/security");
-    return { success: "Password has been updated!" };
+    return { success: "Password has been updated successfully!" };
   } catch (error) {
-    return { error: "Something went wrong. Please try again!" };
+    console.error("Password change error:", error);
+    return { error: "An unexpected error occurred. Please try again later." };
   }
 }
 

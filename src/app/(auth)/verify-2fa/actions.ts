@@ -26,7 +26,7 @@ export async function verifyLoginTwoFactorCode(
       return { error: "Two-factor authentication is not currently enabled!" };
     }
 
-    const isValid = verifyTOTP(code, twoFactorAuth.secret);
+    const isValid = await verifyTOTP(code, twoFactorAuth.secret);
 
     if (!isValid) return { error: "Invalid verification code!" };
 
