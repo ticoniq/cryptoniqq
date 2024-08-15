@@ -131,7 +131,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone*</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone number*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
