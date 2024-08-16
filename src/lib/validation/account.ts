@@ -73,3 +73,9 @@ export const updateEmailSchema = z.object({
 });
 
 export type UpdateEmailSchema = z.infer<typeof updateEmailSchema>;
+
+export const twoFactorRecoveryCodeSchema = z.object({
+  recoveryCode: requiredString,
+});
+
+export type TwoFactorRecoveryCodeSchema = z.infer<typeof twoFactorRecoveryCodeSchema>;

@@ -3,13 +3,11 @@ import { createTOTPKeyURI, TOTPController } from "oslo/otp";
 // @ts-ignore
 import QRCode from "qrcode";
 import { alphabet, generateRandomString } from "oslo/crypto";
-import { nanoid } from 'nanoid';
+import { customAlphabet } from "nanoid";
 
-export function generateBackupCodes(count: number = 12): string[] {
-  const backupCodes = [];
-  for (let i = 0; i < count; i++) {
-    backupCodes.push(nanoid(10));
-  }
+export function generateBackupCodes(count: number = 12, length: number = 10): string[] {
+  const generateCode = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', length);
+  const backupCodes = Array.from({ length: count }, generateCode);
   return backupCodes;
 }
 

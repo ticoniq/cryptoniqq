@@ -15,6 +15,8 @@ import {
   ChangePasswordSchema,
   TwoFactorFormValues,
   twoFactorSchema,
+  TwoFactorRecoveryCodeSchema,
+  twoFactorRecoveryCodeSchema,
 } from "@/lib/validation/account";
 import { revalidatePath } from "next/cache";
 import { getUserById } from "@/data/user";
@@ -63,7 +65,7 @@ export async function setupTwoFactor() {
 }
 
 export async function verifyAndEnableTwoFactor(
-  credentials: TwoFactorFormValues
+  credentials: TwoFactorFormValues,
 ): Promise<{ error?: string; success?: string; backupCodes?: string[] }> {
   try {
     const { code } = twoFactorSchema.parse(credentials);
@@ -150,7 +152,7 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
 }
 
 export async function changePassword(
-  credentials: ChangePasswordSchema
+  credentials: ChangePasswordSchema,
 ): Promise<{ error?: string; success?: string }> {
   try {
     const validatedData = changePasswordSchema.parse(credentials);
@@ -229,21 +231,94 @@ export async function deleteDevice(
     const result = await prisma.$transaction(async (tx) => {
       // Delete all sessions associated with this device
       await tx.session.deleteMany({
-        where: { deviceId: deviceId }
-      })
+        where: { deviceId: deviceId },
+      });
 
       // Delete the device
       const deletedDevice = await tx.device.delete({
         where: { id: deviceId },
-      })
+      });
 
-      return deletedDevice
-    })
+      return deletedDevice;
+    });
 
     revalidatePath("/devices");
 
     return { success: "Device deleted!" };
   } catch (error) {
     return { error: "Something went wrong. Please try again!" };
+  }
+}
+
+export async function disable2FARecovery(
+  credentials: TwoFactorRecoveryCodeSchema,
+): Promise<{ error?: string; success?: string }> {
+  try {
+    const validatedData = twoFactorRecoveryCodeSchema.parse(credentials);
+    const { recoveryCode } = validatedData;
+
+    const { user } = await validateRequest();
+    if (!user) {
+      return { error: "Unauthorized" };
+    }
+
+    const userId = user.id;
+    const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
+      where: { userId },
+      select: { backupCodes: true },
+    });
+
+    if (!twoFactorAuth) {
+      return { error: "Two-factor authentication is not enabled" };
+    }
+
+    // Convert backup codes to plain strings
+    const backupCodesPlain = twoFactorAuth.backupCodes.map(code => code.toString().trim().toLowerCase());
+
+    // Trim whitespace and compare codes
+    const trimmedRecoveryCode = recoveryCode.toString().trim().toLowerCase();
+    const isValidRecoveryCode = backupCodesPlain.includes(trimmedRecoveryCode);
+
+    if (!isValidRecoveryCode) {
+      return { error: "Invalid recovery code" };
+    }
+
+    // Remove the used recovery code
+    const updatedBackupCodes = backupCodesPlain.filter(
+      (code) => code !== trimmedRecoveryCode,
+    );
+
+    // Perform database transactions
+    await prisma.$transaction(async (tx) => {
+      // If no backup codes are left, delete the twoFactorAuth entry
+      if (updatedBackupCodes.length === 0) {
+        await tx.twoFactorAuth.delete({
+          where: { userId },
+        });
+      } else {
+        // Otherwise, update the backup codes
+        await tx.twoFactorAuth.update({
+          where: { userId },
+          data: { backupCodes: updatedBackupCodes },
+        });
+      }
+
+      // Disable 2FA for the user
+      await tx.user.update({
+        where: { id: userId },
+        data: { twoFactorEnabled: false },
+      });
+    });
+
+    revalidatePath("/account/security");
+
+    return {
+      success: "Two-factor authentication has been disabled using a recovery code",
+    };
+  } catch (error) {
+    console.error("Error disabling 2FA recovery:", error);
+    return {
+      error: "An unexpected error occurred while disabling two-factor authentication",
+    };
   }
 }
