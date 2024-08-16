@@ -102,8 +102,6 @@ export async function verifyAndEnableTwoFactor(
       }),
     ]);
 
-    revalidatePath("/account/security");
-
     return { success: "Two-factor authentication enabled!", backupCodes };
   } catch (error) {
     return { error: "Something went wrong. Please try again!" };

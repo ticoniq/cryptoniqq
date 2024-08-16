@@ -34,6 +34,7 @@ export default function TwoFactorAuth() {
   const [isLoading, startLoadingTransition] = useTransition();
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const [showBackupCodesDialog, setShowBackupCodesDialog] = useState<boolean>(false);
+  const [show2FADialog, setShow2FADialog] = useState<boolean>(false);
   const { toast } = useToast();
   const { user } = useSession();
 
@@ -73,6 +74,7 @@ export default function TwoFactorAuth() {
         if (success && backupCodes) {
           setBackupCodes(backupCodes);
           setShowBackupCodesDialog(true);
+          setShow2FADialog(false);
           toast({
             description: success,
           });
@@ -95,7 +97,7 @@ export default function TwoFactorAuth() {
         {user.twoFactorEnabled ? (
           <Disable2FA />
         ) : (
-          <AlertDialog>
+          <AlertDialog open={show2FADialog} onOpenChange={setShow2FADialog}>
             <AlertDialogTrigger asChild>
               <Button
                 onClick={handleSetup}

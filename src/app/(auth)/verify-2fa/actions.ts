@@ -23,7 +23,7 @@ export async function verifyLoginTwoFactorCode(
     });
 
     if (!twoFactorAuth || !twoFactorAuth.verified) {
-      return { error: "Two-factor authentication is not currently enabled!" };
+      return { error: "User not avaliable or Two-factor authentication not currently enabled!" };
     }
 
     const isValid = await verifyTOTP(code, twoFactorAuth.secret);

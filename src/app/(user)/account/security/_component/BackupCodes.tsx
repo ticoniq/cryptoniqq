@@ -9,10 +9,11 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CopyIcon, DownloadIcon, TriangleAlert } from "lucide-react";
+import { CheckIcon, CopyIcon, DownloadIcon, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/hooks/useCopy";
 import { useDownload } from "@/hooks/useDownload2FA";
+import { useRouter } from "next/navigation";
 
 interface BackupCodesProps {
   ids: string[];
@@ -21,6 +22,7 @@ interface BackupCodesProps {
 }
 
 export function BackupCodes({ ids, showBackupCodesDialog, setShowBackupCodesDialog }: BackupCodesProps) {
+  const router = useRouter();
   const { isCopied, copyToClipboard } = useCopy();
   const { isDownloaded, downloadCode } = useDownload();
   const [isConfirming, setIsConfirming] = useState(false);
@@ -28,6 +30,7 @@ export function BackupCodes({ ids, showBackupCodesDialog, setShowBackupCodesDial
   const handleBackupConfirmation = () => {
     if (isConfirming) {
       setShowBackupCodesDialog(false);
+      router.refresh();
     } else {
       setIsConfirming(true);
     }
@@ -77,7 +80,7 @@ export function BackupCodes({ ids, showBackupCodesDialog, setShowBackupCodesDial
               <Button
                 onClick={handleBackupConfirmation}
               >
-                {isConfirming ? <><DownloadIcon className="size-4 mr-2" /> Yes, I really have</> : "I've backed up my codes"}
+                {isConfirming ? <><CheckIcon className="size-4 mr-2" /> Yes, I really have</> : "I've backed up my codes"}
               </Button>
             </div>
           </AlertDialogFooter>
