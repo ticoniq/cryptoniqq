@@ -1,5 +1,6 @@
 import { Lock, PieChart, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function About() {
   return (
@@ -49,8 +50,9 @@ export function About() {
               </p>
               <Button
                 className="sm:w-fit w-full px-8 justify-center items-center flex"
+                asChild
               >
-                Let’s Trade Now
+                <Link href="/signup">Let’s Trade Now</Link>
               </Button>
             </div>
           </div>

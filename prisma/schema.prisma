@@ -21,15 +21,18 @@ model User {
   gender                  String?
   dob                     DateTime?
   passwordHash            String?
-  googleId                String?                 @unique
   avatarUrl               String?
   country                 String?
+  twoFactorEnabled        Boolean                 @default(false)
   onboardingCompleted     Boolean                 @default(false)
   email_verified          Boolean                 @default(false)
   role                    UserRole                @default(USER)
   sessions                Session[]
   email_verification_code emailVerificationCode[]
   resetTokens             passwordResetToken[]
+  twoFactorAuth           twoFactorAuth[]
+  device                  Device[]
+  // LoginLog                LoginLog[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -41,10 +44,27 @@ model Session {
   id        String   @id
   userId    String
   expiresAt DateTime
+  deviceId  String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device Device? @relation(fields: [deviceId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model Device {
+  id       String    @id @default(cuid())
+  userId   String
+  name     String
+  type     String
+  os       String
+  sessions Session[]
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())
+  lastUsedAt DateTime @updatedAt
+
+  @@map("devices")
 }
 
 model emailVerificationCode {
@@ -68,4 +88,19 @@ model passwordResetToken {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("reset_tokens")
+}
+
+model twoFactorAuth {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  secret      String
+  setupKey    String
+  verified    Boolean  @default(false)
+  backupCodes String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("two_factor_auth")
 }

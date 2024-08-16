@@ -20,18 +20,21 @@ export function SignUpForm() {
   const [defaultCountryName, setdefaultCountryName] = useState<CountryCode | undefined>("NG" as CountryCode);
 
   useEffect(() => {
-    const fetchCountry = async () => {
+    async function fetchData() {
       try {
         const response = await fetch('/api/get-country/name');
         if (!response.ok) throw new Error(`Error fetching country`);
         const data = await response.json();
-        if (data.country) setdefaultCountryName(data.country);
+        
+        setdefaultCountryName(data.country.country);
       } catch (error) {
         throw new Error(`Something went wrong`);
-      }
-    };
-    fetchCountry();
+      } 
+    }
+
+    fetchData();
   }, []);
+
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
@@ -70,14 +73,14 @@ export function SignUpForm() {
             render={({ field }) => (
               <FormItem>
                 <span className="flex justify-start items-center gap-x-2">
-                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal first name*</FormLabel>
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">First name*</FormLabel>
                   <FormMessage />
                 </span>
                 <FormControl>
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Legal first name*"
+                    placeholder="Enter first name"
                   />
                 </FormControl>
               </FormItem>
@@ -89,14 +92,14 @@ export function SignUpForm() {
             render={({ field }) => (
               <FormItem>
                 <span className="flex justify-start items-center gap-x-2">
-                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Legal last name*</FormLabel>
+                  <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Last name*</FormLabel>
                   <FormMessage />
                 </span>
                 <FormControl>
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Legal last name*"
+                    placeholder="Enter last name"
                   />
                 </FormControl>
               </FormItem>
@@ -109,14 +112,14 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Email*</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Email address*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
                 <Input
                   {...field}
                   type="email"
-                  placeholder="Please enter your email."
+                  placeholder="Enter your email"
                 />
               </FormControl>
             </FormItem>
@@ -128,7 +131,7 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone*</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Phone number*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
@@ -154,7 +157,7 @@ export function SignUpForm() {
                 <FormControl>
                   <PasswordInput
                     {...field}
-                    placeholder="Please enter a password."
+                    placeholder="Enter password"
                   />
                 </FormControl>
               </FormItem>
@@ -168,7 +171,7 @@ export function SignUpForm() {
                 <FormControl>
                   <PasswordInput
                     {...field}
-                    placeholder="Please re-enter your password."
+                    placeholder="Confirm password"
                   />
                 </FormControl>
                 <FormMessage />

@@ -1,5 +1,5 @@
 import { validateRequest } from "@/auth";
-import { SessionProvider } from "./_component/SessionProvider";
+import { SessionProvider } from "../SessionProvider";
 import { redirect } from "next/navigation";
 import { Navbar } from "./_component/Navbar";
 import { VerificiationWarning } from "./_component/VerificiationWarning";

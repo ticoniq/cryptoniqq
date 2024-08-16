@@ -1,10 +1,17 @@
-import { Cog, LayoutPanelLeft, User, Settings, LockIcon, Lock, GiftIcon } from "lucide-react";
+import {
+  LayoutPanelLeft,
+  Settings,
+  LockIcon,
+  GiftIcon,
+  HomeIcon,
+} from "lucide-react";
 
 export const APP_TITLE = "Cryptoniq";
 export const EMAIL_SENDER = '"Cryptoniq" <no-reply@cryptoniq.tech>';
 
 export enum Paths {
   Home = "/",
+  Support = "/support",
   Login = "/login",
   Signup = "/signup",
   Dashboard = "/dashboard",
@@ -12,26 +19,20 @@ export enum Paths {
   ResetPassword = "/reset-password",
 }
 
-
 export const privateLinks = [
-  { href: Paths.Dashboard, title: "Dashboard", icon: LayoutPanelLeft },
-  { href: "/buy-crypto", title: "Buy Crypto", icon: User },
-  { href: "/market", title: "Market", icon: Cog },
-  { href: "/exchange", title: "Exchange", icon: Cog },
-  { href: "/spot", title: "Spot", icon: Cog },
-  { href: "/order-&-trades", title: "Order & Trades", icon: Cog },
+  { href: Paths.Dashboard, title: "Dashboard", target: "", icon: LayoutPanelLeft },
+  { href: Paths.Support, title: "Help", target: "_blank", icon: LayoutPanelLeft },
 ];
 
 export const SettingsSidebarLinks = [
   { href: "/account", title: "General", icon: Settings },
   { href: "/account/security", title: "Security", icon: LockIcon },
   { href: "/account/referrals", title: "Referrals", icon: GiftIcon },
-  { href: "/account/change-password", title: "Change Password", icon: Lock },
 ];
 
-// export const SettingsSidebarLinks = [
-//   { href: "/account/settings", title: "General" },
-//   { href: "/account/security", title: "Security" },
-//   { href: "/account/referrals", title: "Referrals" },
-//   { href: "/account/Referrals", title: "Change password" },
-// ]
+export const defaultLinks = [
+  { href: "/blog", title: "Blog", target: "_blank", icon: HomeIcon },
+  { href: "/about", title: "About", target: "", icon: HomeIcon },
+  { href: "/help", title: "Help", target: "_blank", icon: HomeIcon },
+  { href: "/careers", title: "Careers", target: "", icon: HomeIcon },
+];

@@ -5,10 +5,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server";
 import { fileRouter } from "./api/uploadthing/core";
+import ReactQueryProvider from "./ReactQueryProvider";
+import ProgressBarProvider from "@/components/ProgressBarProvider";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Cryptoniq",
+    template: "Cryptoniq | %s",
     default: "Cryptoniq",
   },
   description: "Cryptoniq",
@@ -23,15 +25,19 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ProgressBarProvider>
+              {children}
+            </ProgressBarProvider>
+            <Toaster />
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

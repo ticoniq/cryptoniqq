@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { logout } from "@/app/(auth)/action";
-import { useSession } from "./SessionProvider";
+import { useSession } from "../../SessionProvider";
 import {
   ChevronDownIcon,
   MessageSquare,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "./UserAvatar";
 import { ThemeDropdown } from "@/components/ThemeDropdown";
+import { Button } from "@/components/ui/button";
 
 interface UserButtonProps {
   className?: string;
@@ -38,12 +39,24 @@ export function UserButton({ className }: UserButtonProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72 p-2 mr-5 mt-5 space-y-2">
         <DropdownMenuLabel
-          className="bg-brand-surface dark:bg-brand-bg p-5 rounded-md flex flex-col justify-center items-center gap-y-4"
+          className="bg-brand-surface dark:bg-brand-bg rounded-md flex flex-col justify-center items-center gap-y-4"
         >
-          <UserAvatar avatarUrl={user.avatarUrl} size={50} />
-          <p className="text-base text-brand-hover dark:text-brand-surface">
-            {user.name}
-          </p>
+          {!user.email_verified && (
+            <div className="self-start -mb-4">
+              <Button
+                asChild
+                className="text-sm rounded-sm px-2 py-1 h-7 text-brand-critical bg-red-500/20"
+              >
+                <Link href="/verify-email">Verify Email</Link>
+              </Button>
+            </div>
+          )}
+          <div className="flex flex-col space-y-4 p-4 justify-center items-center">
+            <UserAvatar avatarUrl={user.avatarUrl} size={50} />
+            <p className="text-base text-brand-hover dark:text-brand-surface">
+              {user.name}
+            </p>
+          </div>
         </DropdownMenuLabel>
         <div className="py-1">
           <Link href="/account">

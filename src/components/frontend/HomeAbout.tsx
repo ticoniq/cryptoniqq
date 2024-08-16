@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import what from "@/assets/images/what.svg";
 import { CircleCheck } from "lucide-react";
+import Link from "next/link";
 
 type Props = {}
 
@@ -42,7 +43,7 @@ export function HomeAbout({ }: Props) {
           <Button
             className="sm:w-fit w-full px-8 justify-center items-center flex"
           >
-            Explore More
+            <Link href="/signup">Explore More</Link>
           </Button>
         </article>
       </div>

@@ -2,16 +2,12 @@
 import { Logo } from "@/components/Logo";
 import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
-import {
-  CircleUser,
-  Menu,
-  Package2,
-} from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetOverlay, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { defaultLinks } from "@/config/nav";
 import { useEffect, useState } from "react";
+import { APP_TITLE, defaultLinks } from "@/lib/constants";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -45,6 +41,7 @@ export function Navbar() {
                 <li key={link.title}>
                   <Link
                     href={link.href}
+                    target={link.target}
                     className={`text-foreground transition-colors hover:bg-brand-primary py-[0.94rem] px-3
                   ${pathname === link.href ? "bg-brand-primary text-white" : ""}`}
                   >
@@ -69,7 +66,7 @@ export function Navbar() {
             <SheetOverlay className="lg:hidden" />
             <SheetContent side="left" className="lg:hidden">
               <SheetHeader className="sr-only">
-                <SheetTitle>Cryptoniq</SheetTitle>
+                <SheetTitle>{APP_TITLE}</SheetTitle>
                 <SheetDescription>
                   {"one stop shop for all your crypto needs"}
                 </SheetDescription>
@@ -77,14 +74,14 @@ export function Navbar() {
               <nav className="grid gap-6 text-lg font-medium">
                 <aside className="flex items-center gap-2 text-lg font-semibold">
                   <Logo link="/" />
-                  <span className="sr-only">Cryptoniq</span>
+                  <span className="sr-only">{APP_TITLE}</span>
                 </aside>
                 <ul className="mt-10 grid gap-6">
                   {defaultLinks.map((link) => (
                     <li key={link.title}>
                       <Link
-                        key={link.title}
                         href={link.href}
+                        target={link.target}
                         className="hover:text-foreground"
                       >
                         {link.title}
@@ -92,10 +89,10 @@ export function Navbar() {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" asChild size={"lg"} className="rounded-full hidden sm:flex">
+                <Button variant="outline" asChild size={"lg"}>
                   <Link href={"/login"}>Login</Link>
                 </Button>
-                <Button asChild size={"lg"} className="rounded-full hidden sm:flex">
+                <Button asChild size={"lg"}>
                   <Link href={"/signup"}>Sign up</Link>
                 </Button>
               </nav>

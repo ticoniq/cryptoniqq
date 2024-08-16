@@ -1,15 +1,11 @@
 "use client";
-import axios from "axios";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleXIcon } from "lucide-react";
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -26,10 +22,12 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useSession } from "../_component/SessionProvider";
+import { useSession } from "../../SessionProvider";
 import { logout } from "@/app/(auth)/action";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { LoadingButton } from "@/components/LoadingButton";
+import { deleteUserProfile } from "./actions";
+import { revalidatePath } from "next/cache";
 
 export function DeleteAccountButton() {
   const [email, setEmail] = useState("");
@@ -51,36 +49,20 @@ export function DeleteAccountButton() {
     }
 
     startTransition(async () => {
-      try {
-        const response = await axios.delete('/api/user/account/delete', {
-          data: { email },
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 10000,
-        });
-
-        setIsOpen(false);
-
-        const message = "Your account has been successfully deleted. We're sorry to see you go. If you change your mind, you can always create a new account. Thank you for being a part of our community."
+      const { error, success } = await deleteUserProfile({ email });
+      if (error) {
         toast({
-          title: "Success",
-          description: message,
+          description: error,
+          variant: "destructive",
         });
-
-        await logout(); // using Lucia
-      } catch (err) {
-        if (axios.isAxiosError(err) && err.response) {
-          toast({
-            variant: "destructive",
-            description: err.response.data.message || 'An unexpected error occurred. Please try again later',
-          });
-        } else {
-          toast({
-            variant: "destructive",
-            description: "An unexpected error occurred. Please try again later",
-          });
-        }
+      }
+      if (success) {
+        setIsOpen(false);
+        logout();
+        revalidatePath("/account");
+        toast({
+          description: success,
+        });
       }
     });
   };

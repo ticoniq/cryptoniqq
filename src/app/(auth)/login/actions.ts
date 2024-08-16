@@ -1,17 +1,20 @@
 "use server";
 import { getUserByEmail } from "@/data/user";
 import { loginSchema, LoginValues } from "@/lib/validation/auth";
-import { generateIdFromEntropySize } from "lucia";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { verify } from "@node-rs/argon2";
-import prisma from "@/lib/prisma";
 import { lucia } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { handleDeviceTracking } from "@/lib/DeviceTracking";
+import { formattedDateTime, getFirstName } from "@/lib/utils";
+import { sendNewDeviceNotification } from "@/lib/mail";
 
-export async function login(
-  credentials: LoginValues,
-): Promise<{ error: string }> {
+export async function login(credentials: LoginValues): Promise<{
+  error?: string;
+  requiresTwoFactor?: boolean;
+  currentUserId?: any;
+}> {
   try {
     const validatedData = loginSchema.parse(credentials);
 
@@ -34,6 +37,10 @@ export async function login(
       return { error: "Invalid email or password" };
     }
 
+    if (existingUser.twoFactorEnabled) {
+      return redirect(`/verify-2fa?userId=${existingUser.id}`);
+    }
+
     const session = await lucia.createSession(existingUser.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
     cookies().set(
@@ -41,6 +48,15 @@ export async function login(
       sessionCookie.value,
       sessionCookie.attributes,
     );
+
+    const deviceResult = await handleDeviceTracking(existingUser.id, session.id);
+    const device = `${deviceResult.device.name} on ${deviceResult.device.os}`;
+    const firstname = getFirstName(existingUser.name);
+
+    // You can use deviceResult.isNewDevice to notify the user if this is a new device
+    if (deviceResult.isNewDevice) {
+      await sendNewDeviceNotification(existingUser.email || "", firstname, device);
+    }
 
     return redirect("/dashboard");
   } catch (error) {

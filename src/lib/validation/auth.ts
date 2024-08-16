@@ -88,3 +88,10 @@ export const newPasswordSchema = z
 });
 
 export type NewPasswordValues = z.infer<typeof newPasswordSchema>;
+
+export const twoFactorSchema = z.object({
+  code: z.string().length(6, 'Code must be 6 digits').regex(/^\d+$/, 'Code must contain only numbers'),
+  userId: requiredString,
+});
+
+export type TwoFactorFormValues = z.infer<typeof twoFactorSchema>;

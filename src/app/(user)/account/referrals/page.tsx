@@ -10,15 +10,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "@radix-ui/react-icons";
-import { Loader2 } from "lucide-react";
-import { Suspense } from "react";
+import { ReferralsDetails } from "./ReferralsDetails";
 
 export const metadata: Metadata = {
   title: "Referrals",
   description: "Update your Referrals.",
 }
 
-export default function page() {
+export default function page() { 
   return (
     <>
       <section className="py-10 bg-brand-surface dark:bg-brand-hover">
@@ -55,11 +54,7 @@ export default function page() {
               <h3 className="text-lg md:text-3xl">Referrals</h3>
               <Separator className="my-10" />
             </div>
-            <div>
-              <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-                {/* <Information /> */}
-              </Suspense>
-            </div>
+            <ReferralsDetails />
           </article>
         </div>
       </section>

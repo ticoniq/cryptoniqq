@@ -36,6 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { CustomLink } from "../CustomLink"
+import Link from "next/link"
 
 const data: Payment[] = [
   {
@@ -219,7 +220,7 @@ export const columns: ColumnDef<Payment>[] = [
       return (
         <div className="flex justify-end">
           <Button className="bg-brand-surfaceMain text-brand-onSurface hover:bg-brand-primary hover:text-brand-surfaceMain">
-            Trade
+            <Link href="/signup">Trade</Link>
           </Button>
         </div>
       )

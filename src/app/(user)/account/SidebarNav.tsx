@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SettingsSidebarLinks } from "@/lib/constants";
-import { useSession } from "../_component/SessionProvider";
+import { useSession } from "../../SessionProvider";
 import { useState } from "react";
 import ImageUpload from "./ImageUpload";
 

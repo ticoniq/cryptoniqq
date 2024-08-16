@@ -1,5 +1,4 @@
 "use client";
-import axios from 'axios';
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -15,13 +14,14 @@ import { InfoSchema, infoSchema } from "@/lib/validation/account";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/LoadingButton";
-import { useSession } from "../_component/SessionProvider";
+import { useSession } from "../../SessionProvider";
 import { getFirstName, getLastName } from "@/lib/utils";
 import { PhoneInput } from "@/components/PhoneInput";
 import { Button } from "@/components/ui/button";
 import { CountrySelector } from "@/components/CountrySelector";
 import { useToast } from "@/components/ui/use-toast";
 import { CalendarIcon } from "lucide-react";
+import { updateProfile } from "./actions";
 
 export default function Information() {
   const { user } = useSession();
@@ -47,34 +47,18 @@ export default function Information() {
 
   async function onSubmit(values: InfoSchema) {
     startTransition(async () => {
-      try {
-        const formattedValues = {
-          ...values,
-          dob: values.dob ? values.dob.toISOString() : null,
-        };
+      const { error, success } = await updateProfile(values);
 
-        const response = await axios.put('/api/user/account/general', formattedValues, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          timeout: 10000,
-        });
-
+      if (error) {
         toast({
-          description: response.data.message || 'Profile updated!',
+          variant: "destructive",
+          description: error || 'Failed to update profile',
         });
-      } catch (err) {
-        if (axios.isAxiosError(err) && err.response) {
-          toast({
-            variant: "destructive",
-            description: err.response.data.message || 'Failed to update profile',
-          });
-        } else {
-          toast({
-            variant: "destructive",
-            description: "An unexpected error occurred. Please try again later",
-          });
-        }
+      }
+      if (success) {
+        toast({
+          description: success || 'Profile updated!',
+        });
       }
     });
   }
@@ -82,6 +66,7 @@ export default function Information() {
   function handleNumberVerification(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
 
+    //TODO: Implement phone verification
     console.log("verify");
   }
 
@@ -101,14 +86,14 @@ export default function Information() {
               render={({ field }) => (
                 <FormItem>
                   <span className="flex justify-start items-center gap-x-2">
-                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Legal first name</FormLabel>
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">First name</FormLabel>
                     <FormMessage />
                   </span>
                   <FormControl>
                     <Input
                       {...field}
                       type="text"
-                      placeholder="Legal first name*"
+                      placeholder="First name*"
                     />
                   </FormControl>
                 </FormItem>
@@ -120,14 +105,14 @@ export default function Information() {
               render={({ field }) => (
                 <FormItem>
                   <span className="flex justify-start items-center gap-x-2">
-                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Legal last name</FormLabel>
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Last name</FormLabel>
                     <FormMessage />
                   </span>
                   <FormControl>
                     <Input
                       {...field}
                       type="text"
-                      placeholder="Legal last name*"
+                      placeholder="Last name*"
                     />
                   </FormControl>
                 </FormItem>
@@ -178,7 +163,7 @@ export default function Information() {
               render={({ field }) => (
                 <FormItem>
                   <span className="flex justify-start items-center gap-2">
-                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Phone*</FormLabel>
+                    <FormLabel className="text-brand-secondary dark:text-brand-secondary2">Phone number*</FormLabel>
                     <FormMessage />
                   </span>
                   <FormControl>

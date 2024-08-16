@@ -12,7 +12,6 @@ import { MarketTrend } from "@/components/frontend/MarketTrend";
 export default function Home() {
   return (
     <>
-      <Navbar />
       <main>
         <Hero />
         <About />
@@ -23,7 +22,6 @@ export default function Home() {
         <Testimony />
         <CTA />
       </main>
-      <Footer />
     </>
   );
 }
