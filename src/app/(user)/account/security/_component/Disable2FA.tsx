@@ -168,8 +168,6 @@ export function Disable2FA() {
                 <AlertDialogTitle className="text-xl">2FA Recovery Code</AlertDialogTitle>
                 <AlertDialogDescription className="text-center text-lg">
                   Enter a recovery code to verify your identity. Recovery codes are single-use.
-
-                  Working on this feature...
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <Form {...formRecovery}>
