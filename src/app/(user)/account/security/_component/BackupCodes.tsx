@@ -72,7 +72,7 @@ export function BackupCodes({ ids, showBackupCodesDialog, setShowBackupCodesDial
                 </Button>
                 <Button
                   variant={"outline"}
-                  onClick={() => downloadCode(ids, "recovery-codes.txt")}
+                  onClick={() => downloadCode(ids, "cryptoniq-recovery-codes.txt")}
                 >
                   {isDownloaded ? 'Downloaded!' : <><DownloadIcon className="size-4 mr-2" /> Download</>}
                 </Button>
