@@ -151,6 +151,68 @@ export async function disable2FA(credentials: TwoFactorFormValues): Promise<{
   }
 }
 
+export async function disable2FARecovery(
+  credentials: TwoFactorRecoveryCodeSchema,
+): Promise<{ error?: string; success?: string }> {
+  try {
+    const validatedData = twoFactorRecoveryCodeSchema.parse(credentials);
+    const { recoveryCode } = validatedData;
+
+    const { user } = await validateRequest();
+    if (!user) {
+      return { error: "Unauthorized" };
+    }
+
+    const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
+      where: { userId: user.id },
+      select: { backupCodes: true },
+    });
+
+    if (!twoFactorAuth) {
+      return { error: "Two-factor authentication is not enabled" };
+    }
+
+    // Convert backup codes to plain strings
+    const backupCodesPlain = [
+      twoFactorAuth.backupCodes.join(" ").trim().toLowerCase(),
+    ];
+
+    const trimmedRecoveryCode = recoveryCode
+      .split("\n")
+      .map((code) => code.trim().toLowerCase());
+
+    const isValidRecoveryCode =
+      backupCodesPlain.length === trimmedRecoveryCode.length &&
+      backupCodesPlain.every((code) => trimmedRecoveryCode.includes(code));
+
+    if (!isValidRecoveryCode) {
+      return { error: "Invalid recovery code" };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      await tx.twoFactorAuth.delete({
+        where: { userId: user.id },
+      });
+      await tx.user.update({
+        where: { id: user.id },
+        data: { twoFactorEnabled: false },
+      });
+    });
+
+    revalidatePath("/account/security");
+
+    return {
+      success:
+        "Two-factor authentication has been disabled using a recovery code",
+    };
+  } catch (error) {
+    return {
+      error:
+        "An unexpected error occurred while disabling two-factor authentication",
+    };
+  }
+}
+
 export async function changePassword(
   credentials: ChangePasswordSchema,
 ): Promise<{ error?: string; success?: string }> {
@@ -247,78 +309,5 @@ export async function deleteDevice(
     return { success: "Device deleted!" };
   } catch (error) {
     return { error: "Something went wrong. Please try again!" };
-  }
-}
-
-export async function disable2FARecovery(
-  credentials: TwoFactorRecoveryCodeSchema,
-): Promise<{ error?: string; success?: string }> {
-  try {
-    const validatedData = twoFactorRecoveryCodeSchema.parse(credentials);
-    const { recoveryCode } = validatedData;
-
-    const { user } = await validateRequest();
-    if (!user) {
-      return { error: "Unauthorized" };
-    }
-
-    const userId = user.id;
-    const twoFactorAuth = await prisma.twoFactorAuth.findUnique({
-      where: { userId },
-      select: { backupCodes: true },
-    });
-
-    if (!twoFactorAuth) {
-      return { error: "Two-factor authentication is not enabled" };
-    }
-
-    // Convert backup codes to plain strings
-    const backupCodesPlain = twoFactorAuth.backupCodes.map(code => code.toString().trim().toLowerCase());
-
-    // Trim whitespace and compare codes
-    const trimmedRecoveryCode = recoveryCode.toString().trim().toLowerCase();
-    const isValidRecoveryCode = backupCodesPlain.includes(trimmedRecoveryCode);
-
-    if (!isValidRecoveryCode) {
-      return { error: "Invalid recovery code" };
-    }
-
-    // Remove the used recovery code
-    const updatedBackupCodes = backupCodesPlain.filter(
-      (code) => code !== trimmedRecoveryCode,
-    );
-
-    // Perform database transactions
-    await prisma.$transaction(async (tx) => {
-      // If no backup codes are left, delete the twoFactorAuth entry
-      if (updatedBackupCodes.length === 0) {
-        await tx.twoFactorAuth.delete({
-          where: { userId },
-        });
-      } else {
-        // Otherwise, update the backup codes
-        await tx.twoFactorAuth.update({
-          where: { userId },
-          data: { backupCodes: updatedBackupCodes },
-        });
-      }
-
-      // Disable 2FA for the user
-      await tx.user.update({
-        where: { id: userId },
-        data: { twoFactorEnabled: false },
-      });
-    });
-
-    revalidatePath("/account/security");
-
-    return {
-      success: "Two-factor authentication has been disabled using a recovery code",
-    };
-  } catch (error) {
-    console.error("Error disabling 2FA recovery:", error);
-    return {
-      error: "An unexpected error occurred while disabling two-factor authentication",
-    };
   }
 }

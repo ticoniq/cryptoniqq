@@ -71,7 +71,6 @@ export function Disable2FA() {
   const handleDisable2FARecovery = async (values: TwoFactorRecoveryCodeSchema) => {
     startTransition(() => {
       startTransition(async () => {
-        console.log(values);
         const { error, success } = await disable2FARecovery(values);
         if (success) {
           toast({

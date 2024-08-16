@@ -9,7 +9,6 @@ import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/PasswordInput";
 import { Separator } from "@/components/ui/separator";
-import { error } from "console";
 import { useSession } from "@/app/SessionProvider";
 import { changePassword } from "../actions";
 
