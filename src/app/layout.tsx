@@ -6,6 +6,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server";
 import { fileRouter } from "./api/uploadthing/core";
 import ReactQueryProvider from "./ReactQueryProvider";
+import ProgressBarProvider from "@/components/ProgressBarProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +32,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <ProgressBarProvider>
+              {children}
+            </ProgressBarProvider>
             <Toaster />
           </ThemeProvider>
         </ReactQueryProvider>

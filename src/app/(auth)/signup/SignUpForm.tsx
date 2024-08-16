@@ -80,7 +80,7 @@ export function SignUpForm() {
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Enter first name*"
+                    placeholder="Enter first name"
                   />
                 </FormControl>
               </FormItem>
@@ -99,7 +99,7 @@ export function SignUpForm() {
                   <Input
                     {...field}
                     type="text"
-                    placeholder="Enter last name*"
+                    placeholder="Enter last name"
                   />
                 </FormControl>
               </FormItem>
@@ -112,14 +112,14 @@ export function SignUpForm() {
           render={({ field }) => (
             <FormItem>
               <span className="flex justify-start items-center gap-2">
-                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Email*</FormLabel>
+                <FormLabel className="text-brand-secondary dark:text-brand-secondary2 text-lg">Email address*</FormLabel>
                 <FormMessage />
               </span>
               <FormControl>
                 <Input
                   {...field}
                   type="email"
-                  placeholder="Enter your email."
+                  placeholder="Enter your email"
                 />
               </FormControl>
             </FormItem>
@@ -157,7 +157,7 @@ export function SignUpForm() {
                 <FormControl>
                   <PasswordInput
                     {...field}
-                    placeholder="Enter password."
+                    placeholder="Enter password"
                   />
                 </FormControl>
               </FormItem>
@@ -171,7 +171,7 @@ export function SignUpForm() {
                 <FormControl>
                   <PasswordInput
                     {...field}
-                    placeholder="Confirm password."
+                    placeholder="Confirm password"
                   />
                 </FormControl>
                 <FormMessage />
