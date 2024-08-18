@@ -8,7 +8,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "@radix-ui/react-icons";
-import Payment from "./Payment";
 import { WalletDetails } from "./WalletDetails";
 
 export const metadata: Metadata = {
