@@ -120,20 +120,31 @@ model NairaAccount {
   @@map("naira_accounts")
 }
 
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
 model Transaction {
   id        String   @id @default(cuid())
-  from      String
-  to        String
-  amount    Float
-  currency  String
-  txHash    String?  @unique
-  status    String
   userId    String
+  amount    Float
+  type      TransactionType
+  reference String   @unique
+  status    TransactionStatus @default(COMPLETED)
 
   user      User     @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([userId])
 
   @@map("transactions")
 }
