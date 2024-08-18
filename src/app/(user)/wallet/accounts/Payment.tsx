@@ -25,7 +25,7 @@ const PaystackButton = dynamic(() => import('react-paystack').then(mod => mod.Pa
 export function Payment() {
   const { user } = useSession();
   const { toast } = useToast();
-  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string;
+  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC as string;
   const [amount, setAmount] = useState("");
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const nairaAmount = Number(amount) * 100;
