@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { Separator } from "@/components/ui/separator";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +8,15 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "@radix-ui/react-icons";
+import Payment from "./Payment";
+import { WalletDetails } from "./WalletDetails";
 
 export const metadata: Metadata = {
   title: "Wallet",
   description: "Wallet page",
 }
 
-export default function page() { 
+export default function page() {
   return (
     <>
       <section className="py-10 bg-brand-surface dark:bg-brand-hover">
@@ -37,15 +38,9 @@ export default function page() {
         </div>
       </section>
       <section className="container py-10 md:py-20 space-y-6">
-        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <article className="flex-1">
-            <div>
-              <h3 className="text-lg md:text-3xl">Wallet</h3>
-              <Separator className="my-10" />
-            </div>
-            {/* <ReferralsDetails /> */}
-          </article>
-        </div>
+        <article>
+          <WalletDetails />
+        </article>
       </section>
     </>
   )
