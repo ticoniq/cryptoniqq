@@ -70,7 +70,7 @@ export function TransactionHistory() {
                   {monthTransactions.map((transaction) => (
                     <li key={transaction.id} className="border p-2 rounded">
                       <span className={transaction.type === 'CREDIT' ? 'text-green-600' : 'text-red-600'}>
-                        {transaction.type === 'CREDIT' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                        {transaction.type === 'CREDIT' ? '+' : '-'}₦{transaction.amount.toFixed(2)}
                       </span>
                       <span className="ml-4 text-gray-600">
                         {new Date(transaction.createdAt).toLocaleString()}
