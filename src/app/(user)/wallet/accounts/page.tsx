@@ -10,6 +10,7 @@ import {
 import { SlashIcon } from "@radix-ui/react-icons";
 import { Payment } from "./Payment";
 import { UserAccount } from "./UserAccount";
+import { TransactionHistory } from "./Transaction";
 
 export const metadata: Metadata = {
   title: "Wallet",
@@ -46,6 +47,7 @@ export default function page() {
       <section className="container py-10 md:py-20 space-y-6">
         <div>
           <UserAccount />
+          <TransactionHistory />
         </div>
       </section>
     </>
