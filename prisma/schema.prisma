@@ -32,7 +32,8 @@ model User {
   resetTokens             passwordResetToken[]
   twoFactorAuth           twoFactorAuth[]
   device                  Device[]
-  // LoginLog                LoginLog[]
+  nairaAccount            NairaAccount? 
+  transaction             Transaction[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -103,4 +104,47 @@ model twoFactorAuth {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("two_factor_auth")
+}
+
+model NairaAccount {
+  id        String   @id @default(cuid())
+  balance   Float    @default(0)
+  currency  String[]   @default(["NGN", "₦"])
+  userId    String   @unique
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("naira_accounts")
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Float
+  type      TransactionType
+  reference String   @unique
+  status    TransactionStatus @default(COMPLETED)
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+
+  @@map("transactions")
 }
