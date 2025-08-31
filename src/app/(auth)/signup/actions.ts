@@ -52,6 +52,7 @@ export async function signUp(
         name,
         phone,
         passwordHash,
+        nairaAccount: { create: {} },
       },
     });
 
